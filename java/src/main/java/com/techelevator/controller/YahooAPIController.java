@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.YahooAPIDao;
 import com.techelevator.model.StockWrapper;
+import com.techelevator.services.YahooService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,13 +12,16 @@ import yahoofinance.YahooFinance;
 import yahoofinance.quotes.stock.StockStats;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class YahooAPIController {
     private final YahooAPIDao yahooAPIDao;
+    private final YahooService yahooService;
 
-    public YahooAPIController(YahooAPIDao yahooAPIDao) {
+    public YahooAPIController(YahooAPIDao yahooAPIDao, YahooService yahooService) {
         this.yahooAPIDao = yahooAPIDao;
+        this.yahooService = yahooService;
     }
 
     //GET ALL STOCK INFORMATION BY SYMBOL
@@ -39,4 +43,9 @@ public class YahooAPIController {
 
     }
 
+    @RequestMapping(path = "/trending", method = RequestMethod.GET)
+    public List<String> getTrending() throws IOException, InterruptedException {
+        return yahooService.listTrendingStocks();
+
+    }
 }
