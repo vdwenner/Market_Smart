@@ -1,0 +1,42 @@
+package com.techelevator.controller;
+
+import com.techelevator.dao.YahooAPIDao;
+import com.techelevator.model.StockWrapper;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import yahoofinance.Stock;
+import yahoofinance.YahooFinance;
+import yahoofinance.quotes.stock.StockStats;
+
+import java.io.IOException;
+
+@RestController
+public class YahooAPIController {
+    private final YahooAPIDao yahooAPIDao;
+
+    public YahooAPIController(YahooAPIDao yahooAPIDao) {
+        this.yahooAPIDao = yahooAPIDao;
+    }
+
+    //GET ALL STOCK INFORMATION BY SYMBOL
+    @RequestMapping(path = "/stock/{symbol}", method = RequestMethod.GET)
+    public Stock getStock(@PathVariable String symbol) throws IOException {
+        return yahooAPIDao.findStock(symbol).getStock();
+    }
+
+    //GET STOCK NAME BY SYMBOL
+    @RequestMapping(path = "/stock/name/{symbol}", method = RequestMethod.GET)
+    public String getStockName(@PathVariable String symbol) throws IOException {
+        return yahooAPIDao.findStock(symbol).getStock().getName();
+    }
+
+    //GET STOCK STATS BY SYMBOL
+    @RequestMapping(path = "/stock/stats/{symbol}", method = RequestMethod.GET)
+    public StockStats getStockStats(@PathVariable String symbol) throws IOException {
+        return yahooAPIDao.findStock(symbol).getStock().getStats();
+
+    }
+
+}
