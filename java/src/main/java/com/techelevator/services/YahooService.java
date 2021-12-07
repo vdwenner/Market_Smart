@@ -34,29 +34,29 @@ public class YahooService {
 
     }
 
-    public List<String> listTrendingStocks() throws IOException, InterruptedException {
+    public String listTrendingStocks() throws IOException, InterruptedException {
 
-        HttpEntity<String> entity = new HttpEntity<>(makeHeader("x-api-key", "XBVQM29pipd4zorvSlvi3uFEeCyeJae9AeXfktM7"));
-        String[] allSymbols = restTemplate.exchange("https://yfapi.net/v1/finance/trending/US", HttpMethod.GET,entity,String[].class).getBody();
-        return Arrays.asList(allSymbols);
+//        HttpEntity<String> entity = new HttpEntity<>(makeHeader("x-api-key", "XBVQM29pipd4zorvSlvi3uFEeCyeJae9AeXfktM7"));
+//        String[] allSymbols = restTemplate.exchange("https://yfapi.net/v1/finance/trending/US", HttpMethod.GET,entity,String[].class).getBody();
+//        return Arrays.asList(allSymbols);
 
 
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create("https://yfapi.net/v1/finance/trending/US"))
-//                .header("x-api-key", "XBVQM29pipd4zorvSlvi3uFEeCyeJae9AeXfktM7")
-//                .method("GET", HttpRequest.BodyPublishers.noBody())
-//                .build();
-//        HttpResponse<String> response = HttpClient.newHttpClient()
-//                .send(request, HttpResponse.BodyHandlers.ofString();
-//        return response.body();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://yfapi.net/v1/finance/trending/US"))
+                .header("x-api-key", "XBVQM29pipd4zorvSlvi3uFEeCyeJae9AeXfktM7")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+        return response.body();
 
     }
 
-    private org.springframework.http.HttpHeaders makeHeader(String username, String token) {
-        org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
-        headers.setBasicAuth(username,token);
-        return headers;
-    }
+//    private org.springframework.http.HttpHeaders makeHeader(String username, String token) {
+//        org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
+//        headers.setBasicAuth(username,token);
+//        return headers;
+//    }
 
     //****************REFERENCE*****************************
 //    HttpRequest request = HttpRequest.newBuilder()

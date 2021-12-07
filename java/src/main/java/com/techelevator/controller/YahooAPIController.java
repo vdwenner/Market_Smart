@@ -44,8 +44,9 @@ public class YahooAPIController {
     }
 
     @RequestMapping(path = "/trending", method = RequestMethod.GET)
-    public List<String> getTrending() throws IOException, InterruptedException {
+    public String getTrending() throws IOException, InterruptedException {
         return yahooService.listTrendingStocks();
+
 
     }
 }
