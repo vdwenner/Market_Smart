@@ -1,7 +1,5 @@
 BEGIN TRANSACTION;
 
-
-
 INSERT INTO stock SELECT 'A', 'Agilent Technologies Inc. Common Stock';
 INSERT INTO stock SELECT 'AA', 'Alcoa Corporation Common Stock';
 INSERT INTO stock SELECT 'AAC', 'Ares Acquisition Corporation Class A Ordinary Shares';
