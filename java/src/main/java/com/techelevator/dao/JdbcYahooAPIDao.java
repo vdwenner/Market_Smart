@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.Stock;
 import com.techelevator.model.StockWrapper;
 import org.springframework.stereotype.Component;
 import yahoofinance.YahooFinance;
@@ -19,8 +20,5 @@ public class JdbcYahooAPIDao implements YahooAPIDao{
         return null;
     }
 
-    @Override
-    public List<StockWrapper> listTrendingStocks() {
-        return null;
-    }
+
 }

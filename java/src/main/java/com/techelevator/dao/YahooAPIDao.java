@@ -10,6 +10,6 @@ public interface YahooAPIDao {
 
     StockWrapper findStock(String ticker);
 
-    List<StockWrapper> listTrendingStocks();
+
 
 }

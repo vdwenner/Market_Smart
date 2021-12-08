@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.YahooAPIDao;
 import com.techelevator.model.StockWrapper;
 import com.techelevator.services.YahooService;
+import org.json.JSONException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,13 +41,11 @@ public class YahooAPIController {
     @RequestMapping(path = "/stock/stats/{symbol}", method = RequestMethod.GET)
     public StockStats getStockStats(@PathVariable String symbol) throws IOException {
         return yahooAPIDao.findStock(symbol).getStock().getStats();
-
     }
 
+    //GET TOP 20 TRENDING STOCK SYMBOLS
     @RequestMapping(path = "/trending", method = RequestMethod.GET)
-    public String getTrending() throws IOException, InterruptedException {
+    public String getTrending() throws IOException, InterruptedException, JSONException {
         return yahooService.listTrendingStocks();
-
-
     }
 }
