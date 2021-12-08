@@ -3,6 +3,7 @@ package com.techelevator.model;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,6 +17,6 @@ public class Game {
     private String gameName;
     private Long creatorId;
     private BigDecimal startingAmount;
-    private LocalDateTime endDate;
+    private Date endDate;
 
 }
