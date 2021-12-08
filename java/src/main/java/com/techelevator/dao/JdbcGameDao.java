@@ -7,6 +7,7 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Component
@@ -19,10 +20,17 @@ public class JdbcGameDao implements GameDao{
     }
 
     @Override
-    public void createGame(String gameName, Long creatorId, BigDecimal startingAmount, LocalDateTime endDate) {
+    public void createGame(String gameName, Long creatorId, BigDecimal startingAmount, Date endDate) {
         String sql = "INSERT INTO games (game_name, creator_id, starting_amount, end_date) " +
                      "VALUES(?, ?, ?, ?);";
         jdbcTemplate.update(sql, gameName, creatorId, startingAmount, endDate);
+
+        String sql2 = "SELECT game_id, game_name, creator_id, starting_amount, end_date FROM games " +
+                "WHERE game_name = ?;";
+        Game game = mapRowToGame(jdbcTemplate.queryForRowSet(sql2,gameName));
+        String sql3 =  "INSERT INTO game_users (game_id, user_id) " +
+                "VALUES(?, ?);";
+        jdbcTemplate.update(sql3,game.getId(), creatorId);
 
 //        String sql2 = "SELECT game_id FROM games WHERE game_name = " +gameName ;
 //        jdbcTemplate.queryForObject(sql2, String.class);
