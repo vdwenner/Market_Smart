@@ -18,8 +18,11 @@ public class GameController {
     @RequestMapping(path = "/createGame", method = RequestMethod.POST)
     public void createGame(@RequestBody Game game) {
         gameDao.createGame(game.getGameName(), game.getCreatorId(), game.getStartingAmount(), game.getEndDate());
+    }
 
-        gameDao.setInitialGameUsers(game.getId(), game.getCreatorId());
+    @RequestMapping(path = "/games/{gameName}", method = RequestMethod.GET)
+    public Game getGameByGameName(@PathVariable String gameName) {
+        return gameDao.getGameByGameName(gameName);
     }
 
 }
