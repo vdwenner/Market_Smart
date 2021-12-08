@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -67,7 +68,19 @@ public class JdbcGameDao implements GameDao{
 
     @Override
     public List<Game> getAllUserGames(Principal principal) {
-        return null;
+        List<Game> userGames = new ArrayList<>();
+        Long id = userDao.findIdByUsername(principal.getName());
+
+
+        String sql = "SELECT g.game_id, g.game_name, g.creator_id, g.starting_amount, g.end_date " +
+                "FROM games g " +
+                "join game_users gu ON g.game_id = gu.game_id " +
+                "WHERE gu.user_id = " + id;
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+        while(results.next()){
+            userGames.add(mapRowToGame(results));
+        }
+        return userGames;
     }
 
     private Game mapRowToGame(SqlRowSet rowSet) {

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @RestController
 public class GameController {
@@ -25,6 +26,11 @@ public class GameController {
     @RequestMapping(path = "/games/{gameName}", method = RequestMethod.GET)
     public Game getGameByGameName(@PathVariable String gameName) {
         return gameDao.getGameByGameName(gameName);
+    }
+
+    @RequestMapping(path = "/user/games", method = RequestMethod.GET)
+    public List<Game> getAllUserGames(Principal principal){
+        return gameDao.getAllUserGames(principal);
     }
 
 }
