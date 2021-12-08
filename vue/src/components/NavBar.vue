@@ -2,7 +2,7 @@
   <div class="nav-bar">
   <!-- This section gets pushed to the top-->
   <div class="section">
-    <router-link v-bind:to="{ name: 'home' }" tag="div" class="item">Home</router-link>
+    <router-link v-bind:to="{ name: 'home' }" tag="img" src="../../public/stocks.jpg" class="img"></router-link>
     <div class="item">Create Game</div>
     <div class="item">My Games</div>
     <div class="item">Research</div>
