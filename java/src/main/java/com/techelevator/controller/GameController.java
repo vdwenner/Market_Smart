@@ -5,6 +5,8 @@ import com.techelevator.model.Game;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 public class GameController {
 
@@ -16,8 +18,8 @@ public class GameController {
 
     //CREATE A NEW GAME
     @RequestMapping(path = "/createGame", method = RequestMethod.POST)
-    public void createGame(@RequestBody Game game) {
-        gameDao.createGame(game.getGameName(), game.getCreatorId(), game.getStartingAmount(), game.getEndDate());
+    public void createGame(@RequestBody Game game, Principal principal) {
+        gameDao.createGame(game.getGameName(),  game.getStartingAmount(), game.getEndDate(),principal);
     }
 
     @RequestMapping(path = "/games/{gameName}", method = RequestMethod.GET)
