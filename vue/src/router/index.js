@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
+import LandingPage from '../views/LandingPage'
 
 Vue.use(Router)
 
@@ -27,6 +28,14 @@ const router = new Router({
       component: Home,
       meta: {
         requiresAuth: true
+      }
+    },
+    {
+      path: "/landing",
+      name: "landing-page",
+      component: LandingPage,
+      meta: {
+        requiresAuth: false
       }
     },
     {
@@ -62,7 +71,7 @@ router.beforeEach((to, from, next) => {
 
   // If it does and they are not logged in, send the user to "/login"
   if (requiresAuth && store.state.token === '') {
-    next("/login");
+    next("/landing");
   } else {
     // Else let them go to their next destination
     next();
