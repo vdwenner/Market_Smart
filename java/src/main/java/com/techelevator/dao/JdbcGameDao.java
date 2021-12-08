@@ -26,18 +26,12 @@ public class JdbcGameDao implements GameDao{
         jdbcTemplate.update(sql, gameName, creatorId, startingAmount, endDate);
 
         String sql2 = "SELECT game_id, game_name, creator_id, starting_amount, end_date FROM games " +
-                "WHERE game_name = ?;";
-        Game game = mapRowToGame(jdbcTemplate.queryForRowSet(sql2,gameName));
-        String sql3 =  "INSERT INTO game_users (game_id, user_id) " +
-                "VALUES(?, ?);";
-        jdbcTemplate.update(sql3,game.getId(), creatorId);
+                      "WHERE game_name = ?;";
+        Game game = mapRowToGame(jdbcTemplate.queryForRowSet(sql2, gameName));
 
-//        String sql2 = "SELECT game_id FROM games WHERE game_name = " +gameName ;
-//        jdbcTemplate.queryForObject(sql2, String.class);
-//
-//        String sql3 = "INSERT INTO game_users (game_id, user_id) " +
-//                      "VALUES(?, ?);";
-//        jdbcTemplate.update(sql, gameId, userID);
+        String sql3 =  "INSERT INTO game_users (game_id, user_id) " +
+                       "VALUES(?, ?);";
+        jdbcTemplate.update(sql3, game.getId(), game.getCreatorId());
     }
 
     @Override
@@ -48,11 +42,11 @@ public class JdbcGameDao implements GameDao{
     }
 
     @Override
-    public Long getGameIdByName(String gameName) {
-        String sql = "SELECT game_id FROM games " +
+    public Game getGameByGameName(String gameName) {
+        String sql = "SELECT game_id, game_name, creator_id, starting_amount, end_date " +
+                     "FROM games " +
                      "WHERE game_name = ?;";
-        jdbcTemplate.queryForRowSet(sql);
-        return 1L;
+        return mapRowToGame(jdbcTemplate.queryForRowSet(sql, gameName));
     }
 
     private Game mapRowToGame(SqlRowSet rowSet) {
@@ -64,7 +58,5 @@ public class JdbcGameDao implements GameDao{
         game.setEndDate(rowSet.getDate("end_date"));
         return game;
     }
-
-
 
 }
