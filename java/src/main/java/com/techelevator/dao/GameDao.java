@@ -9,4 +9,6 @@ public interface GameDao {
 
     void createGame(String gameName, Long creatorId, BigDecimal startingAmount, LocalDateTime endDate);
 
+    void setInitialGameUsers(Long gameId, Long userID);
+
 }

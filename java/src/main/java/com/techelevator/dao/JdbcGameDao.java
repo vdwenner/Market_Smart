@@ -8,16 +8,26 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Component
-@AllArgsConstructor
 public class JdbcGameDao implements GameDao{
 
     private final JdbcTemplate jdbcTemplate;
-    private final GameDao gameDao;
+
+    public JdbcGameDao(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public void createGame(String gameName, Long creatorId, BigDecimal startingAmount, LocalDateTime endDate) {
         String sql = "INSERT INTO games (game_name, creator_id, starting_amount, end_date) " +
-                     "Values(?, ?, ?, ?);";
+                     "VALUES(?, ?, ?, ?);";
         jdbcTemplate.update(sql, gameName, creatorId, startingAmount, endDate);
     }
+
+    @Override
+    public void setInitialGameUsers(Long gameId, Long userID) {
+        String sql = "INSERT INTO game_users (game_id, user_id) " +
+                     "VALUES(?, ?);";
+        jdbcTemplate.update(sql, gameId, userID);
+    }
+
 }
