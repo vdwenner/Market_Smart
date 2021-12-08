@@ -27,7 +27,15 @@ public class JdbcGameDao implements GameDao{
 
         String sql2 = "SELECT game_id, game_name, creator_id, starting_amount, end_date FROM games " +
                       "WHERE game_name = ?;";
-        Game game = mapRowToGame(jdbcTemplate.queryForRowSet(sql2, gameName));
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql2, gameName);
+
+        Game game = null;
+
+        if(results.next()) {
+
+            game = mapRowToGame(results);
+        }
 
         String sql3 =  "INSERT INTO game_users (game_id, user_id) " +
                        "VALUES(?, ?);";
