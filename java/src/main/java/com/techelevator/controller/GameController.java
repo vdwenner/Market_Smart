@@ -39,7 +39,7 @@ public class GameController {
         gameDao.sendGameInvite(inviteType, principal); }
 
     @RequestMapping(path= "/games/invite/pending", method = RequestMethod.GET)
-    public List<InviteType> listPendingGameInvites (Principal principal) {
-        return gameDao.listPendingGameInvites(principal);
-    }
+    public List<InviteType> listPendingGameInvites (Principal principal) { return gameDao.listPendingGameInvites(principal); }
+
+
 }
