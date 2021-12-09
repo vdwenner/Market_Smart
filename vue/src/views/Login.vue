@@ -31,8 +31,9 @@
         v-model="user.password"
         required
       />
-      <router-link :to="{ name: 'register' }">Need an account?</router-link>
+      
       <button type="submit">Sign in</button>
+      <router-link :to="{ name: 'register' }" class="create-account" >Need an account?</router-link>
     </form>
   </div>
 </template>
@@ -74,3 +75,14 @@ export default {
   }
 };
 </script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Lexend+Deca&display=swap');
+
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+  .create-account {
+    margin-top: 20px;
+  }
+</style>

@@ -4,8 +4,8 @@
   <div class="section">
     <router-link v-bind:to="{ name: 'home' }" class="home"><img src="../../public/stocks.jpg" alt="Stock Market" class="image"></router-link>
     <div class="user">Current User</div>
-    <div class="item"><router-link :to="{ name: 'create-game' }" class="item">Create Game</router-link></div>
-    <div class="item"><router-link :to="{ name: 'view-games' }" class="item">My Games</router-link></div>
+    <router-link :to="{ name: 'create-game' }" class="item" tag="div">Create Game</router-link>
+    <router-link :to="{ name: 'view-games' }" class="item" tag="div">My Games</router-link>
     <div class="item">Research</div>
   </div>
   <!-- This section gets pushed to the bottom-->
@@ -23,16 +23,18 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Lexend+Deca&display=swap');
+
 .nav-bar {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
+    flex-wrap: none;
     height: 100vh;
     width: 30vw;
     max-width: 300px;
     border-right: 1px solid #D7DBDD;
-    font-family: raleway;
+    font-family: 'Inter', sans-serif;
     background: #34495e
 }
 
@@ -42,13 +44,14 @@ export default {
   max-width: 250px;
   max-height: 250px;
   border-radius: 100%;
+  justify-content: center;
 }
 
 .user {
   color: white;
   font-size: 15px;
   text-align: center;
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 }
 
 .item:hover {

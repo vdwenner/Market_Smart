@@ -10,23 +10,25 @@
 <script>
 export default {
     name: "landing-page",
-    showRegisterForm: false,
-    showLoginForm: false
 }
 </script>
 
 <style>
     .container {
-        text-align: center;
+        display: inline-block;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     h1 {
+        margin-left: auto;
+        margin-right: auto;
         margin-top: 100px;
         color: rgba(4, 42, 61);
     }
     
     img {
-        display: block;
+        
         margin-left: auto;
         margin-right: auto;
         height: 300px;
