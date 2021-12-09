@@ -8,5 +8,10 @@ export default {
     viewGames() {
         return axios.get('/user/games').then((response)=>{
             return response.data;
-    })}
+    })},
+
+    inviteToGame(inviteType){
+    return axios.post('/games/invite/request',inviteType)
+    }
+
 }

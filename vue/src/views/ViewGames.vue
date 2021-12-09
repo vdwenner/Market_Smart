@@ -13,6 +13,7 @@
             <td class="game-data">{{userGame.gameName}}</td>
             <td class="game-data">{{userGame.startingAmount}}</td> 
             <td class="game-data">{{userGame.endDate}}</td>
+            
           </tr>
       </table>
   </div>
@@ -21,6 +22,7 @@
 <script>
 import NavBar from '../components/NavBar';
 import gameService from "../services/GameService";
+
 
 export default {
     components: { NavBar },

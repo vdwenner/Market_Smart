@@ -80,7 +80,14 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
-    }
+    },
+  //   {path: "/games/invite/request",
+  //   name: "invite-to-game",
+  //   component: GameInvite,
+  //   meta:{
+  //     requiresAuth: true
+  //   }
+  //  }
   ]
 })
 
