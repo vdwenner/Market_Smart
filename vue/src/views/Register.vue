@@ -36,10 +36,11 @@
         v-model="user.confirmPassword"
         required
       />
-      <router-link :to="{ name: 'login' }">Have an account?</router-link>
+      
       <button class="btn btn-lg btn-primary btn-block" type="submit">
         Create Account
       </button>
+      <router-link :to="{ name: 'login' }" class="have-account">Have an account?</router-link>
     </form>
   </div>
 </template>
@@ -108,6 +109,10 @@ export default {
     flex-direction: column;
     justify-content: center;
     margin: 1% 35%;
+  }
+
+  .have-account {
+    margin-top: 20px;
   }
 
   

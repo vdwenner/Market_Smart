@@ -3,10 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.YahooAPIDao;
 import com.techelevator.model.StockWrapper;
 import com.techelevator.services.YahooService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import yahoofinance.quotes.stock.StockStats;
@@ -15,6 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class YahooAPIController {
     private final YahooAPIDao yahooAPIDao;
     private final YahooService yahooService;
