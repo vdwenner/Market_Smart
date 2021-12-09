@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.GameDao;
 import com.techelevator.model.Game;
+import com.techelevator.model.InviteType;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,4 +34,12 @@ public class GameController {
         return gameDao.getAllUserGames(principal);
     }
 
+    @RequestMapping(path= "/games/invite/request", method = RequestMethod.POST)
+    public void requestGameInvite(@RequestBody InviteType inviteType, Principal principal) {
+        gameDao.sendGameInvite(inviteType, principal); }
+
+    @RequestMapping(path= "/games/invite/pending", method = RequestMethod.GET)
+    public List<InviteType> listPendingGameInvites (Principal principal) {
+        return gameDao.listPendingGameInvites(principal);
+    }
 }

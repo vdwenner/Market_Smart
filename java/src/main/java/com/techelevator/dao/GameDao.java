@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Game;
+import com.techelevator.model.InviteType;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -18,6 +19,8 @@ public interface GameDao {
 
     List<Game> getAllUserGames(Principal principal);
 
+    void sendGameInvite(InviteType inviteType, Principal principal);
 
+    List<InviteType> listPendingGameInvites(Principal principal);
 
 }

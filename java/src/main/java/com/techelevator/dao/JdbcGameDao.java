@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Game;
+import com.techelevator.model.InviteType;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -92,5 +93,41 @@ public class JdbcGameDao implements GameDao{
         game.setEndDate(rowSet.getDate("end_date"));
         return game;
     }
+
+    @Override
+    public void sendGameInvite(InviteType inviteType, Principal principal) {
+        Long creatorId = userDao.findIdByUsername(principal.getName());
+        String sql = "INSERT into game_invites" +
+                " (sender_id, receiver_id, game_id, game_invite_type_id)" +
+                " VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, creatorId, inviteType.getReceiverId(), inviteType.getGameId(), inviteType.getInviteTypeId());
+
+    }
+
+    @Override
+    public List<InviteType> listPendingGameInvites(Principal principal) {
+        List<InviteType> gameInvites = new ArrayList<>();
+        Long receiverId = userDao.findIdByUsername(principal.getName());
+        String sql = "SELECT sender_id, receiver_id, game_id, game_invite_type_id" +
+                " FROM game_invites WHERE receiver_id = ?" +
+                " AND game_invite_type_id = 3";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, receiverId);
+        while (results.next()) {
+            InviteType inviteType = mapRowToInviteType(results);
+            gameInvites.add(inviteType);
+        }
+        return gameInvites;
+    }
+
+    private InviteType mapRowToInviteType(SqlRowSet rowSet) {
+        InviteType inviteType = new InviteType();
+        inviteType.setReceiverId(rowSet.getLong("receiver_id"));
+        inviteType.setInviteTypeId(rowSet.getLong("game_invite_type_id"));
+        inviteType.setGameId(rowSet.getLong("game_id"));
+        inviteType.setSenderId(rowSet.getLong("sender_id"));
+        return inviteType;
+    }
+
 
 }
