@@ -35,7 +35,7 @@ export default {
     max-width: 300px;
     border-right: 1px solid #D7DBDD;
     font-family: 'Inter', sans-serif;
-    background: #34495e
+    background: #34495e;
 }
 
 .image {
@@ -65,6 +65,7 @@ export default {
     color: white;
     font-size: 20px;
     cursor: pointer;
+    text-align: center;
 }
 
 .section {
