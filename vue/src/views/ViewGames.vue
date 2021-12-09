@@ -3,9 +3,9 @@
       <div class="nav">
           <nav-bar/>
       </div>
-      <div v-for="game in games" :key="game" :v-model="games.game">
-          <h3>{{this.gameName}}</h3>
-          <h3>{{this.games.game.startingAmount}}</h3>
+      <div v-for="userGame in games" :key="userGame.id">
+          <h3>{{userGame.gameName}}</h3>
+          <h3>{{userGame.startingAmount}}</h3>
       </div>
   </div>
 </template>
@@ -26,13 +26,13 @@ export default {
             }
         }
     },
-    methods: {
-        created() {
-            gameService.viewGames().forEach( (game) => {
-                this.games.push(game);
-            });
-        }
+    
+    created() {
+        gameService.viewGames().then(response=>{
+            this.games=response;})
+       
     }
+
     
 }
 </script>

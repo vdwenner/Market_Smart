@@ -6,6 +6,7 @@ export default {
     },
 
     viewGames() {
-        return axios.get('/user/games')
-    }
+        return axios.get('/user/games').then((response)=>{
+            return response.data;
+    })}
 }
