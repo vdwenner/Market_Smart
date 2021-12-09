@@ -16,19 +16,18 @@
 
             <td class="game-data">
                 <a href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</a>
-<form id="invite-form" v-on:submit.prevent = "inviteToGame" v-if="showForm == true">
-            <div class="form-elements">
+                 <form id="invite-form" v-on:submit.prevent = "inviteToGame" v-if="showForm == true">
+                <label for="receiver-name">Enter Player's Username</label>
+                <input id="receiver-name" type="text" v-model="receiverName" />
+                 <input type="submit" value="Save">
+                 <input type="button" value="Cancel" v-on:click="resetForm">
 
-                <label for="receiver-name">Player Username</label>
-                <input id="receiver-name" type="text" v-model="inviteType.receiverName" />
-
-
-            </div>
-          </form>
+          </form>        
             </td>
+           
           </tr>
-            
-          
+              
+          <!-- Form should go here -->
             
       </table>
       
@@ -38,7 +37,7 @@
 <script>
 import NavBar from '../components/NavBar';
 import gameService from "../services/GameService";
-
+import authService from '../services/AuthService';
 
 export default {
     components: { NavBar },
@@ -50,9 +49,13 @@ export default {
                 startingAmount: '',
                 endDate: ''
             },
-            inviteType: {
-                
                 receiverName: ''
+            ,
+            inviteType: {
+                senderId: '',
+                receiverId: '',
+                gameId: '',
+                gameInviteTypeId: 3
 
             },
             showForm: false
@@ -60,15 +63,19 @@ export default {
     },
     methods: {
         inviteToGame() {
-            gameService.inviteToGame(this.inviteType).then((response) => {
-                if(response.status == 200) {
-                    this.resetForm();
-                }
-            }).catch()
+            this.setForm(this.receiverName);
+            // gameService.inviteToGame(this.inviteType).then((response) => {
+            //     if(response.status == 200) {
+            //         this.resetForm();
+            //     }
+            // }).catch()
         },
         resetForm() {
-            this.inviteType.receiverName = '';
+            this.receiverName = '';
             this.showForm = false;
+        },
+        setForm(username){
+            this.inviteType.receiverId = authService.getIdByUsername(username).then();
         }
     },
     created() {

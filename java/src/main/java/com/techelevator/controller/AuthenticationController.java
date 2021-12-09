@@ -62,6 +62,10 @@ public class AuthenticationController {
             userDao.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole());
         }
     }
+    @RequestMapping(value="/get/userid/by/{username}", method= RequestMethod.GET)
+    public Long getReceiverId(@PathVariable String username){
+      return userDao.findIdByUsername(username);
+    }
 
     /**
      * Object to return as body in JWT Authentication.
