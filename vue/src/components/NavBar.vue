@@ -5,7 +5,7 @@
     <router-link v-bind:to="{ name: 'home' }" class="home"><img src="../../public/stocks.jpg" alt="Stock Market" class="image"></router-link>
     <div class="user">Current User</div>
     <div class="item"><router-link :to="{ name: 'create-game' }" class="item">Create Game</router-link></div>
-    <div class="item">My Games</div>
+    <div class="item"><router-link :to="{ name: 'view-games' }" class="item">My Games</router-link></div>
     <div class="item">Research</div>
   </div>
   <!-- This section gets pushed to the bottom-->
