@@ -6,6 +6,7 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 import LandingPage from '../views/LandingPage'
+import CreateGame from '../views/CreateGame'
 
 Vue.use(Router)
 
@@ -62,6 +63,15 @@ const router = new Router({
         requiresAuth: false
       }
     },
+
+    {
+      path: "/createGame",
+      name: "create-game",
+      component: CreateGame,
+      meta: {
+        requiresAuth: true
+      }
+    }
   ]
 })
 

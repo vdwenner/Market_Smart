@@ -2,8 +2,9 @@
   <div class="nav-bar">
   <!-- This section gets pushed to the top-->
   <div class="section">
-    <router-link v-bind:to="{ name: 'home' }" tag="img" src="../../public/stocks.jpg" class="img"></router-link>
-    <div class="item">Create Game</div>
+    <router-link v-bind:to="{ name: 'home' }" class="home"><img src="../../public/stocks.jpg" alt="Stock Market" class="image"></router-link>
+    <div class="user">Current User</div>
+    <div class="item"><router-link :to="{ name: 'create-game' }" class="item">Create Game</router-link></div>
     <div class="item">My Games</div>
     <div class="item">Research</div>
   </div>
@@ -35,6 +36,21 @@ export default {
     background: #34495e
 }
 
+.image {
+  width: 25vw;
+  height: 25vw;
+  max-width: 250px;
+  max-height: 250px;
+  border-radius: 100%;
+}
+
+.user {
+  color: white;
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 100px;
+}
+
 .item:hover {
     background: white;
     color: #34495e;
@@ -42,6 +58,7 @@ export default {
 
 .item {
     padding: 10px 20px;
+    text-decoration: none;
     color: white;
     font-size: 20px;
     cursor: pointer;
