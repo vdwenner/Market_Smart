@@ -18,7 +18,7 @@
                 <a href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</a>
                  <form id="invite-form" v-on:submit.prevent = "inviteToGame" v-if="showForm == true">
                 <label for="receiver-name">Enter Player's Username</label>
-                <input id="receiver-name" type="text" v-model="receiverName" />
+                <input id="receiver-name" type="text" v-model="receiver.receiverName" />
                  <input type="submit" value="Save">
                  <input type="button" value="Cancel" v-on:click="resetForm">
 
@@ -49,8 +49,9 @@ export default {
                 startingAmount: '',
                 endDate: ''
             },
+            receiver: {
                 receiverName: ''
-            ,
+            },
             inviteType: {
                 senderId: '',
                 receiverId: '',
@@ -63,19 +64,25 @@ export default {
     },
     methods: {
         inviteToGame() {
-            this.setForm(this.receiverName);
-            // gameService.inviteToGame(this.inviteType).then((response) => {
-            //     if(response.status == 200) {
-            //         this.resetForm();
-            //     }
-            // }).catch()
+             this.setForm(this.receiver.receiverName);
+           
+            gameService.inviteToGame(this.inviteType).then((response) => {
+                if(response.status == 200) {
+                    this.resetForm();
+                }
+            }).catch()
         },
         resetForm() {
-            this.receiverName = '';
+            this.receiver.receiverName = '';
             this.showForm = false;
         },
         setForm(username){
-            this.inviteType.receiverId = authService.getIdByUsername(username).then();
+            authService.getIdByUsername(username).then((response) =>{
+               if(response.status == 200){
+                this.inviteType.receiverId = response;}
+           }
+
+           );
         }
     },
     created() {
