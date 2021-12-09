@@ -21,6 +21,13 @@ export default new Vuex.Store({
     token: currentToken || '',
     user: currentUser || {}
   },
+  methods: {
+    getToday() {
+      let today = new Date().getDate;
+      return today;
+    }
+  },
+
   mutations: {
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
