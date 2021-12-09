@@ -13,9 +13,25 @@
             <td class="game-data">{{userGame.gameName}}</td>
             <td class="game-data">{{userGame.startingAmount}}</td> 
             <td class="game-data">{{userGame.endDate}}</td>
-            
+
+            <td class="game-data">
+                <a href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</a>
+<form id="invite-form" v-on:submit.prevent = "inviteToGame" v-if="showForm == true">
+            <div class="form-elements">
+
+                <label for="receiver-name">Player Username</label>
+                <input id="receiver-name" type="text" v-model="inviteType.receiverName" />
+
+
+            </div>
+          </form>
+            </td>
           </tr>
+            
+          
+            
       </table>
+      
   </div>
 </template>
 
@@ -33,7 +49,26 @@ export default {
                 gameName: '',
                 startingAmount: '',
                 endDate: ''
-            }
+            },
+            inviteType: {
+                
+                receiverName: ''
+
+            },
+            showForm: false
+        }
+    },
+    methods: {
+        inviteToGame() {
+            gameService.inviteToGame(this.inviteType).then((response) => {
+                if(response.status == 200) {
+                    this.resetForm();
+                }
+            }).catch()
+        },
+        resetForm() {
+            this.inviteType.receiverName = '';
+            this.showForm = false;
         }
     },
     created() {

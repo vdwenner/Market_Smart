@@ -30,12 +30,13 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     flex-wrap: none;
-    height: 100vh;
+    min-height: 100vh;
     width: 30vw;
     max-width: 300px;
     border-right: 1px solid #D7DBDD;
     font-family: 'Inter', sans-serif;
     background: #34495e;
+    position: absolute;
 }
 
 .image {
@@ -43,8 +44,7 @@ export default {
   height: 25vw;
   max-width: 250px;
   max-height: 250px;
-  border-radius: 100%;
-  justify-content: center;
+  display: flex;
 }
 
 .user {
