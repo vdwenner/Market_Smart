@@ -12,6 +12,12 @@ export default {
 
     inviteToGame(inviteType){
     return axios.post('/games/invite/request',inviteType)
+    },
+
+    viewPendingGameInvites(){
+        return axios.get('/games/invite/pending').then((response)=>{
+            return response.data;
+        })
     }
 
 }

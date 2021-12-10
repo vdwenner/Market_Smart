@@ -16,6 +16,7 @@ public interface GameDao {
     void setInitialGameUsers(Long gameId, Long userID);
 
     Game getGameByGameName(String gameName);
+    Game getGameByGameId(Long gameId);
 
     List<Game> getAllUserGames(Principal principal);
 
