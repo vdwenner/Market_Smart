@@ -18,6 +18,12 @@ export default {
         return axios.get('/games/invite/pending').then((response)=>{
             return response.data;
         })
+    },
+
+    getGameByGameId(Id) {
+        return axios.get(`/games/Id/${Id}`).then((response) => {
+            return response.data;
+        })
     }
 
 }

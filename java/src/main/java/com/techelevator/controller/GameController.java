@@ -30,7 +30,8 @@ public class GameController {
         return gameDao.getGameByGameName(gameName);
     }
 
-    @RequestMapping(path = "/games/{gameId}", method = RequestMethod.GET)
+    //************
+    @RequestMapping(path = "/games/Id/{gameId}", method = RequestMethod.GET)
     public Game getGameByGameId(@PathVariable Long gameId) {
         return gameDao.getGameByGameId(gameId);
     }

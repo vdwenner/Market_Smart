@@ -15,17 +15,17 @@
               <th>End Date</th>
               <th>Invite to Game</th>
           </tr>
-          <view-game-component v-for="userGame in games" :key="userGame.id" v-bind:userGame="userGame"/>
-           
-          <div class = "pendingInvites">
-          <a href="#pending-invites" v-on:click.prevent="showPending = !showPending" v-show="showPending==false">View Pending Invites</a>
+          <view-game-component v-for="userGame in games" :key="userGame.id" 
+          v-bind:userGame="userGame"/>
 
-           </div>     
+          <!-- <pending-invites/> -->
 
-            
       </table>
-      
+      <div class="pending-invites">
+        <pending-invites/>
+      </div>
   </div>
+  
 </template>
 
 <script>
@@ -33,11 +33,13 @@ import NavBar from '../components/NavBar';
 import gameService from "../services/GameService";
 import authService from '../services/AuthService';
 import ViewGameComponent from '../components/ViewGameComponent.vue';
+import PendingInvites from '../components/PendingInvites.vue';
 
 
 export default {
-    components: { NavBar, ViewGameComponent },
+    components: { NavBar, ViewGameComponent, PendingInvites },
     data() {
+        
         return{
             games: [],
             game: {
@@ -109,13 +111,12 @@ export default {
     grid-template-areas: 
     "nav . title title title ."
     "nav . table table table ."
-    "nav . . . . .";
+    "nav . pending pending pending .";
 
 }
-.pendingInvites{
-    display: flex;
-    justify-content: center;
-}
+ .pending-invites{
+    grid-area: pending;
+} 
 
 .nav{
     grid-area: nav;

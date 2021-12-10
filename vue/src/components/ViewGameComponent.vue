@@ -35,7 +35,7 @@ export default {
     name: 'view-game-component',
     props: ['userGame'],
     showForm: false,
-    showPending: false,
+    // showPending: false,
     data() {
         return{
             game: {
