@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.techelevator.model.Gamer;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -25,6 +26,16 @@ public class JdbcUserDao implements UserDao {
     @Override
     public Long findIdByUsername(String username) {
         return jdbcTemplate.queryForObject("select user_id from users where username = ?", Long.class, username);
+    }
+
+    @Override
+    public Gamer findGamerByUsername(String username) {
+        SqlRowSet results = jdbcTemplate.queryForRowSet("select user_id, username from users where username = ?", username);
+        if (results.next()) {
+            return mapRowToGamer(results);
+        } else {
+            throw new RuntimeException("username "+ username +" was not found.");
+        }
     }
 
 	@Override
@@ -94,5 +105,12 @@ public class JdbcUserDao implements UserDao {
         user.setAuthorities(rs.getString("role"));
         user.setActivated(true);
         return user;
+    }
+
+    private Gamer mapRowToGamer(SqlRowSet rs) {
+        Gamer gamer = new Gamer();
+        gamer.setUserId(rs.getLong("user_id"));
+        gamer.setUsername(rs.getString("username"));
+        return gamer;
     }
 }

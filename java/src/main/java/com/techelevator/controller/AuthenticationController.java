@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import javax.validation.Valid;
 
+import com.techelevator.model.Gamer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,9 +63,9 @@ public class AuthenticationController {
             userDao.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole());
         }
     }
-    @RequestMapping(value="/get/userid/by/{username}", method= RequestMethod.GET)
-    public Long getReceiverId(@PathVariable String username){
-      return userDao.findIdByUsername(username);
+    @RequestMapping(value="/gamer/{username}", method= RequestMethod.GET)
+    public Gamer getReceiverId(@PathVariable String username){
+      return userDao.findGamerByUsername(username);
     }
 
     /**

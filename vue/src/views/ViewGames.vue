@@ -10,16 +10,18 @@
               <th>End Date</th>
           </tr>
           <tr class = "game-info" v-for="userGame in games" :key="userGame.id">
+            <!-- <router-link :to="" -->
             <td class="game-data">{{userGame.gameName}}</td>
             <td class="game-data">{{userGame.startingAmount}}</td> 
             <td class="game-data">{{userGame.endDate}}</td>
+            <td class="game-data">{{userGame.id}}</td>
 
             <td class="game-data">
                 <a href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</a>
-                 <form id="invite-form" v-on:submit.prevent = "inviteToGame" v-if="showForm == true">
+                 <form id="invite-form" v-on:submit.prevent v-if="showForm == true">
                 <label for="receiver-name">Enter Player's Username</label>
                 <input id="receiver-name" type="text" v-model="receiver.receiverName" />
-                 <input type="submit" value="Save">
+                 <input type="submit" value="Save" v-on:click="inviteToGame(userGame.id)">
                  <input type="button" value="Cancel" v-on:click="resetForm">
 
           </form>        
@@ -45,6 +47,7 @@ export default {
         return {
             games: [],
             game: {
+                gameId: '',
                 gameName: '',
                 startingAmount: '',
                 endDate: ''
@@ -63,23 +66,27 @@ export default {
         }
     },
     methods: {
-        inviteToGame() {
-             this.setForm(this.receiver.receiverName);
-           
-            gameService.inviteToGame(this.inviteType).then((response) => {
-                if(response.status == 200) {
-                    this.resetForm();
-                }
-            }).catch()
+        inviteToGame(gameId) {
+            authService.getGamerByUsername(this.receiver.receiverName).then( response =>{
+               this.inviteType.receiverId = response.userId;
+               this.inviteType.senderId = this.$store.state.user.userId;
+               this.inviteType.gameId = gameId;
+               
+                    gameService.inviteToGame(this.inviteType).then( response => {
+                            if(response.status == 200) {
+                                this.resetForm();
+                            }
+                        }).catch()
+            })
         },
         resetForm() {
             this.receiver.receiverName = '';
             this.showForm = false;
         },
-        setForm(username){
-            authService.getIdByUsername(username).then((response) =>{
-               if(response.status == 200){
-                this.inviteType.receiverId = response;}
+        setForm(){
+            authService.getGamerByUsername(this.receiver.receiverName).then( response =>{
+               this.inviteType.receiverId = response.userId;
+               return this.inviteType;
            }
 
            );
