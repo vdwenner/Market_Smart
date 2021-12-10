@@ -1,8 +1,9 @@
 <template>
-  <div class="container">
+  <div class="new-game-container">
       <div class="nav">
           <nav-bar/>
       </div>
+      <div class="title"><h1>Start a New Game!</h1></div>
       <div class="create-game-container">
           <form @submit.prevent="createGame">
               <label for="game-name">Name: </label>
@@ -51,7 +52,7 @@ export default {
 </script>
 
 <style>
-    .container {
+    .new-game-container {
         display: flex;
     }
     

@@ -1,9 +1,19 @@
 <template>
-    <div class="container">
-        <h1>Welcome to the Stock Market App</h1>
+    <div class="lp-container">
+        <h1>Welcome to Market Smart!</h1>
         <img src="../../public/stocks.jpg" alt="stonks">
-        <router-link :to="{name: 'register'}" tag="button" class="register">Register</router-link>
-        <router-link :to="{name: 'login'}" tag="button" class="login">Login</router-link>
+        <div class="register-container">
+            <router-link :to="{name: 'register'}" tag="button" class="register">Register</router-link>
+        </div>
+        <div class="login-container">
+            <router-link :to="{name: 'login'}" tag="button" class="login">Login</router-link>
+        </div>
+        <div class="description-container">
+            <p class="description">Welcome to Market Smart, a virtual stock market experience from the developers that brought you TEnmo! Create a new game with customizable starting cash amounts,
+                research companies to see what the best investments are, and challenge your friends to see who the best investor is! All in a fun, risk-free environment that's perfect
+                for new investors with no experience, or for the savvy investor who wants to prove it! Get started by registering your account today! Happy trading!
+            </p>
+        </div>    
     </div>
 </template>
 
@@ -14,53 +24,81 @@ export default {
 </script>
 
 <style>
-    .container {
-        display: inline-block;
-        margin-left: auto;
-        margin-right: auto;
+    /* body {
+        background-image: linear-gradient(to bottom, grey, white);
+    } */
+    .lp-container {
+        display: grid;
+        grid-template-areas:
+        ". title title ."
+        ". image image ."
+        ". register login ."
+        ". description description .";
+        grid-template-columns: .5fr 1fr 1fr .5fr;
     }
 
     h1 {
         margin-left: auto;
         margin-right: auto;
-        margin-top: 100px;
+        margin-top: 20px;
         color: rgba(4, 42, 61);
+        grid-area: title;
     }
     
     img {
-        
+        margin-top: 50px;
+        margin-bottom: 20px;
         margin-left: auto;
         margin-right: auto;
         height: 300px;
         width: 300px;
         border-radius: 100%;
-        margin-bottom: 50px;
-        margin-top: 50px;
-        
+        grid-area: image;     
     }
+
+    div.register-container {
+        grid-area: register;
+        text-align: right;
+        padding-right: 20px;
+    }
+
+    div.login-container {
+        grid-area: login;
+        text-align: left;
+        padding-left: 20px;
+    }
+
     .register {
         background: rgba(4, 42, 61) 0%;
-        color: #dab679;
-        margin-right: 20px;
+        color: #eeaf03;
+        align-content: center;
         border-radius: 25px;
         width: 100px;
         height: 40px;
-
         cursor: pointer;
     }
 
     .login {
         background: rgba(4, 42, 61) 0%;
-        color:  #dab679;
+        color:  #eeaf03;
         border-radius: 25px;
         width: 100px;
         height: 40px;
-
         cursor: pointer;
     }
 
     button:hover {
         background: white;
-        color: #34495e;
+        color: rgba(4, 42, 61) 0%;
+    }
+
+    .description-container {
+        color: rgba(4, 42, 61) 0%;
+        grid-area: description;
+        margin-top: 20px;
+        text-align: center;
+        background-image: linear-gradient(180deg, white, #eeaf03);
+        width: 95vw;
+        padding: 20px;
     }
 </style>
