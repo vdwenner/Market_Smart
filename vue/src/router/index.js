@@ -8,6 +8,7 @@ import store from '../store/index'
 import LandingPage from '../views/LandingPage'
 import CreateGame from '../views/CreateGame'
 import ViewGames from '../views/ViewGames'
+import GameDetails from '../views/GameDetails'
 
 Vue.use(Router)
 
@@ -87,7 +88,15 @@ const router = new Router({
   //   meta:{
   //     requiresAuth: true
   //   }
-  //  }
+  //  },
+      {
+        path: '/user/games/:id',
+        name: 'game-details',
+        component: GameDetails,
+        meta: {
+          requiresAuth: true
+        }
+      }
   ]
 })
 

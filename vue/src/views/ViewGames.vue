@@ -3,18 +3,21 @@
       <div class="nav">
           <nav-bar/>
       </div>
+      <div class="title">
+          <h1>Select the Game You Would Like to Play</h1>
+      </div>
       <table class = "userGames" >
           <tr class = "game-header">
               <th>Game Name</th>
               <th>Starting Amount</th>
               <th>End Date</th>
+              <th>Invite to Game</th>
           </tr>
           <tr class = "game-info" v-for="userGame in games" :key="userGame.id">
             <!-- <router-link :to="" -->
             <td class="game-data">{{userGame.gameName}}</td>
             <td class="game-data">{{userGame.startingAmount}}</td> 
             <td class="game-data">{{userGame.endDate}}</td>
-            <td class="game-data">{{userGame.id}}</td>
 
             <td class="game-data">
                 <a href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</a>
@@ -106,7 +109,7 @@ export default {
     grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 2fr 1fr;
     grid-template-areas: 
-    "nav . . . . ."
+    "nav . title title title ."
     "nav . table table table ."
     "nav . . . . .";
 
@@ -114,37 +117,47 @@ export default {
 .nav{
     grid-area: nav;
 }
+
+.title {
+    grid-area: title;
+    text-align: center;
+    margin-bottom: 20px;
+}
 .userGames {
     display: flex;
     flex-direction: column;
-    
-border:1px solid black;
-grid-area: table;
-
-  
+    border:1px solid black;
+    grid-area: table;
 }
 .game-header{
-  display:flex;
-
-	background: red;
+    display:flex;
+	background: rgba(4, 42, 61) 0%;
+    color: #c99200;
     justify-content: space-evenly;
 }
 
 .game-info{
     display:flex;
-	
     justify-content: space-around;
-
 }
 
 
 .game-data{
     display: flex;
     justify-content: space-evenly;
+    border-bottom: 2px solid rgba(4, 42, 61) 0%;
 }
 
 th,td{
-    padding: 20px;
-    
+    padding: 20px;   
+}
+
+tr.game-info:hover {
+    background: rgba(4, 42, 61) 0%;
+    color: #c99200;
+}
+
+#invite-form:hover {
+    text-decoration: #c99200;
 }
 </style>
