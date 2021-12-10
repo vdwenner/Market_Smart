@@ -21,9 +21,24 @@
           <!-- <pending-invites/> -->
 
       </table>
-      <div class="pending-invites">
-        <pending-invites/>
+      
+      
+      <div class="pending-invites" >
+          
+       <a href="#pending-invites" v-on:click.prevent="showPending = !showPending" v-show="showPending==false">View Pending Invites</a>   
+        <div id="pending-invites">
+            <tr class = "Invite-header" v-show="showPending == true">
+              <th>Game Name</th>
+              <th>Starting Amount</th>
+              <th>End Date</th>
+              <th>Invite to Game</th>
+          </tr>
+        <pending-invites v-for="pendingInvite in invites" :key="pendingInvite.id"
+        v-bind:pendingInvite="pendingInvite" v-show="showPending == true"/>
+        <input type="button" value="Cancel" v-on:click="resetPendingForm" v-show="showPending == true">
+        </div>
       </div>
+      
   </div>
   
 </template>
@@ -60,10 +75,12 @@ export default {
 
             },
             showForm: false,
-            showPending: false
-        }}
-    ,
-    methods: {
+            showPending: false,
+            pendingGameInvites: []
+        }},
+        
+        
+         methods: {
         inviteToGame(gameId) {
             authService.getGamerByUsername(this.receiver.receiverName).then( response =>{
                this.inviteType.receiverId = response.userId;
@@ -88,15 +105,23 @@ export default {
            }
 
            );
-        }
+        },resetPendingForm() {
+            this.showPending = false;
+        },
     },
     created() {
         gameService.viewGames().then(response=>{
             this.games=response;})
 
         gameService.viewPendingGameInvites().then(response =>{
-            this.invites=response;
+            this.pendingGameInvites=response;
+            response.forEach((game) =>{
+            gameService.getGameByGameId(game.gameId).then((response)=>{
+                this.invites.push(response);
+            })
         })
+        })
+       
        
     }
     
@@ -115,6 +140,8 @@ export default {
 
 }
  .pending-invites{
+     display: flex;
+    
     grid-area: pending;
 } 
 

@@ -1,15 +1,14 @@
 <template>
-  <div class = "pendingInvites"><a href="#pending-invites" 
-  v-on:click.prevent="showPending = !showPending" v-show="showPending==false">View Pending Invites</a>
-          
-    <div id="pending-invites" v-on:submit.prevent v-show="showPending == true">
+  <div class = "pendingInvites">
+    <div id="pending-invites" >
 
         <tr class = "game-info" >
-            <!-- <router-link :to="" -->
-            <!-- <td class="game-data td-left">{{userGame.gameName}}</td>
-            <td class="game-data td-right">{{userGame.startingAmount}}</td> 
-            <td class="game-data td-right">{{userGame.endDate}}</td> -->
-            <input type="button" value="Cancel" v-on:click="resetForm">
+            <td class="game-data td-left">{{pendingInvite.gameName}}</td>
+            <td class="game-data td-right">{{pendingInvite.startingAmount}}</td> 
+            <td class="game-data td-right">{{pendingInvite.endDate}}</td> 
+            <td><input type="submit" value="Accept" v-on:click="acceptInvite(pendingInvite.id)"></td>
+            <td> <button>No</button>   </td>
+            
         </tr>
 
     </div>  
@@ -19,10 +18,12 @@
 
 <script>
 
-// import gameService from "../services/GameService";
+import gameService from "../services/GameService";
 // import authService from '../services/AuthService';
 
 export default {
+    name: 'pending-invite',
+    props: ['pendingInvite'],
     data() {
         return {
           showPending: false,  
@@ -35,17 +36,18 @@ export default {
         endDate: ''
         },
     methods: {
-        resetForm() {
-            this.showPending = false;
+        acceptInvite(invite){
+        gameService.approvePendingInvite(invite).then(response =>{
+             if(response.status == 200) {
+                 this.$router.push("/user/games");    }
+        }) 
         }
+
     } 
 
 }
 </script>
 
 <style>
-.pendingInvites{
-    display: flex;
-    justify-content: center;
-}
+
 </style>

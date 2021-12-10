@@ -24,6 +24,13 @@ export default {
         return axios.get(`/games/Id/${Id}`).then((response) => {
             return response.data;
         })
+    },
+    approvePendingInvite(invite){
+        return axios.put('/games/invite/accept', invite)
+    },
+    rejectPendingInvite(invite){
+        return axios.put('/games/invite/reject', invite)
+
     }
 
 }

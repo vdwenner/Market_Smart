@@ -17,8 +17,9 @@ public interface GameDao {
 
     Game getGameByGameName(String gameName);
     Game getGameByGameId(Long gameId);
-
+    void approveGameInvite(InviteType pendingInvite, Principal principal);
     List<Game> getAllUserGames(Principal principal);
+    void rejectGameInvite(InviteType pendingInvite, Principal principal);
 
     void sendGameInvite(InviteType inviteType, Principal principal);
 

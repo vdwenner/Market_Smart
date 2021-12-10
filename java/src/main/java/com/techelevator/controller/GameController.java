@@ -48,5 +48,13 @@ public class GameController {
     @RequestMapping(path= "/games/invite/pending", method = RequestMethod.GET)
     public List<InviteType> listPendingGameInvites (Principal principal) { return gameDao.listPendingGameInvites(principal); }
 
+    @RequestMapping(path="/games/invite/accept", method = RequestMethod.PUT)
+    public void approveGameInvite(@RequestBody InviteType inviteType, Principal principal){
+        gameDao.approveGameInvite(inviteType,principal);
+    }
+    @RequestMapping(path="/games/invite/reject", method = RequestMethod.PUT)
+    public void rejectGameInvite(@RequestBody InviteType inviteType, Principal principal){
+        gameDao.rejectGameInvite(inviteType,principal);
+    }
 
 }

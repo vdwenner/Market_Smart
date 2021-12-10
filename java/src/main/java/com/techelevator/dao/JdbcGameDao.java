@@ -46,6 +46,23 @@ public class JdbcGameDao implements GameDao{
                        "VALUES(?, ?);";
         jdbcTemplate.update(sql3, game.getId(), id);
     }
+    @Override
+    public void approveGameInvite(InviteType pendingInvite, Principal principal){
+        Long currentUserId = userDao.findIdByUsername(principal.getName());
+        Long gameId =  pendingInvite.getGameId();
+        String sql = "Update game_invites set game_invite_type_id = 1 " + "where game_id = ?; ";
+        jdbcTemplate.update(sql,gameId);
+        String sql2 = "INSERT INTO game_users (game_id, user_id) " +
+                "VALUES(?, ?);";
+        jdbcTemplate.update(sql2,gameId,currentUserId);
+    }
+
+    @Override
+    public void rejectGameInvite(InviteType pendingInvite, Principal principal){
+        Long gameId = pendingInvite.getGameId();
+        String sql = "Update game_invites set game_invite_type_id = 2 " + "where game_id = ?; ";
+        jdbcTemplate.update(sql,gameId);
+    }
 
     @Override
     public void setInitialGameUsers(Long gameId, Long userID) {
