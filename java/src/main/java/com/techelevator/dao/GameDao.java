@@ -16,10 +16,14 @@ public interface GameDao {
     void setInitialGameUsers(Long gameId, Long userID);
 
     Game getGameByGameName(String gameName);
+
     Game getGameByGameId(Long gameId);
-    void approveGameInvite(InviteType pendingInvite, Principal principal);
+
+    void approveGameInvite(Game pendingGame, Principal principal);
+
     List<Game> getAllUserGames(Principal principal);
-    void rejectGameInvite(InviteType pendingInvite, Principal principal);
+
+    void rejectGameInvite(Game pendingGame, Principal principal);
 
     void sendGameInvite(InviteType inviteType, Principal principal);
 

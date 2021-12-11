@@ -106,21 +106,22 @@ export default {
            }
 
            );
-        },resetPendingForm() {
-            this.showPending = false;
         },
+        resetPendingForm() {
+            this.showPending = false;
+        }
     },
     created() {
         gameService.viewGames().then(response=>{
             this.games=response;})
 
         gameService.viewPendingGameInvites().then(response =>{
-            this.pendingGameInvites=response;
+            this.pendingGameInvites = response;
             response.forEach((game) =>{
             gameService.getGameByGameId(game.gameId).then((response)=>{
                 this.invites.push(response);
             })
-        })
+            })
         })
        
        

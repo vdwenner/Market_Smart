@@ -47,9 +47,9 @@ public class JdbcGameDao implements GameDao{
         jdbcTemplate.update(sql3, game.getId(), id);
     }
     @Override
-    public void approveGameInvite(InviteType pendingInvite, Principal principal){
+    public void approveGameInvite(Game pendingGame, Principal principal){
         Long currentUserId = userDao.findIdByUsername(principal.getName());
-        Long gameId =  pendingInvite.getGameId();
+        Long gameId =  pendingGame.getId();
         String sql = "Update game_invites set game_invite_type_id = 1 " + "where game_id = ?; ";
         jdbcTemplate.update(sql,gameId);
         String sql2 = "INSERT INTO game_users (game_id, user_id) " +
@@ -58,8 +58,8 @@ public class JdbcGameDao implements GameDao{
     }
 
     @Override
-    public void rejectGameInvite(InviteType pendingInvite, Principal principal){
-        Long gameId = pendingInvite.getGameId();
+    public void rejectGameInvite(Game pendingGame, Principal principal){
+        Long gameId = pendingGame.getId();
         String sql = "Update game_invites set game_invite_type_id = 2 " + "where game_id = ?; ";
         jdbcTemplate.update(sql,gameId);
     }

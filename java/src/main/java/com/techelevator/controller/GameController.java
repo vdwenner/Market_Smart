@@ -30,7 +30,7 @@ public class GameController {
         return gameDao.getGameByGameName(gameName);
     }
 
-    //************
+
     @RequestMapping(path = "/games/Id/{gameId}", method = RequestMethod.GET)
     public Game getGameByGameId(@PathVariable Long gameId) {
         return gameDao.getGameByGameId(gameId);
@@ -49,12 +49,12 @@ public class GameController {
     public List<InviteType> listPendingGameInvites (Principal principal) { return gameDao.listPendingGameInvites(principal); }
 
     @RequestMapping(path="/games/invite/accept", method = RequestMethod.PUT)
-    public void approveGameInvite(@RequestBody InviteType inviteType, Principal principal){
-        gameDao.approveGameInvite(inviteType,principal);
+    public void approveGameInvite(@RequestBody Game pendingGame, Principal principal){
+        gameDao.approveGameInvite(pendingGame, principal);
     }
     @RequestMapping(path="/games/invite/reject", method = RequestMethod.PUT)
-    public void rejectGameInvite(@RequestBody InviteType inviteType, Principal principal){
-        gameDao.rejectGameInvite(inviteType,principal);
+    public void rejectGameInvite(@RequestBody Game pendingGame, Principal principal){
+        gameDao.rejectGameInvite(pendingGame,principal);
     }
 
 }

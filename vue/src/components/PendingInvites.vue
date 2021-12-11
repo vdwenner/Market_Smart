@@ -6,8 +6,8 @@
             <td class="game-data td-left">{{pendingInvite.gameName}}</td>
             <td class="game-data td-right">{{pendingInvite.startingAmount}}</td> 
             <td class="game-data td-right">{{pendingInvite.endDate}}</td> 
-            <td><input type="submit" value="Accept" v-on:click="acceptInvite(pendingInvite)"></td>
-            <td> <input type="submit" value="Decline" v-on:click="rejectInvite(pendingInvite)"></td>
+            <td><button v-on:click="acceptInvite(pendingInvite)">Accept</button></td>
+            <td><button v-on:click="rejectInvite(pendingInvite)">Decline</button></td>
             
         </tr>
 
@@ -30,13 +30,11 @@ export default {
         }
     },
     inviteToSend: {
-         senderId: '',
-          receiverId: '',
-          gameId: '',
-          gameInviteTypeId: ''
-    }
-
-    ,
+        senderId: '',
+        receiverId: '',
+        gameId: '',
+        gameInviteTypeId: ''
+    },
     game: {
         gameId: '',
         gameName: '',
@@ -45,20 +43,17 @@ export default {
         },
     methods: {
         acceptInvite(invite){
-             this.inviteToSend.gameId= invite.id;
-             this.inviteToSend.receiverId = invite.receiverId;
-            this.inviteToSend.senderId = invite.senderId;
-             this.inviteToSend.gameInviteTypeId = invite.inviteTypeId;
-            gameService.approvePendingInvite(this.inviteToSend).then((response) =>{
-             if(response.status == 200 || response.status == 201) {
-                 this.$router.push("/user/games"); 
-                 this.resetForm();   }
+            gameService.approvePendingInvite(invite).then( response =>{
+                this.$forceUpdate();
+                return response;
+                
+            //  if(response.status == 201) {
+            // }
         }) 
         }, rejectInvite(invite){
-            gameService.rejectPendingInvite(invite).then((response) =>{
-                if(response.status==200){
-                    this.$router.push("user/games");
-                    this.resetForm();
+            gameService.rejectPendingInvite(invite).then( response =>{
+                if(response.status == 200){
+                    this.$router.push('/');
                 }
             })
         }
@@ -66,11 +61,11 @@ export default {
         
         ,resetForm() {
             this.game ={
-        gameId: '',
-        gameName: '',
-        startingAmount: '',
-        endDate: ''
-        }
+                gameId: '',
+                gameName: '',
+                startingAmount: '',
+                endDate: ''
+            }
         },
 
     } 
