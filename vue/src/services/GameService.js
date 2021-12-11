@@ -26,10 +26,14 @@ export default {
         })
     },
     approvePendingInvite(invite){
-        return axios.put('/games/invite/accept', invite)
+        return axios.put('/games/invite/accept', invite).then((response)=>{
+            return response.data;
+        })
     },
     rejectPendingInvite(invite){
-        return axios.put('/games/invite/reject', invite)
+        return axios.put('/games/invite/reject', invite).then((response) =>{
+            return response.data;
+        })
 
     }
 

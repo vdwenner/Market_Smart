@@ -15,9 +15,10 @@
               <th>End Date</th>
               <th>Invite to Game</th>
           </tr>
+          <!-- <router-link :to=" {name: 'game-details', params: {id: userGame.id} }"> -->
           <view-game-component v-for="userGame in games" :key="userGame.id" 
           v-bind:userGame="userGame"/>
-
+          <!-- </router-link>   -->
           <!-- <pending-invites/> -->
 
       </table>
@@ -33,7 +34,7 @@
               <th>End Date</th>
               <th>Invite to Game</th>
           </tr>
-        <pending-invites v-for="pendingInvite in invites" :key="pendingInvite.id"
+        <pending-invites v-for="pendingInvite in invites" :key="pendingInvite.gameId"
         v-bind:pendingInvite="pendingInvite" v-show="showPending == true"/>
         <input type="button" value="Cancel" v-on:click="resetPendingForm" v-show="showPending == true">
         </div>

@@ -2,7 +2,7 @@
   
           <tr class = "game-info" >
             <!-- <router-link :to="" -->
-            <td class="game-data td-left">{{userGame.gameName}}</td>
+            <td class="game-data td-left">{{userGame.gameName}}</td> 
             <td class="game-data td-right">{{userGame.startingAmount}}</td> 
             <td class="game-data td-right">{{userGame.endDate}}</td>
 
