@@ -82,13 +82,6 @@ const router = new Router({
         requiresAuth: true
       }
     },
-  //   {path: "/games/invite/request",
-  //   name: "invite-to-game",
-  //   component: GameInvite,
-  //   meta:{
-  //     requiresAuth: true
-  //   }
-  //  },
       {
         path: '/user/games/:id',
         name: 'game-details',
@@ -96,7 +89,15 @@ const router = new Router({
         meta: {
           requiresAuth: true
         }
-      }
+      },
+      // {
+      //   path: '/research',
+      //   name: 'research',
+      //   component: Research,
+      //   meta: {
+      //     requiresAuth: true
+      //   }
+      // }
   ]
 })
 
