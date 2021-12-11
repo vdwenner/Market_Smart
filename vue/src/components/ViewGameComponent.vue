@@ -2,10 +2,12 @@
   
           <tr class = "game-info" >
             <!-- <router-link :to="" -->
+            <router-link :to=" {name: 'game-details', params: {id: userGame.id} }">
             <td class="game-data td-left">{{userGame.gameName}}</td> 
+             </router-link>
             <td class="game-data td-right">{{userGame.startingAmount}}</td> 
             <td class="game-data td-right">{{userGame.endDate}}</td>
-
+           
             <td class="game-data">
                 <a href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</a>
                  <form id="invite-form" v-on:submit.prevent v-show="showForm == true">

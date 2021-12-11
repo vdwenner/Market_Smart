@@ -15,11 +15,9 @@
               <th>End Date</th>
               <th>Invite to Game</th>
           </tr>
-          <!-- <router-link :to=" {name: 'game-details', params: {id: userGame.id} }"> -->
           <view-game-component v-for="userGame in games" :key="userGame.id" 
           v-bind:userGame="userGame"/>
-          <!-- </router-link>   -->
-          <!-- <pending-invites/> -->
+         
 
       </table>
       
