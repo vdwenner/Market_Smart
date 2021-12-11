@@ -35,6 +35,12 @@ export default {
             return response.data;
         })
 
+    },
+
+    viewLeaderboard(game) {
+        return axios.get('/user/games/leaderboard', game).then((response) => {
+            return response.data;
+        })
     }
 
 }

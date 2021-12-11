@@ -11,24 +11,13 @@
   </div>
   <div class = "stock-info" v-if="symbol != ''">
     <table>
-      <tr>
-      <th >
-        <td>Name</td>
-        <td>Currency</td>
-        <td>Current Price</td>
-        <td>Daily Open</td>
-        <td>Previous Close</td>
-        <td>Change in Percent</td>
+      <th>
+        <td>Company Name:     {{stock.name}}</td>
+        <td>Current Price:   ${{stock.quote.price}}</td>
+        <td>Today Open:      ${{stock.quote.open}}</td>
+        <td>Previous Close:  ${{stock.quote.previousClose}}</td>
+        <td>Percent Change:   {{stock.quote.changeInPercent}}%</td>
       </th>
-      </tr>
-      <tr class="research-data">
-        <td class="stock-name">{{stock.name}}</td>
-        <td>{{stock.currency}}</td>
-        <td>${{stock.quote.price}}</td>
-        <td>${{stock.quote.open}}</td>
-        <td>${{stock.quote.previousClose}}</td>
-        <td>{{stock.quote.changeInPercent}}%</td>
-      </tr>
     </table>
     <!-- <h2>{{stock.name}}</h2>
     <h3>{{stock.currency}}</h3>

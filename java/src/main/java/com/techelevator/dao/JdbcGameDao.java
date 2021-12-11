@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Game;
 import com.techelevator.model.InviteType;
+import com.techelevator.model.Portfolio;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -45,16 +46,28 @@ public class JdbcGameDao implements GameDao{
         String sql3 =  "INSERT INTO game_users (game_id, user_id) " +
                        "VALUES(?, ?);";
         jdbcTemplate.update(sql3, game.getId(), id);
+
+        String sql4 = "INSERT INTO portfolio (user_id, game_id, cash_balance, portfolio_value) " +
+                      "VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql4, id, game.getId(), startingAmount, startingAmount);
     }
     @Override
     public void approveGameInvite(Game pendingGame, Principal principal){
         Long currentUserId = userDao.findIdByUsername(principal.getName());
         Long gameId =  pendingGame.getId();
+
         String sql = "Update game_invites set game_invite_type_id = 1 " + "where game_id = ?; ";
+
         jdbcTemplate.update(sql,gameId);
+
         String sql2 = "INSERT INTO game_users (game_id, user_id) " +
                 "VALUES(?, ?);";
         jdbcTemplate.update(sql2,gameId,currentUserId);
+
+        String sql3 = "INSERT INTO portfolio (user_id, game_id, cash_balance, portfolio_value) " +
+                "VALUES (?, ?, ?, ?)";
+
+        jdbcTemplate.update(sql3, currentUserId, gameId, pendingGame.getStartingAmount(), pendingGame.getStartingAmount());
     }
 
     @Override
@@ -150,6 +163,19 @@ public class JdbcGameDao implements GameDao{
         return gameInvites;
     }
 
+    @Override
+    public List<Portfolio> viewLeaderboard(Game game, Principal principal) {
+        List<Portfolio> leaderboard = new ArrayList<>();
+        String sql = "SELECT portfolio_id, user_id, game_id, cash_balance, portfolio_value " +
+                     "FROM portfolio WHERE game_id = ? ORDER BY portfolio_value DESC";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, game.getId());
+        while(results.next()) {
+            Portfolio portfolio = mapRowToPortfolio(results);
+            leaderboard.add(portfolio);
+        }
+        return leaderboard;
+    }
+
     private InviteType mapRowToInviteType(SqlRowSet rowSet) {
         InviteType inviteType = new InviteType();
         inviteType.setReceiverId(rowSet.getLong("receiver_id"));
@@ -157,6 +183,16 @@ public class JdbcGameDao implements GameDao{
         inviteType.setGameId(rowSet.getLong("game_id"));
         inviteType.setSenderId(rowSet.getLong("sender_id"));
         return inviteType;
+    }
+
+    private Portfolio mapRowToPortfolio(SqlRowSet rowSet) {
+        Portfolio portfolio = new Portfolio();
+        portfolio.setId(rowSet.getLong("portfolio_id"));
+        portfolio.setUserId(rowSet.getLong("user_id"));
+        portfolio.setGameId(rowSet.getLong("game_id"));
+        portfolio.setCashBalance(rowSet.getBigDecimal("cash_balance"));
+        portfolio.setPortfolioValue(rowSet.getBigDecimal("portfolio_value"));
+        return portfolio;
     }
 
 

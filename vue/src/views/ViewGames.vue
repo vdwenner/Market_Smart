@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="view-game-container">
       
       <div class="nav">
           <nav-bar/>
@@ -24,7 +24,8 @@
       
       <div class="pending-invites" >
           
-       <a href="#pending-invites" v-on:click.prevent="showPending = !showPending" v-show="showPending==false">View Pending Invites</a>   
+       <a href="#pending-invites" v-on:click="showPending = !showPending"
+            v-show="showPending==false">View Pending Invites</a>   
         <div id="pending-invites">
             <tr class = "Invite-header" v-show="showPending == true">
               <th>Game Name</th>
@@ -32,8 +33,16 @@
               <th>End Date</th>
               <th>Invite to Game</th>
           </tr>
-        <pending-invites v-for="pendingInvite in invites" :key="pendingInvite.gameId"
-        v-bind:pendingInvite="pendingInvite" v-show="showPending == true"/>
+          <div class="pending-invite-container" v-if="rerender">
+            <pending-invites v-for="pendingInvite in invites" 
+            :key="pendingInvite.gameId"
+            v-bind:pendingInvite="pendingInvite"
+            v-show="showPending == true"
+            v-on:acceptInvite="acceptInvite"
+            
+            />
+          </div>
+        
         <input type="button" value="Cancel" v-on:click="resetPendingForm" v-show="showPending == true">
         </div>
       </div>
@@ -48,7 +57,6 @@ import gameService from "../services/GameService";
 import authService from '../services/AuthService';
 import ViewGameComponent from '../components/ViewGameComponent.vue';
 import PendingInvites from '../components/PendingInvites.vue';
-
 
 export default {
     components: { NavBar, ViewGameComponent, PendingInvites },
@@ -75,16 +83,17 @@ export default {
             },
             showForm: false,
             showPending: false,
+            rerender: true,
             pendingGameInvites: []
         }},
         
         
          methods: {
-        inviteToGame(gameId) {
-            authService.getGamerByUsername(this.receiver.receiverName).then( response =>{
-               this.inviteType.receiverId = response.userId;
-               this.inviteType.senderId = this.$store.state.user.userId;
-               this.inviteType.gameId = gameId;
+            inviteToGame(gameId) {
+                authService.getGamerByUsername(this.receiver.receiverName).then( response =>{
+                    this.inviteType.receiverId = response.userId;
+                    this.inviteType.senderId = this.$store.state.user.userId;
+                    this.inviteType.gameId = gameId;
                
                     gameService.inviteToGame(this.inviteType).then( response => {
                             if(response.status == 200) {
@@ -93,6 +102,16 @@ export default {
                         }).catch()
             })
         },
+
+        acceptInvite() {
+            this.rerender = false;
+            this.$nextTick(() => {
+          // Add the component back in
+            this.rerender = true;
+        });
+
+        },
+
         resetForm() {
             this.receiver.receiverName = '';
             this.showForm = false;
@@ -129,7 +148,7 @@ export default {
 </script>
 
 <style>
-.container{
+.view-game-container{
     display: grid;
     grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 2fr 1fr;

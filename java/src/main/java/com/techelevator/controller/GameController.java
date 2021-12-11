@@ -3,6 +3,7 @@ package com.techelevator.controller;
 import com.techelevator.dao.GameDao;
 import com.techelevator.model.Game;
 import com.techelevator.model.InviteType;
+import com.techelevator.model.Portfolio;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +56,11 @@ public class GameController {
     @RequestMapping(path="/games/invite/reject", method = RequestMethod.PUT)
     public void rejectGameInvite(@RequestBody Game pendingGame, Principal principal){
         gameDao.rejectGameInvite(pendingGame,principal);
+    }
+
+    @RequestMapping(path="/user/games/leaderboard", method = RequestMethod.GET)
+    public List<Portfolio> viewLeaderboard(@RequestBody Game game, Principal principal) {
+        return gameDao.viewLeaderboard(game, principal);
     }
 
 }

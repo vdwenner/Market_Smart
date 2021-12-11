@@ -2,6 +2,7 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Game;
 import com.techelevator.model.InviteType;
+import com.techelevator.model.Portfolio;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -28,5 +29,7 @@ public interface GameDao {
     void sendGameInvite(InviteType inviteType, Principal principal);
 
     List<InviteType> listPendingGameInvites(Principal principal);
+
+    List<Portfolio> viewLeaderboard(Game game, Principal principal);
 
 }

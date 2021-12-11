@@ -26,47 +26,53 @@ export default {
     props: ['pendingInvite'],
     data() {
         return {
-          showPending: false,  
+          componentKey: 0
         }
     },
+    
     inviteToSend: {
         senderId: '',
         receiverId: '',
         gameId: '',
         gameInviteTypeId: ''
     },
+    
     game: {
         gameId: '',
         gameName: '',
         startingAmount: '',
         endDate: ''
-        },
+    },
+    
     methods: {
         acceptInvite(invite){
             gameService.approvePendingInvite(invite).then( response =>{
-                this.$forceUpdate();
+                invite.gameInviteTypeId = 1;
+                this.$emit('acceptInvite');
                 return response;
-                
-            //  if(response.status == 201) {
-            // }
-        }) 
-        }, rejectInvite(invite){
+            }) 
+        },
+        
+        rejectInvite(invite){
             gameService.rejectPendingInvite(invite).then( response =>{
                 if(response.status == 200){
                     this.$router.push('/');
                 }
             })
-        }
+        },
+
+        forceRerender() {
+            this.componentKey += 1;  
+        },
         
-        
-        ,resetForm() {
-            this.game ={
+        resetForm() {
+            this.game = {
                 gameId: '',
                 gameName: '',
                 startingAmount: '',
                 endDate: ''
             }
-        },
+        }
 
     } 
 
