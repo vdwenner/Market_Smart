@@ -29,6 +29,14 @@ export default {
           showPending: false,  
         }
     },
+    inviteToSend: {
+         senderId: '',
+          receiverId: '',
+          gameId: '',
+          gameInviteTypeId: ''
+    }
+
+    ,
     game: {
         gameId: '',
         gameName: '',
@@ -37,11 +45,11 @@ export default {
         },
     methods: {
         acceptInvite(invite){
-            // this.game.gameId = invite.id;
-            // this.game.gameName = invite.gameName;
-            // this.game.startingAmount = invite.startingAmount;
-            // this.game.endDate = invite.endDate;
-            gameService.approvePendingInvite(invite).then((response) =>{
+             this.inviteToSend.gameId= invite.id;
+             this.inviteToSend.receiverId = invite.receiverId;
+            this.inviteToSend.senderId = invite.senderId;
+             this.inviteToSend.gameInviteTypeId = invite.inviteTypeId;
+            gameService.approvePendingInvite(this.inviteToSend).then((response) =>{
              if(response.status == 200 || response.status == 201) {
                  this.$router.push("/user/games"); 
                  this.resetForm();   }
