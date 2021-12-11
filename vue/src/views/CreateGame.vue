@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="new-game-container">
       <div class="nav">
           <nav-bar/>
       </div>
@@ -57,7 +57,7 @@ export default {
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter&family=Lexend+Deca&display=swap');
 
-  .container {
+  .new-game-container {
         display: flex;
         font-family: 'Inter', sans-serif;
     }

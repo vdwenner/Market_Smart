@@ -9,6 +9,7 @@ import LandingPage from '../views/LandingPage'
 import CreateGame from '../views/CreateGame'
 import ViewGames from '../views/ViewGames'
 import GameDetails from '../views/GameDetails'
+import Research from '../views/ResearchView'
 
 Vue.use(Router)
 
@@ -90,14 +91,14 @@ const router = new Router({
           requiresAuth: true
         }
       },
-      // {
-      //   path: '/research',
-      //   name: 'research',
-      //   component: Research,
-      //   meta: {
-      //     requiresAuth: true
-      //   }
-      // }
+      {
+        path: '/research',
+        name: 'research',
+        component: Research,
+        meta: {
+          requiresAuth: true
+        }
+      }
   ]
 })
 

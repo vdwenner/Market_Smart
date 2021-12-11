@@ -3,10 +3,10 @@
   <!-- This section gets pushed to the top-->
   <div class="section">
     <router-link v-bind:to="{ name: 'home' }" class="home"><img src="../../public/stocks.jpg" alt="Stock Market" class="image"></router-link>
-    <div class="user">Current User</div>
+    <div class="user">{{this.$store.state.user.username}}</div>
     <router-link :to="{ name: 'create-game' }" class="item" tag="div">Create Game</router-link>
     <router-link :to="{ name: 'view-games' }" class="item" tag="div">My Games</router-link>
-    <div class="item">Research</div>
+    <router-link :to="{ name: 'research' }" class="item" tag="div">Research</router-link>
   </div>
   <!-- This section gets pushed to the bottom-->
   <div class="section">
@@ -37,6 +37,7 @@ export default {
     font-family: 'Inter', sans-serif;
     background: #34495e;
     position: absolute;
+    z-index: 3;
 }
 
 .image {
@@ -48,10 +49,11 @@ export default {
 }
 
 .user {
-  color: white;
-  font-size: 15px;
+  color: #c99200;
+  font-size: 25px;
   text-align: center;
   margin-bottom: 50px;
+
 }
 
 .item:hover {
