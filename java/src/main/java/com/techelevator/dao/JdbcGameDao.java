@@ -1,9 +1,6 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Game;
-import com.techelevator.model.InviteType;
-import com.techelevator.model.Portfolio;
-import com.techelevator.model.Transaction;
+import com.techelevator.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -180,11 +177,34 @@ public class JdbcGameDao implements GameDao{
         return leaderboard;
     }
 
+    public Portfolio getPortfolioByPortfolioId(Long portfolioId){
+        Portfolio portfolio = null;
+        String portfolioSql = "Select portfolio_id, user_id, game_id, cash_balance, portfolio_value "
+                + "From portfolio where portfolio_id = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(portfolioSql, portfolioId);
+        if(results.next()){
+            portfolio = mapRowToPortfolio(results);
+        }
+        return portfolio;
+    }
+
+
     @Override
     public void buyStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal){
-            String sql ="Insert into transactions (transaction_type,price,portfolio_id,stock_symbol,quantity) "
+        BigDecimal transactionAmount = stockPrice.multiply(BigDecimal.valueOf(quantity));
+        Portfolio portfolio = null;
+        String portfolioSql = "Select portfolio_id, user_id, game_id, cash_balance, portfolio_value "
+                + "From portfolio where portfolio_id = ?";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(portfolioSql, portfolioId);
+        if(results.next()){
+            portfolio = mapRowToPortfolio(results);
+        }
+
+            String sql = "Insert into transactions (transaction_type,price,portfolio_id,stock_symbol,quantity) "
                 +"Values(1,?,?,?,?);";
-            jdbcTemplate.update(sql,stockPrice,portfolioId,stockSymbol,quantity);
+            jdbcTemplate.update(sql,stockPrice,portfolioId,stockSymbol,quantity );
     }
 
     @Override
@@ -208,6 +228,42 @@ public class JdbcGameDao implements GameDao{
         String sql = "UPDATE portfolio SET cash_balance = (cash_balance + ?) " +
                 "WHERE portfolio_id = ?;";
         jdbcTemplate.update(sql, transactionAmount, transaction.getPortfolioId());
+    }
+
+    public void addToPortfolioStock(Transaction transaction, Principal principal){
+        PortfolioStock portfolioStock = new PortfolioStock();
+        portfolioStock.setAveragePrice(BigDecimal.valueOf(0));
+        portfolioStock.setQuantity(0L);
+        String currentPS = "Select portfolio_id, stock_symbol,quantity, average_price " +
+                "From portfolio_stock " +
+                "where (portfolio_id = ?) and (stock_symbol = ?);";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(currentPS,transaction.getPortfolioId(),transaction.getStockSymbol() );
+
+        if(results.next()){
+            portfolioStock = mapRowToPortfolioStock(results);
+        }
+
+        int currentQuantity = portfolioStock.getQuantity().intValue();
+        int currentPrice = portfolioStock.getAveragePrice().intValue();
+        int newQuantity =0;
+        int newPrice = 0;
+        if(currentQuantity>0){
+            int totalCost = (currentPrice * currentQuantity) + (transaction.getQuantity().intValue() * transaction.getPrice().intValue());
+            newQuantity = (currentQuantity + transaction.getQuantity().intValue());
+            Long longQuantity =  Long.valueOf(newQuantity);
+            newPrice = (totalCost / newQuantity);
+
+            String sqlUpdate = "Update portfolio_stock " +
+                    "set quantity = ?, average_price = ? " +
+                    "where portfolio_id = ? and stock_symbol = ?;";
+            jdbcTemplate.update(sqlUpdate,longQuantity,newPrice,transaction.getPortfolioId(),transaction.getStockSymbol());
+        }else {
+//            newQuantity = transaction.getQuantity().intValue();
+//            newPrice = transaction.getPrice().intValue();
+            String sql = "Insert into portfolio_stock (portfolio_id,stock_symbol,quantity,average_price) " +
+                    "Values(?,?,?,?); ";
+            jdbcTemplate.update(sql, transaction.getPortfolioId(), transaction.getStockSymbol(), transaction.getQuantity(), transaction.getPrice());
+        }
     }
 
 
@@ -241,6 +297,16 @@ public class JdbcGameDao implements GameDao{
         portfolio.setPortfolioValue(rowSet.getBigDecimal("portfolio_value"));
         return portfolio;
     }
+
+    private PortfolioStock mapRowToPortfolioStock(SqlRowSet rowSet) {
+        PortfolioStock portfolioStock = new PortfolioStock();
+        portfolioStock.setPortfolioId(rowSet.getLong("portfolio_id"));
+        portfolioStock.setStockSymbol(rowSet.getString("stock_symbol"));
+        portfolioStock.setQuantity(rowSet.getLong("quantity"));
+        portfolioStock.setAveragePrice(rowSet.getBigDecimal("average_price"));
+        return portfolioStock;
+    }
+
 
 
 }
