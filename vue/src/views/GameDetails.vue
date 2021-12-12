@@ -11,6 +11,7 @@
 
     <div class="leaderboard">
         <leaderboard/>
+        <button v-on:click="getLeaderboard">Show Leaderboard</button>
     </div>
     </div>
 </template>
@@ -31,20 +32,29 @@ data() {
                 startingAmount: '',
                 endDate: ''
         },
-        created() {
-            gameService.getGameByGameId(this.$route.params.id).then(response=>{
-                gameService.viewLeaderboard(response).then(response => {
-                    this.portfolios.push(response);
+        methods: {
+            getLeaderboard() {
+                gameService.viewLeaderboard(this.game).then( response => {
+                    this.portfolios = response;
+                    return this.portfolios;
                 })
-            })
+            }
             
         }
-    }
-}
-    
+        
+    } 
+},
+created() {
+    gameService.getGameByGameId(this.$route.params.id).then(response=>{
+                this.game = response;
+            })
+  },
+
 }
 </script>
 
 <style>
-
+    .leaderboard{
+        text-align: center;
+    }
 </style>

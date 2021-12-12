@@ -9,7 +9,7 @@
             <td class="game-data td-right">{{userGame.endDate}}</td>
            
             <td class="game-data">
-                <a href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</a>
+                <button href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</button>
                  <form id="invite-form" v-on:submit.prevent v-show="showForm == true">
                 <label for="receiver-name">Enter Player's Username</label>
                 <input id="receiver-name" type="text" v-model="receiver.receiverName" />
@@ -34,7 +34,7 @@ import gameService from "../services/GameService";
 import authService from '../services/AuthService';
 
 export default {
-    name: 'view-game-component',
+    name: 'game-overview',
     props: ['userGame'],
     showForm: false,
     // showPending: false,
