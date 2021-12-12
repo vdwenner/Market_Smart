@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sun.el.lang.ELArithmetic.multiply;
+
 @Component
 public class JdbcGameDao implements GameDao{
 
@@ -190,6 +192,22 @@ public class JdbcGameDao implements GameDao{
         String sql ="Insert into transactions (transaction_type,price,portfolio_id,stock_symbol,quantity) "
                 +"Values(2,?,?,?,?);";
         jdbcTemplate.update(sql,stockPrice,portfolioId,stockSymbol,quantity);
+    }
+
+    @Override
+    public void subtractFromBalance(Transaction transaction, Principal principal) {
+        BigDecimal transactionAmount = transaction.getPrice().multiply(BigDecimal.valueOf(transaction.getQuantity()));
+        String sql = "UPDATE portfolio SET cash_balance = (cash_balance - ?) " +
+                     "WHERE portfolio_id = ?;";
+        jdbcTemplate.update(sql, transactionAmount, transaction.getPortfolioId());
+    }
+
+    @Override
+    public void addToBalance(Transaction transaction, Principal principal) {
+        BigDecimal transactionAmount = transaction.getPrice().multiply(BigDecimal.valueOf(transaction.getQuantity()));
+        String sql = "UPDATE portfolio SET cash_balance = (cash_balance + ?) " +
+                "WHERE portfolio_id = ?;";
+        jdbcTemplate.update(sql, transactionAmount, transaction.getPortfolioId());
     }
 
 

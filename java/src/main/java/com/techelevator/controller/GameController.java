@@ -64,10 +64,14 @@ public class GameController {
     @RequestMapping(path="/user/games/{gameId}/{symbol}/buy", method = RequestMethod.POST)
     public void buyStock (@RequestBody Transaction transaction, @PathVariable("gameId") Long gameId, @PathVariable("symbol") String symbol,  Principal  principal ){
         gameDao.buyStock(symbol,transaction.getPrice(),transaction.getQuantity(),transaction.getPortfolioId(),principal);
+
+        gameDao.subtractFromBalance(transaction, principal);
     }
 
     @RequestMapping(path="/user/games/{gameId}/{symbol}/sell", method = RequestMethod.POST)
     public void sellStock (@RequestBody Transaction transaction, @PathVariable("gameId") Long gameId, @PathVariable("symbol") String symbol,  Principal  principal ){
         gameDao.sellStock(symbol,transaction.getPrice(),transaction.getQuantity(),transaction.getPortfolioId(),principal);
+
+        gameDao.addToBalance(transaction, principal);
     }
 }

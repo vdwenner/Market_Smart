@@ -3,6 +3,7 @@ package com.techelevator.dao;
 import com.techelevator.model.Game;
 import com.techelevator.model.InviteType;
 import com.techelevator.model.Portfolio;
+import com.techelevator.model.Transaction;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -35,5 +36,11 @@ public interface GameDao {
     void buyStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal);
 
     void sellStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal);
+
+    void subtractFromBalance(Transaction transaction, Principal principal);
+
+    void addToBalance(Transaction transaction, Principal principal);
+
+
 
 }
