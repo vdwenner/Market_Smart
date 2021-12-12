@@ -1,10 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.dao.GameDao;
-import com.techelevator.model.Game;
-import com.techelevator.model.InviteType;
-import com.techelevator.model.Portfolio;
-import com.techelevator.model.User;
+import com.techelevator.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,4 +61,13 @@ public class GameController {
         return gameDao.viewLeaderboard(gameId, principal);
     }
 
+    @RequestMapping(path="/user/games/{gameId}/{symbol}/buy", method = RequestMethod.POST)
+    public void buyStock (@RequestBody Transaction transaction, @PathVariable("gameId") Long gameId, @PathVariable("symbol") String symbol,  Principal  principal ){
+        gameDao.buyStock(symbol,transaction.getPrice(),transaction.getQuantity(),transaction.getPortfolioId(),principal);
+    }
+
+    @RequestMapping(path="/user/games/{gameId}/{symbol}/sell", method = RequestMethod.POST)
+    public void sellStock (@RequestBody Transaction transaction, @PathVariable("gameId") Long gameId, @PathVariable("symbol") String symbol,  Principal  principal ){
+        gameDao.sellStock(symbol,transaction.getPrice(),transaction.getQuantity(),transaction.getPortfolioId(),principal);
+    }
 }

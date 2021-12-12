@@ -45,4 +45,6 @@ public class YahooAPIController {
     public String getTrending() throws IOException, InterruptedException {
         return yahooService.listTrendingStocks();
     }
+
+
 }

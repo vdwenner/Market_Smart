@@ -32,4 +32,8 @@ public interface GameDao {
 
     List<Portfolio> viewLeaderboard(Long gameId, Principal principal);
 
+    void buyStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal);
+
+    void sellStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal);
+
 }

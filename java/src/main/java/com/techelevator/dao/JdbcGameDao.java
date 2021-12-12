@@ -3,11 +3,13 @@ package com.techelevator.dao;
 import com.techelevator.model.Game;
 import com.techelevator.model.InviteType;
 import com.techelevator.model.Portfolio;
+import com.techelevator.model.Transaction;
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import javax.sound.sampled.Port;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.sql.Date;
@@ -176,6 +178,32 @@ public class JdbcGameDao implements GameDao{
         return leaderboard;
     }
 
+    @Override
+    public void buyStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal){
+            String sql ="Insert into transactions (transaction_type,price,portfolio_id,stock_symbol,quantity) "
+                +"Values(1,?,?,?,?);";
+            jdbcTemplate.update(sql,stockPrice,portfolioId,stockSymbol,quantity);
+    }
+
+    @Override
+    public void sellStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal){
+        String sql ="Insert into transactions (transaction_type,price,portfolio_id,stock_symbol,quantity) "
+                +"Values(2,?,?,?,?);";
+        jdbcTemplate.update(sql,stockPrice,portfolioId,stockSymbol,quantity);
+    }
+
+
+    private Transaction mapRowToTransaction(SqlRowSet rowSet){
+        Transaction transaction = new Transaction();
+        transaction.setId((rowSet.getLong("transaction_id")));
+        transaction.setTransactionType((rowSet.getLong("transaction_type")));
+        transaction.setPrice((rowSet.getBigDecimal("price")));
+        transaction.setPortfolioId((rowSet.getLong("portfolio_id")));
+        transaction.setStockSymbol((rowSet.getString("stock_symbol")));
+        transaction.setQuantity((rowSet.getLong("quantity")));
+        return transaction;
+    }
+
     private InviteType mapRowToInviteType(SqlRowSet rowSet) {
         InviteType inviteType = new InviteType();
         inviteType.setReceiverId(rowSet.getLong("receiver_id"));
@@ -184,6 +212,7 @@ public class JdbcGameDao implements GameDao{
         inviteType.setSenderId(rowSet.getLong("sender_id"));
         return inviteType;
     }
+
 
     private Portfolio mapRowToPortfolio(SqlRowSet rowSet) {
         Portfolio portfolio = new Portfolio();
