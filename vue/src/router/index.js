@@ -10,6 +10,8 @@ import CreateGame from '../views/CreateGame'
 import ViewGames from '../views/ViewGames'
 import GameDetails from '../views/GameDetails'
 import Research from '../views/ResearchView'
+import BuyStock from '../components/BuyStock'
+import SellStock from '../components/SellStock'
 
 Vue.use(Router)
 
@@ -95,6 +97,22 @@ const router = new Router({
         path: '/research',
         name: 'research',
         component: Research,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/user/games/:id/:symbol/buy',
+        name: 'buy-stock',
+        component: BuyStock,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/user/games/:id/:symbol/sell',
+        name: 'sell-stock',
+        component: SellStock,
         meta: {
           requiresAuth: true
         }

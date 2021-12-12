@@ -11,7 +11,7 @@ export default {
     })},
 
     inviteToGame(inviteType){
-    return axios.post('/games/invite/request',inviteType)
+    return axios.post('/games/invite/request', inviteType)
     },
 
     viewPendingGameInvites(){
@@ -41,6 +41,14 @@ export default {
         return axios.get(`/user/games/${gameId}/leaderboard`).then((response) => {
             return response.data;
         })
+    },
+
+    buyStock(transaction, gameId, symbol) {
+        return axios.post(`/user/games/${gameId}/${symbol}/buy`, transaction)
+    },
+
+    sellStock(transaction, gameId, symbol) {
+        return axios.post(`/user/games/${gameId}/${symbol}/sell`, transaction)
     }
 
 }

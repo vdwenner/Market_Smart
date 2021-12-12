@@ -9,14 +9,14 @@
         </div>
         
         <table class = "userGames" >
-            <thead>
-                <tr>
+            
+                <tr class="game-info">
                     <th>Game Name</th>
                     <th>Starting Amount</th>
                     <th>End Date</th>
                     <th>Invite to Game</th>
                 </tr>
-            </thead>
+            
             <tbody>
                 <game-overview v-for="userGame in games" :key="userGame.id" 
                     v-bind:userGame="userGame"/>
@@ -205,7 +205,16 @@ table.userGames {
   border-collapse: collapse;
   margin: 1em;
   grid-area: table;
+  height: 500px;
+  overflow-y: scroll;
 }
+
+thead {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 th {
   border-bottom: 1px solid #364043;
   color: #E2B842;
@@ -229,5 +238,21 @@ tbody.pending-invites-data tr {
 }
 tbody.pending-invites-data tr:hover {
   background: #014055;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
 }
 </style>

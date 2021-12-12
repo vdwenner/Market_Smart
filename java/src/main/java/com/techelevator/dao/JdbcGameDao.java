@@ -191,6 +191,7 @@ public class JdbcGameDao implements GameDao{
 
 
     @Override
+<<<<<<< HEAD
     public void buyStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal){
         BigDecimal transactionAmount = stockPrice.multiply(BigDecimal.valueOf(quantity));
         Portfolio portfolio = null;
@@ -205,13 +206,19 @@ public class JdbcGameDao implements GameDao{
             String sql = "Insert into transactions (transaction_type,price,portfolio_id,stock_symbol,quantity) "
                 +"Values(1,?,?,?,?);";
             jdbcTemplate.update(sql,stockPrice,portfolioId,stockSymbol,quantity );
+=======
+    public void buyStock(String stockSymbol, BigDecimal stockPrice, Long quantity, Long portfolioId , Principal principal){
+            String sql ="Insert into transactions (transaction_type, price, portfolio_id, stock_symbol, quantity) "
+                +"Values(1, ?, ?, ?, ?);";
+            jdbcTemplate.update(sql, stockPrice, portfolioId, stockSymbol, quantity);
+>>>>>>> bf6ac74a46e16670f8b7196b26729ced342e2d43
     }
 
     @Override
-    public void sellStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal){
-        String sql ="Insert into transactions (transaction_type,price,portfolio_id,stock_symbol,quantity) "
-                +"Values(2,?,?,?,?);";
-        jdbcTemplate.update(sql,stockPrice,portfolioId,stockSymbol,quantity);
+    public void sellStock(String stockSymbol, BigDecimal stockPrice, Long quantity, Long portfolioId , Principal principal){
+        String sql ="Insert into transactions (transaction_type, price, portfolio_id, stock_symbol, quantity) "
+                +"Values(2, ?, ?, ?, ?);";
+        jdbcTemplate.update(sql, stockPrice, portfolioId, stockSymbol, quantity);
     }
 
     @Override
