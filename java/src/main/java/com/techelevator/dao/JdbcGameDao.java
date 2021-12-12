@@ -189,29 +189,12 @@ public class JdbcGameDao implements GameDao{
         return portfolio;
     }
 
-
     @Override
-<<<<<<< HEAD
-    public void buyStock(String stockSymbol,  BigDecimal stockPrice,Long quantity, Long portfolioId ,Principal principal){
-        BigDecimal transactionAmount = stockPrice.multiply(BigDecimal.valueOf(quantity));
-        Portfolio portfolio = null;
-        String portfolioSql = "Select portfolio_id, user_id, game_id, cash_balance, portfolio_value "
-                + "From portfolio where portfolio_id = ?";
+    public void buyStock(String stockSymbol, BigDecimal stockPrice, Long quantity, Long portfolioId , Principal principal) {
+        String sql ="Insert into transactions (transaction_type, price, portfolio_id, stock_symbol, quantity) "
+                    + "Values(1, ?, ?, ?, ?);";
+        jdbcTemplate.update(sql, stockPrice, portfolioId, stockSymbol, quantity);
 
-        SqlRowSet results = jdbcTemplate.queryForRowSet(portfolioSql, portfolioId);
-        if(results.next()){
-            portfolio = mapRowToPortfolio(results);
-        }
-
-            String sql = "Insert into transactions (transaction_type,price,portfolio_id,stock_symbol,quantity) "
-                +"Values(1,?,?,?,?);";
-            jdbcTemplate.update(sql,stockPrice,portfolioId,stockSymbol,quantity );
-=======
-    public void buyStock(String stockSymbol, BigDecimal stockPrice, Long quantity, Long portfolioId , Principal principal){
-            String sql ="Insert into transactions (transaction_type, price, portfolio_id, stock_symbol, quantity) "
-                +"Values(1, ?, ?, ?, ?);";
-            jdbcTemplate.update(sql, stockPrice, portfolioId, stockSymbol, quantity);
->>>>>>> bf6ac74a46e16670f8b7196b26729ced342e2d43
     }
 
     @Override
