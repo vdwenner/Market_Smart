@@ -33,4 +33,5 @@ export default {
 .nav {
   grid-row: nav;
 }
+
 </style>

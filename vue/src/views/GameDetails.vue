@@ -24,8 +24,32 @@
 
     </table>
 
-    <buy-stock class="buy-btn"/>
-    <sell-stock class="sell-btn"/>
+    <div class="buy-stock-container">
+        <button class="buy-btn" v-on:click="showBuy = !showBuy">Buy Stock</button>
+
+        <form v-show="showBuy == true" v-on:submit.prevent>
+            <label for="symbol">Stock Symbol: </label>
+            <input type="text" id="symbol" name="symbol" v-model="symbol" placeholder="Enter Stock Symbol">
+            <label for="quantity" >Quantity: </label>
+            <input type="number"
+                min="1" id="quantity" name="quantity" placeholder="Enter Quantity"
+                v-model="transaction.quantity">
+            <input type="submit" name="submit">
+        </form>
+    </div>
+    <div class="sell-stock-container">
+        <button class="sell-btn" v-on:click="showSell = !showSell">Sell Stock</button>
+
+        <form v-show="showSell == true">
+            <label for="symbol">Stock Symbol: </label>
+            <input type="text" id="symbol" name="symbol" v-model="symbol" placeholder="Enter Stock Symbol">
+            <label for="quantity" >Quantity: </label>
+            <input type="number"
+                min="1" id="quantity" name="quantity" placeholder="Enter Quantity"
+                v-model="transaction.quantity">
+            <input type="submit" name="submit">
+        </form>
+    </div>
 
     </div>
 </template>
@@ -35,14 +59,26 @@ import GameDetailGuts from '../components/GameDetailGuts';
 import NavBar from '../components/NavBar';
 import Leaderboard from '../components/Leaderboard';
 import gameService from '../services/GameService';
-import BuyStock from '../components/BuyStock.vue';
-import SellStock from '../components/SellStock';
+import yahooAPIService from '../services/YahooAPIService';
 export default {
-components: { NavBar, GameDetailGuts, Leaderboard, BuyStock, SellStock },
+components: { NavBar, GameDetailGuts, Leaderboard },
 data() {
     return {
         portfolios: [],
-        gameId: ''
+        gameId: '',
+        stock: {},
+            symbol: '',
+            transaction: {
+                transactionId: '',
+                transactionType: '',
+                price: '',
+                portfolioId: '',
+                stockSymbol: '',
+                quantity: ''
+            },
+            errorMessage: '',
+            showBuy: false,
+            showSell: false
         // game: {
         //         gameId: '',
         //         gameName: '',
@@ -53,6 +89,57 @@ data() {
         
     } 
 },
+methods: {
+    mapUserToPortfolio() {
+        this.portfolios.forEach( (portfolio) => {
+            if(portfolio.portfolioId == this.$store.state.user.userId) {
+                return portfolio.portfolioId;
+            }
+        })
+    },
+        buyStock() {
+            yahooAPIService.getStockBySymbol(this.symbol).then( response => {
+                this.stock = response;
+                this.errorMessage = '';
+                this.transaction.transactionType = 1;
+                this.transaction.portfolioId = this.mapUserToPortfolio();
+                this.transaction.price = response.quote.price;
+                this.transaction.stockSymbol = response.symbol;
+                gameService.buyStock(this.transaction, this.$route.params.id, this.symbol).then( response => {
+                    if(response.status == 200) {
+                        this.resetForm();
+                        this.errorMessage = '';
+                    }
+                })
+            })
+            
+        },
+
+        sellStock() {
+            yahooAPIService.getStockBySymbol(this.symbol).then( response => {
+                this.stock = response;
+                this.errorMessage = '';
+                this.transaction.transactionType = 2;
+                this.transaction.portfolioId = this.portfolios.
+                this.transaction.price = response.quote.price;
+                this.transaction.stockSymbol = response.symbol;
+                gameService.sellStock(this.transaction, this.$route.params.id, this.symbol).then( response => {
+                    if(response.status == 200) {
+                        this.resetForm();
+                        this.errorMessage = '';
+                    }
+                })
+            })
+            
+        },
+
+        resetForm() {
+            this.symbol = '';
+            this.stock = {};
+            this.showform = false;
+        }
+    },
+
 created(){
         gameService.viewLeaderboard(this.$route.params.id).then( response => {
             this.portfolios = response;
@@ -115,11 +202,11 @@ created(){
     background: #014055;
     }
 
-    .buy-btn {
+    .buy-stock-container {
         grid-area: buy;
     }
 
-    .sell-btn {
+    .sell-stock-container {
         grid-area: sell;
     }
 </style>

@@ -12,11 +12,11 @@
   <div class = "stock-info" v-if="symbol != ''">
     <table>
       <th>
-        <td>Company Name:     {{stock.name}}</td>
-        <td>Current Price:   ${{stock.quote.price}}</td>
-        <td>Today Open:      ${{stock.quote.open}}</td>
-        <td>Previous Close:  ${{stock.quote.previousClose}}</td>
-        <td>Percent Change:   {{stock.quote.changeInPercent}}%</td>
+        <td class="research-data">Company Name:     {{stock.name}}</td>
+        <td class="research-data">Current Price:   ${{stock.quote.price}}</td>
+        <td class="research-data">Today Open:      ${{stock.quote.open}}</td>
+        <td class="research-data">Previous Close:  ${{stock.quote.previousClose}}</td>
+        <td class="research-data">Percent Change:   {{stock.quote.changeInPercent}}%</td>
       </th>
     </table>
     <!-- <h2>{{stock.name}}</h2>
@@ -66,11 +66,48 @@ export default {
   color: red;
   text-align: center;
 }
-/* .stock-name{
-  padding: 1px;
+
+table.researchData {
+  background: #012B39;
+  border-radius: 0.25em;
+  border-collapse: collapse;
+  margin: 1em;
+  grid-area: table;
+  height: 500px;
+  overflow-y: scroll;
 }
-.research-data{
-  padding: 1px;
-  display: flex;
-} */
+
+thead {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+th {
+  border-bottom: 1px solid #364043;
+  color: #E2B842;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  text-align: center;
+  width: 100px;
+}
+td.research-data {
+  border-bottom: 1px solid #364043;
+  color: #E2B842;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  text-align: center;
+  width: 100px;
+}
+.disabled td {
+  color: #4F5F64;
+}
+tbody.pending-invites-data tr {
+  transition: background 0.25s ease;
+}
+tbody.pending-invites-data tr:hover {
+  background: #014055;
+}
 </style>
