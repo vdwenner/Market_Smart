@@ -23,6 +23,10 @@
         </tbody>
 
     </table>
+
+    <buy-stock class="buy-btn"/>
+    <sell-stock class="sell-btn"/>
+
     </div>
 </template>
 
@@ -31,8 +35,10 @@ import GameDetailGuts from '../components/GameDetailGuts';
 import NavBar from '../components/NavBar';
 import Leaderboard from '../components/Leaderboard';
 import gameService from '../services/GameService';
+import BuyStock from '../components/BuyStock.vue';
+import SellStock from '../components/SellStock';
 export default {
-components: { NavBar, GameDetailGuts, Leaderboard },
+components: { NavBar, GameDetailGuts, Leaderboard, BuyStock, SellStock },
 data() {
     return {
         portfolios: [],
@@ -64,6 +70,7 @@ created(){
         "nav . title title title ."
         "nav . details details details ."
         "nav . leaderboard leaderboard leaderboard ."
+        "nav . buy . sell ."
         ;
     }
     .game-container {
@@ -106,5 +113,13 @@ created(){
     
     tbody.leaderboard-details tr:hover {
     background: #014055;
+    }
+
+    .buy-btn {
+        grid-area: buy;
+    }
+
+    .sell-btn {
+        grid-area: sell;
     }
 </style>
