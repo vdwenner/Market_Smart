@@ -43,6 +43,6 @@ public interface GameDao {
 
     Portfolio getPortfolioByPortfolioId(Long portfolioId);
 
-   void addToPortfolioStock(Transaction transaction, Principal principal);
+    void addToPortfolioStock(Transaction transaction, Principal principal);
 
 }
