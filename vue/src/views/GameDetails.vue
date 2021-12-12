@@ -26,29 +26,30 @@ components: { NavBar, GameDetailGuts, Leaderboard },
 data() {
     return {
         portfolios: [],
-        game: {
-                gameId: '',
-                gameName: '',
-                startingAmount: '',
-                endDate: ''
-        },
-        methods: {
-            getLeaderboard() {
-                gameService.viewLeaderboard(this.game).then( response => {
-                    this.portfolios = response;
-                    return this.portfolios;
-                })
-            }
-            
-        }
+        gameId: ''
+        // game: {
+        //         gameId: '',
+        //         gameName: '',
+        //         startingAmount: '',
+        //         endDate: ''
+        // },
+       
         
     } 
 },
-created() {
-    gameService.getGameByGameId(this.$route.params.id).then(response=>{
-                this.game = response;
-            })
-  },
+ methods: {
+            getLeaderboard() {
+                let id = this.$router.params.id;
+                gameService.viewLeaderboard(id).then( response => {
+                    this.portfolios = response;
+                })
+            }
+            
+        },
+
+// created() {
+//     this.gameId = this.$router.params.id;
+//  },
 
 }
 </script>

@@ -30,6 +30,6 @@ public interface GameDao {
 
     List<InviteType> listPendingGameInvites(Principal principal);
 
-    List<Portfolio> viewLeaderboard(Game game, Principal principal);
+    List<Portfolio> viewLeaderboard(Long gameId, Principal principal);
 
 }

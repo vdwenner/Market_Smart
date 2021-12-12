@@ -58,9 +58,9 @@ public class GameController {
         gameDao.rejectGameInvite(pendingGame,principal);
     }
 
-    @RequestMapping(path="/user/games/leaderboard", method = RequestMethod.GET)
-    public List<Portfolio> viewLeaderboard(@RequestBody Game game, Principal principal) {
-        return gameDao.viewLeaderboard(game, principal);
+    @RequestMapping(path="/user/games/{gameId}/leaderboard", method = RequestMethod.GET)
+    public List<Portfolio> viewLeaderboard(@PathVariable Long gameId, Principal principal) {
+        return gameDao.viewLeaderboard(gameId, principal);
     }
 
 }

@@ -164,11 +164,11 @@ public class JdbcGameDao implements GameDao{
     }
 
     @Override
-    public List<Portfolio> viewLeaderboard(Game game, Principal principal) {
+    public List<Portfolio> viewLeaderboard(Long gameId, Principal principal) {
         List<Portfolio> leaderboard = new ArrayList<>();
         String sql = "SELECT portfolio_id, user_id, game_id, cash_balance, portfolio_value " +
                      "FROM portfolio WHERE game_id = ? ORDER BY portfolio_value DESC";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, game.getId());
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, gameId);
         while(results.next()) {
             Portfolio portfolio = mapRowToPortfolio(results);
             leaderboard.add(portfolio);
