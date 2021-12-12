@@ -1,10 +1,8 @@
 <template>
-<div>
-    <h1>Creator Id: {{game.creatorId}}</h1>
-    <h1>End Date: {{game.endDate}}</h1>
+<div class="game-details-small">
     <h1>Game Name: {{game.gameName}}</h1>
-    <h1>Game Id: {{game.id}}</h1>
     <h1>Starting Amount: {{game.startingAmount}}</h1>
+    <h1>End Date: {{game.endDate}}</h1>
 </div>
 
 

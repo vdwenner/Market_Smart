@@ -38,7 +38,7 @@
                         <th>Invite to Game</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="pending-invites-data">
                     <pending-invites v-for="pendingInvite in invites" 
                     :key="pendingInvite.gameId"
                     v-bind:pendingInvite="pendingInvite"
@@ -162,8 +162,7 @@ export default {
 
 }
  .pending-invites{
-     display: flex;
-    
+    display: flex;
     grid-area: pending;
 } 
 
@@ -225,10 +224,10 @@ td {
 .disabled td {
   color: #4F5F64;
 }
-tbody tr {
+tbody.pending-invites-data tr {
   transition: background 0.25s ease;
 }
-tbody tr:hover {
+tbody.pending-invites-data tr:hover {
   background: #014055;
 }
 </style>

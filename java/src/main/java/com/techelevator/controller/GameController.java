@@ -4,6 +4,7 @@ import com.techelevator.dao.GameDao;
 import com.techelevator.model.Game;
 import com.techelevator.model.InviteType;
 import com.techelevator.model.Portfolio;
+import com.techelevator.model.User;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

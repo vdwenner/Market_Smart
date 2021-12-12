@@ -22,6 +22,8 @@ import com.techelevator.exception.UserAlreadyExistsException;
 import com.techelevator.security.jwt.JWTFilter;
 import com.techelevator.security.jwt.TokenProvider;
 
+import java.security.Principal;
+
 @RestController
 @CrossOrigin
 public class AuthenticationController {
@@ -63,6 +65,12 @@ public class AuthenticationController {
             userDao.create(newUser.getUsername(),newUser.getPassword(), newUser.getRole());
         }
     }
+
+    @RequestMapping(path="/user/username/{id}", method = RequestMethod.GET)
+    public User getUserById(@PathVariable Long id, Principal principal) {
+        return userDao.getUserById(id);
+    }
+
     @RequestMapping(value="/gamer/{username}", method= RequestMethod.GET)
     public Gamer getReceiverId(@PathVariable String username){
       return userDao.findGamerByUsername(username);

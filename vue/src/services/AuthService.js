@@ -13,6 +13,12 @@ export default {
     return axios.get(`/gamer/${username}`).then( response =>{
       return response.data;
     })
+  },
+
+  getUsernameById(id) {
+    return axios.get(`/user/username/${id}`).then( response => {
+      return response.data;
+    })
   }
 
 }

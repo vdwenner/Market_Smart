@@ -37,7 +37,6 @@ export default {
     name: 'game-overview',
     props: ['userGame'],
     showForm: false,
-    // showPending: false,
     data() {
         return{
             game: {
@@ -58,32 +57,31 @@ export default {
             },
             showForm: false,
             showPending: false
-        }}, methods: {
-        inviteToGame(gameId) {
-            authService.getGamerByUsername(this.receiver.receiverName).then( response =>{
-               this.inviteType.receiverId = response.userId;
-               this.inviteType.senderId = this.$store.state.user.userId;
-               this.inviteType.gameId = gameId;
-               
-                    gameService.inviteToGame(this.inviteType).then( response => {
-                            if(response.status == 200) {
-                                this.resetForm();
-                            }
-                        }).catch()
-            })
-        },
-        resetForm() {
-            this.receiver.receiverName = '';
-            this.showForm = false;
-        },
-        setForm(){
-            authService.getGamerByUsername(this.receiver.receiverName).then( response =>{
-               this.inviteType.receiverId = response.userId;
-               return this.inviteType;
-           }
-
-           );
         }
+    }, methods: {
+            inviteToGame(gameId) {
+                authService.getGamerByUsername(this.receiver.receiverName).then( response =>{
+                this.inviteType.receiverId = response.userId;
+                this.inviteType.senderId = this.$store.state.user.userId;
+                this.inviteType.gameId = gameId;
+                
+                        gameService.inviteToGame(this.inviteType).then( response => {
+                                if(response.status == 200) {
+                                    this.resetForm();
+                                }
+                            }).catch()
+                })
+            },
+            resetForm() {
+                this.receiver.receiverName = '';
+                this.showForm = false;
+            },
+            setForm(){
+                authService.getGamerByUsername(this.receiver.receiverName).then( response =>{
+                this.inviteType.receiverId = response.userId;
+                return this.inviteType;
+                })
+            }
     }
 
 }

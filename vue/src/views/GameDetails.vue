@@ -9,10 +9,20 @@
         <game-detail-guts/>
     </div>
 
-    <div class="leaderboard">
-        <leaderboard/>
-        <button v-on:click="getLeaderboard">Show Leaderboard</button>
-    </div>
+    <table class = "portfolioLeaderboard" >
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Cash Amount</th>
+                <th>Portfolio Value</th>
+            </tr>
+        </thead>
+        <tbody class="leaderboard-details">
+            <leaderboard v-for="portfolio in portfolios" :key="portfolio.id" 
+                v-bind:portfolio="portfolio"/>
+        </tbody>
+
+    </table>
     </div>
 </template>
 
@@ -37,26 +47,64 @@ data() {
         
     } 
 },
-//  methods: {
-//             getLeaderboard() {
-//                 gameService.viewLeaderboard(this.$route.params.id).then( response => {
-//                     this.portfolios = response;
-//                 })
-        //     }
-            
-        // },
-        created(){
-             gameService.viewLeaderboard(this.$route.params.id).then( response => {
-                    this.portfolios = response;
-                })
-        }
+created(){
+        gameService.viewLeaderboard(this.$route.params.id).then( response => {
+            this.portfolios = response;
+        })
+}
 
 
 }
 </script>
 
 <style>
-    .leaderboard{
-        text-align: center;
+    .game-details-container {
+        display: grid;
+        grid-template-areas:
+        "nav . title title title ."
+        "nav . details details details ."
+        "nav . leaderboard leaderboard leaderboard ."
+        ;
+    }
+    .game-container {
+        grid-area: details;
+    }
+
+
+    table.portfolioLeaderboard {
+    background: #012B39;
+    border-radius: 0.25em;
+    border-collapse: collapse;
+    margin: 1em;
+    grid-area: leaderboard;
+    }
+
+    th {
+    border-bottom: 1px solid #364043;
+    color: #E2B842;
+    font-size: 0.85em;
+    font-weight: 600;
+    padding: 0.5em 1em;
+    text-align: center;
+    width: 100px;
+    }
+
+    td {
+    color: #fff;
+    font-weight: 400;
+    padding: 0.65em 1em;
+    width: 100px;
+    }
+
+    .disabled td {
+    color: #4F5F64;
+    }
+
+    tbody.leaderboard-details tr {
+    transition: background 0.25s ease;
+    }
+    
+    tbody.leaderboard-details tr:hover {
+    background: #014055;
     }
 </style>
