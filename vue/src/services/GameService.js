@@ -38,7 +38,7 @@ export default {
     },
 
     viewLeaderboard(gameId) {
-        return axios.get(`/user/games/${gameId}/leaderboard`, gameId).then((response) => {
+        return axios.get(`/user/games/${gameId}/leaderboard`).then((response) => {
             return response.data;
         })
     }

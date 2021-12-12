@@ -37,19 +37,20 @@ data() {
         
     } 
 },
- methods: {
-            getLeaderboard() {
-                let id = this.$router.params.id;
-                gameService.viewLeaderboard(id).then( response => {
+//  methods: {
+//             getLeaderboard() {
+//                 gameService.viewLeaderboard(this.$route.params.id).then( response => {
+//                     this.portfolios = response;
+//                 })
+        //     }
+            
+        // },
+        created(){
+             gameService.viewLeaderboard(this.$route.params.id).then( response => {
                     this.portfolios = response;
                 })
-            }
-            
-        },
+        }
 
-// created() {
-//     this.gameId = this.$router.params.id;
-//  },
 
 }
 </script>
