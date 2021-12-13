@@ -1,14 +1,15 @@
 <template>
-  
-          <tr class = "game-info" >
+
+          <!-- <tr class = "game-info" > -->
+            <tr>
             <!-- <router-link :to="" -->
             <router-link :to=" {name: 'game-details', params: {id: userGame.id} }">
-            <td class="game-data td-left">{{userGame.gameName}}</td> 
+            <td>{{userGame.gameName}}</td> 
              </router-link>
-            <td class="game-data td-right">{{userGame.startingAmount}}</td> 
-            <td class="game-data td-right">{{userGame.endDate}}</td>
+            <td>{{userGame.startingAmount}}</td> 
+            <td>{{userGame.endDate}}</td>
            
-            <td class="game-data">
+            <td>
                 <button href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</button>
                  <form id="invite-form" v-on:submit.prevent v-show="showForm == true">
                 <label for="receiver-name">Enter Player's Username</label>
@@ -20,11 +21,7 @@
             </td>
            
           </tr>
-
-          <!-- <div class = "pendingInvites">
-          <a href="#pending-invites" v-on:click.prevent="showPending = !showPending" v-show="showPending==false">View Pending Invites</a>
-
-           </div>      -->
+   
   
 </template>
 

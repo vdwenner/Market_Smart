@@ -1,5 +1,6 @@
 <template>
-<div>
+<div class="research-container">
+
   <div class="stock">
     <h1>Search For Stocks</h1>
       <form v-on:submit.prevent>
@@ -7,20 +8,32 @@
       <input type="submit" value="Search" v-on:click="showStockInfo(symbol)">
       <div class="errorMessage" v-if="errorMessage!=''">{{errorMessage}}</div>
     </form>
-    
   </div>
-  <div class = "stock-info" v-if="symbol != ''">
-    <table class="table-config">
-      <th>
-        <td class="research-data">Company Name:     {{stock.name}}</td>
-        <td class="research-data">Current Price:   ${{stock.quote.price}}</td>
-        <td class="research-data">Today Open:      ${{stock.quote.open}}</td>
-        <td class="research-data">Previous Close:  ${{stock.quote.previousClose}}</td>
-        <td class="research-data">Percent Change:   {{stock.quote.changeInPercent}}%</td>
-      </th>
+
+  <div class="stock-info-table" v-if="symbol != ''">
+    <table>
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Current Price</th>
+          <th>Today Open</th>
+          <th>Previous Close</th>
+          <th>Percent Change</th>
+        </tr>
+      </thead>
+        <tbody>
+          <tr>
+            <td>{{stock.name}}</td>
+            <td>${{stock.quote.price}}</td>
+            <td>${{stock.quote.open}}</td>
+            <td>${{stock.quote.previousClose}}</td>
+            <td>{{stock.quote.changeInPercent}}%</td>
+          </tr>
+      </tbody>
     </table>
     
   </div>
+
   </div>
 </template>
 
@@ -62,47 +75,23 @@ export default {
   text-align: center;
 }
 
-/* table.researchData {
-  background: #012B39;
-  border-radius: 0.25em;
-  border-collapse: collapse;
-  margin: 1em;
+.research-container{
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-areas: 
+    "stock stock stock"
+    "table table table"
+    ". . .";
+}
+.stock{
+  grid-area: stock;
+}
+
+.stock-info-table {
   grid-area: table;
-  height: 500px;
-  overflow-y: scroll;
-}
-
-thead {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}
-
-th {
-  border-bottom: 1px solid #364043;
-  color: #E2B842;
-  font-size: 0.85em;
-  font-weight: 600;
-  padding: 0.5em 1em;
   text-align: center;
-  width: 100px;
+  align-content: center;
+  justify-items: center;
 }
-td.research-data {
-  border-bottom: 1px solid #364043;
-  color: #E2B842;
-  font-size: 0.85em;
-  font-weight: 600;
-  padding: 0.5em 1em;
-  text-align: center;
-  width: 100px;
-}
-.disabled td {
-  color: #4F5F64;
-}
-tbody.pending-invites-data tr {
-  transition: background 0.25s ease;
-}
-tbody.pending-invites-data tr:hover {
-  background: #014055;
-} */
 </style>

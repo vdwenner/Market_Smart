@@ -8,15 +8,18 @@
             <h1>Select the Game You Would Like to Play</h1>
         </div>
         
-        <table class = "userGames" >
+        <!-- <table class = "userGames" > -->
+        <table class="game-table">
+            <thead>
             
-                <tr class="game-info">
+                <!-- <tr class="game-info"> -->
+                <tr>
                     <th>Game Name</th>
                     <th>Starting Amount</th>
                     <th>End Date</th>
                     <th>Invite to Game</th>
                 </tr>
-            
+            </thead>
             <tbody>
                 <game-overview v-for="userGame in games" :key="userGame.id" 
                     v-bind:userGame="userGame"/>
@@ -25,13 +28,17 @@
         </table>
         
         
-        <div class="pending-invites" >
+        <!-- <div class="pending-invites" > -->
             
-        <button href="#pending-invites" v-on:click="showPending = !showPending"
-                v-show="showPending==false">View Pending Invites</button>   
+        <button class="pending-invite-btn" href="#pending-invites" v-on:click="showPending = !showPending"
+            v-show="showPending==false">Show Pending Invites</button>  
+        <input class="pending-invite-btn" type="button" value="Hide" 
+        v-on:click="resetPendingForm" v-show="showPending == true">
+
             <table class="pending-invites-table">
+                 
                 <thead>
-                    <tr class= "pending-invites-header" v-show="showPending == true">
+                    <tr v-show="showPending == true">
                         <th>Game Name</th>
                         <th>Starting Amount</th>
                         <th>End Date</th>
@@ -39,20 +46,22 @@
                         <th>Decline Invite</th>
                     </tr>
                 </thead>
-                <tbody class="pending-invites-data">
+                <tbody>
+                    
                     <pending-invites v-for="pendingInvite in invites" 
+
                     :key="pendingInvite.gameId"
                     v-bind:pendingInvite="pendingInvite"
                     v-show="showPending == true"
-                    v-on:acceptInvite="acceptInvite"
-                    />
+                    v-on:acceptInvite="acceptInvite"/>
+                    
                 </tbody>
             
-            <input class="pending-button" type="button" value="Cancel" v-on:click="resetPendingForm" v-show="showPending == true">
+            
             </table>
         </div>
       
-  </div>
+  <!-- </div> -->
   
 </template>
 
@@ -167,32 +176,53 @@ export default {
 </script>
 
 <style>
-/* .view-game-container{
+ .view-game-container{
     display: grid;
     grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: 
     "nav . title title title ."
     "nav . table table table ."
+    "nav . . button . ."
     "nav . pending pending pending .";
-
-}
- .pending-invites{
-    display: flex;
-    grid-area: pending;
     
-} 
+}
 
+ .pending-invites-table{
+    /* display: flex; */
+    grid-area: pending;
+} 
 .nav{
     grid-area: nav;
 }
-
 .title {
     grid-area: title;
     text-align: center;
     margin-bottom: 20px;
     height: 100px;
 }
+table.game-table{
+    grid-area: table;
+}
+.pending-invite-btn{
+    grid-area: button;
+}
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+/*
 .game-header{
     display:flex;
     border-radius: 10px;

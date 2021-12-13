@@ -1,7 +1,7 @@
 <template>
+
 <div class="game-details-container">
-      
-      <div class="nav">
+      <div class="navbar">
           <nav-bar/>
       </div>
       
@@ -26,10 +26,6 @@
 
     <buy-stock class="buy-stock-container"/>
     <sell-stock class="sell-stock-container"/>
-
-    
-   
-
     </div>
 </template>
 
@@ -83,7 +79,7 @@ created(){
     .game-details-container {
         display: grid;
         grid-template-areas:
-        "nav . title title title ."
+        "nav . . . . ."
         "nav . details details details ."
         "nav . leaderboard leaderboard leaderboard ."
         "nav . buy . sell ."
@@ -94,12 +90,23 @@ created(){
     }
 
 
-    table.portfolioLeaderboard {
+    .portfolioLeaderboard {
     background: #012B39;
     border-radius: 0.25em;
     border-collapse: collapse;
     margin: 1em;
     grid-area: leaderboard;
+    }
+
+    .buy-stock-container {
+        grid-area: buy;
+    }
+
+    .sell-stock-container {
+        grid-area: sell;
+    }
+    .navbar{
+        grid-area: nav;
     }
 
     /* th {
@@ -131,11 +138,5 @@ created(){
     background: #014055;
     }
 
-    .buy-stock-container {
-        grid-area: buy;
-    }
-
-    .sell-stock-container {
-        grid-area: sell;
-    }
+    
 </style>

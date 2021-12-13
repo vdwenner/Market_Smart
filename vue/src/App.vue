@@ -5,40 +5,16 @@
 </template>
 
 <style>
-.view-game-container{
-    display: grid;
-    grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas: 
-    "nav . title title title ."
-    "nav . table table table ."
-    "nav . pending pending pending .";
+ 
 
-}
- .pending-invites{
-    display: flex;
-    grid-area: pending;
-    
-} 
-
-.nav{
-    grid-area: nav;
-}
-
-.title {
-    grid-area: title;
-    text-align: center;
-    margin-bottom: 20px;
-    height: 100px;
-}
-
-.game-header{
+/* .game-header{
     display:flex;
     border-radius: 10px;
 	background: rgba(4, 42, 61) 0%;
     color: #c99200;
     justify-content: space-evenly;
-} 
-
+}  */
+/*
 
 .pending-invites-table >thead{
     background: rgba(4, 42, 61) 0%;
@@ -118,5 +94,61 @@ tbody.pending-invites-data tr:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
+} */
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
+
+body {
+  background: #ccd9dd;
+  font-family: 'Open Sans', sans-serif;
+}
+table{
+  background: #012B39;
+  border-radius: 0.25em;
+  border-collapse: collapse;
+  margin: 1em;
+  max-height: 500px;
+}
+th {
+  border-bottom: 1px solid #364043;
+  color: #E2B842;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  text-align: left;
+
+  
+  border-radius: 10px;
+  justify-content: space-evenly;
+}
+td {
+  color: #fff;
+  font-weight: 400;
+  padding: 0.65em 1em;
+  align-content: center;
+}
+.disabled td {
+  color: #4F5F64;
+}
+tbody tr {
+  transition: background 0.25s ease;
+  align-content: center;
+}
+tbody tr:hover {
+  background: #014055;
+}
+tr{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+
+
 </style>

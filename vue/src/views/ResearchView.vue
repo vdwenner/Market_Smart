@@ -1,5 +1,5 @@
 <template>
-  <div class="container1">
+  <div class="research-view-container">
     <div class="nav">
         <nav-bar/>
     </div>
@@ -18,20 +18,23 @@ export default {
 </script>
 
 <style>
-.container1{
+.research-view-container{
     display: grid;
     grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 2fr 1fr;
     grid-template-areas: 
     "nav . research research research ."
-    "nav . . . . ."
+    "nav . research research research ."
     "nav . . . . .";
 }
 .research {
   grid-area: research;
+  justify-content: center;
 }
 .nav {
-  grid-row: nav;
+  grid-area: nav;
 }
+
+
 
 </style>

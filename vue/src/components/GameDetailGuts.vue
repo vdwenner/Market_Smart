@@ -1,8 +1,8 @@
 <template>
-<div class="game-details-small">
-    <h1>Game Name: {{game.gameName}}</h1>
-    <h1>Starting Amount: {{game.startingAmount}}</h1>
-    <h1>End Date: {{game.endDate}}</h1>
+<div>
+    <th>Game Name: {{game.gameName}}</th>
+    <th>Starting Amount: {{game.startingAmount}}</th>
+    <th>End Date: {{game.endDate}}</th>
 </div>
 
 

@@ -1,19 +1,18 @@
 <template>
-  <div class = "pendingInvites">
-    <div id="pending-invites" >
+  <tr class = "pendingInvites">
+    <!-- <div id="pending-invites" > -->
 
-        <tr class = "game-info" >
-            <td class="game-data td-left">{{invite.gameName}}</td>
-            <td class="game-data td-right">{{invite.startingAmount}}</td> 
-            <td class="game-data td-right">{{invite.endDate}}</td> 
+        <!-- <tr class = "game-info" > -->
+        
+            <td>{{invite.gameName}}</td>
+            <td>{{invite.startingAmount}}</td> 
+            <td>{{invite.endDate}}</td> 
             <td><button v-on:click="acceptInvite(invite)">Accept</button></td>
             <td><button v-on:click="rejectInvite(invite)">Decline</button></td>
             
-        </tr>
-
-    </div>  
+    </tr>  
           
-  </div>     
+  <!-- </div>      -->
 </template>
 
 <script>
