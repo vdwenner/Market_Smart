@@ -46,6 +46,8 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
 
+  UNIQUE(username),
+
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
@@ -55,10 +57,13 @@ CREATE TABLE games (
   creator_id int NOT NULL,
   starting_amount int NOT NULL,
   end_date date NOT NULL,
+
+  UNIQUE(game_name),
   
   CONSTRAINT PK_games PRIMARY KEY (game_id),
   CONSTRAINT FK_games_creator_id FOREIGN KEY (creator_id) REFERENCES users(user_id),
-  CONSTRAINT CK_games_starting_amount_gt_0 CHECK ((starting_amount > 0)) 
+  CONSTRAINT CK_games_starting_amount_gt_0 CHECK ((starting_amount > 0)),
+  CONSTRAINT CK_games_end_date_gt_today CHECK ((end_date > CURRENT_DATE)) 
 );
 
 CREATE TABLE game_users(
@@ -99,8 +104,7 @@ CREATE TABLE portfolio_stock (
   
   CONSTRAINT FK_portfolio_stock_portfolio_id FOREIGN KEY (portfolio_id) REFERENCES portfolio (portfolio_id),
   CONSTRAINT FK_portfolio_stock_stock_symbol FOREIGN KEY (stock_symbol) REFERENCES stock (stock_symbol),
-  CONSTRAINT CK_portfolio_stock_quantity_gt_0 CHECK ((quantity > 0)),
-  CONSTRAINT CK_portfolio_stock_average_price_gt_0 CHECK ((average_price > 0))
+  CONSTRAINT CK_portfolio_stock_quantity_gt_0 CHECK ((quantity > 0))
   
 );
 

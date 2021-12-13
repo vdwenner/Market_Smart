@@ -72,6 +72,7 @@ public class GameController {
     public void sellStock (@RequestBody Transaction transaction, @PathVariable("gameId") Long gameId, @PathVariable("symbol") String symbol,  Principal  principal ){
         gameDao.sellStock(symbol,transaction.getPrice(),transaction.getQuantity(),transaction.getPortfolioId(),principal);
         gameDao.addToBalance(transaction, principal);
+        gameDao.subtractFromPortfolioStock(transaction, principal);
     }
 
     @RequestMapping(path="/portfolio/{portfolioId}", method = RequestMethod.GET)

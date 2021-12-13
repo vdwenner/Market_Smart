@@ -207,6 +207,7 @@ table.userGames {
   grid-area: table;
   height: 500px;
   overflow-y: scroll;
+  box-shadow: 10px 10px 10px #999;
 }
 
 thead {

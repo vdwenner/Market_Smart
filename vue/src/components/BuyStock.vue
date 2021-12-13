@@ -46,7 +46,6 @@ export default {
                 this.stock = response;
                 this.errorMessage = '';
                 this.transaction.transactionType = 1;
-                
                 this.transaction.price = response.quote.price;
                 this.transaction.stockSymbol = response.symbol;
                 gameService.buyStock(this.transaction, this.$route.params.id, this.symbol).then( response => {
@@ -68,6 +67,7 @@ export default {
 
          resetForm() {
             this.symbol = '';
+            this.transaction.quantity = '';
             this.stock = {};
             this.showform = false;
         }

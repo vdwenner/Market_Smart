@@ -237,7 +237,7 @@ public class JdbcGameDao implements GameDao{
         int currentPrice = portfolioStock.getAveragePrice().intValue();
         int newQuantity =0;
         int newPrice = 0;
-        if(currentQuantity>0){
+        if(currentQuantity > 0){
             int totalCost = (currentPrice * currentQuantity) + (transaction.getQuantity().intValue() * transaction.getPrice().intValue());
             newQuantity = (currentQuantity + transaction.getQuantity().intValue());
             Long longQuantity =  Long.valueOf(newQuantity);
@@ -247,12 +247,46 @@ public class JdbcGameDao implements GameDao{
                     "set quantity = ?, average_price = ? " +
                     "where portfolio_id = ? and stock_symbol = ?;";
             jdbcTemplate.update(sqlUpdate,longQuantity,newPrice,transaction.getPortfolioId(),transaction.getStockSymbol());
-        }else {
-//            newQuantity = transaction.getQuantity().intValue();
-//            newPrice = transaction.getPrice().intValue();
+        } else {
+
             String sql = "Insert into portfolio_stock (portfolio_id,stock_symbol,quantity,average_price) " +
                     "Values(?,?,?,?); ";
             jdbcTemplate.update(sql, transaction.getPortfolioId(), transaction.getStockSymbol(), transaction.getQuantity(), transaction.getPrice());
+        }
+    }
+
+    public void subtractFromPortfolioStock(Transaction transaction, Principal principal){
+        PortfolioStock portfolioStock = new PortfolioStock();
+        portfolioStock.setAveragePrice(BigDecimal.valueOf(0));
+        portfolioStock.setQuantity(0L);
+        String currentPS = "Select portfolio_id, stock_symbol,quantity, average_price " +
+                "From portfolio_stock " +
+                "where (portfolio_id = ?) and (stock_symbol = ?);";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(currentPS,transaction.getPortfolioId(),transaction.getStockSymbol() );
+
+        if(results.next()){
+            portfolioStock = mapRowToPortfolioStock(results);
+        }
+
+        int currentQuantity = portfolioStock.getQuantity().intValue();
+        int currentPrice = portfolioStock.getAveragePrice().intValue();
+        int newQuantity = 0;
+        int newPrice = 0;
+        if(currentQuantity > 0 && (currentQuantity - transaction.getQuantity().intValue() >= 0)){
+            int totalCost = (currentPrice * currentQuantity) - (transaction.getQuantity().intValue() * transaction.getPrice().intValue());
+            newQuantity = (currentQuantity - transaction.getQuantity().intValue());
+            Long longQuantity =  Long.valueOf(newQuantity);
+            if(newQuantity != 0) {
+                newPrice = (totalCost / newQuantity);
+            } else {
+                newPrice = 0;
+            }
+
+
+            String sqlUpdate = "Update portfolio_stock " +
+                    "set quantity = ?, average_price = ? " +
+                    "where portfolio_id = ? and stock_symbol = ?;";
+            jdbcTemplate.update(sqlUpdate,longQuantity,newPrice,transaction.getPortfolioId(),transaction.getStockSymbol());
         }
     }
 

@@ -45,4 +45,6 @@ public interface GameDao {
 
     void addToPortfolioStock(Transaction transaction, Principal principal);
 
+    void subtractFromPortfolioStock(Transaction transaction, Principal principal);
+
 }
