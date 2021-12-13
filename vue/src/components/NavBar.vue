@@ -35,7 +35,7 @@ export default {
     max-width: 300px;
     border-right: 1px solid #D7DBDD;
     font-family: 'Inter', sans-serif;
-    background: #34495e;
+    background: rgba(4, 42, 61) 0%;
     position: absolute;
     z-index: 3;
 }

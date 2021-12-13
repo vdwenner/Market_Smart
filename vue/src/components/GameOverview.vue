@@ -88,6 +88,9 @@ export default {
 </script>
 
 <style>
+#invite-form{
+    width: 100%;
+}
 
 .pendingInvites{
     display: flex;

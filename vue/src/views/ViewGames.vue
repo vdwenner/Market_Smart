@@ -29,13 +29,14 @@
             
         <button href="#pending-invites" v-on:click="showPending = !showPending"
                 v-show="showPending==false">View Pending Invites</button>   
-            <div id="pending-invites">
+            <table class="pending-invites-table">
                 <thead>
-                    <tr v-show="showPending == true">
+                    <tr class= "pending-invites-header" v-show="showPending == true">
                         <th>Game Name</th>
                         <th>Starting Amount</th>
                         <th>End Date</th>
-                        <th>Invite to Game</th>
+                        <th>Accept Invite</th>
+                        <th>Decline Invite</th>
                     </tr>
                 </thead>
                 <tbody class="pending-invites-data">
@@ -47,8 +48,8 @@
                     />
                 </tbody>
             
-            <input type="button" value="Cancel" v-on:click="resetPendingForm" v-show="showPending == true">
-            </div>
+            <input class="pending-button" type="button" value="Cancel" v-on:click="resetPendingForm" v-show="showPending == true">
+            </table>
         </div>
       
   </div>
@@ -164,6 +165,7 @@ export default {
  .pending-invites{
     display: flex;
     grid-area: pending;
+    
 } 
 
 .nav{
@@ -176,6 +178,7 @@ export default {
     margin-bottom: 20px;
     height: 100px;
 }
+
 .game-header{
     display:flex;
     border-radius: 10px;
@@ -188,15 +191,27 @@ export default {
     display:flex;
     justify-content: space-around;
 } */
-
-
+.pending-invites-table >thead{
+    background: rgba(4, 42, 61) 0%;
+    color: #c99200;
+}
+.pending-invites-table {
+    width: 100%;
+}
 tr.game-info:hover {
     background: rgba(4, 42, 61) 0%;
     color: #c99200;
 }
+ /* .pending-invites-table {
+   box-shadow: 10px 10px 10px #999;
+}  */
 
 #invite-form:hover {
     text-decoration: #c99200;
+}
+div.pending-invites{
+    width: 100%;
+    justify-content: center;
 }
 
 table.userGames {
@@ -213,9 +228,11 @@ table.userGames {
 thead {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 80%;
 }
-
+/* button{
+    width: 100%
+} */
 th {
   border-bottom: 1px solid #364043;
   color: #E2B842;
@@ -226,6 +243,7 @@ th {
   width: 100px;
 }
 td {
+  background: #012B39;
   color: #fff;
   font-weight: 400;
   padding: 0.65em 1em;
@@ -238,7 +256,7 @@ tbody.pending-invites-data tr {
   transition: background 0.25s ease;
 }
 tbody.pending-invites-data tr:hover {
-  background: #014055;
+  background: #fff;
 }
 
 ::-webkit-scrollbar {
