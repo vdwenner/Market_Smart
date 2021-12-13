@@ -34,7 +34,7 @@
             <input type="number"
                 min="1" id="quantity" name="quantity" placeholder="Enter Quantity"
                 v-model="transaction.quantity">
-            <input type="submit" name="submit">
+            <input type="submit" name="submit" v-on:click="buyStock"> 
         </form>
     </div>
     <div class="sell-stock-container">
@@ -60,12 +60,14 @@ import NavBar from '../components/NavBar';
 import Leaderboard from '../components/Leaderboard';
 import gameService from '../services/GameService';
 import yahooAPIService from '../services/YahooAPIService';
+// import authService from '../services/AuthService';
 export default {
 components: { NavBar, GameDetailGuts, Leaderboard },
 data() {
     return {
         portfolios: [],
         gameId: '',
+        portfolioId:'',
         stock: {},
             symbol: '',
             transaction: {
@@ -91,18 +93,25 @@ data() {
 },
 methods: {
     mapUserToPortfolio() {
+        // this.portfolios.filter(portfolio=>{
+        //     portfolio.id == this.$store.state.user.userId
+        // })
+
+
         this.portfolios.forEach( (portfolio) => {
-            if(portfolio.portfolioId == this.$store.state.user.userId) {
-                return portfolio.portfolioId;
+            if(portfolio.userId == this.$store.state.user.userId) {
+                this.portfolioId = portfolio.id;
+            
             }
         })
     },
         buyStock() {
+            this.mapUserToPortfolio();
             yahooAPIService.getStockBySymbol(this.symbol).then( response => {
                 this.stock = response;
                 this.errorMessage = '';
                 this.transaction.transactionType = 1;
-                this.transaction.portfolioId = this.mapUserToPortfolio();
+                this.transaction.portfolioId = this.portfolioId;
                 this.transaction.price = response.quote.price;
                 this.transaction.stockSymbol = response.symbol;
                 gameService.buyStock(this.transaction, this.$route.params.id, this.symbol).then( response => {
@@ -143,7 +152,16 @@ methods: {
 created(){
         gameService.viewLeaderboard(this.$route.params.id).then( response => {
             this.portfolios = response;
+
+            response.forEach( portfolio => {
+            if(portfolio.userId == this.$store.state.user.userId) {
+                this.portfolioId = portfolio.id;
+            
+            }
         })
+        })
+
+        
 }
 
 
