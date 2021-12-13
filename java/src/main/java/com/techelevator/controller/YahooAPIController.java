@@ -25,19 +25,19 @@ public class YahooAPIController {
     //GET ALL STOCK INFORMATION BY SYMBOL
     @RequestMapping(path = "/stock/{symbol}", method = RequestMethod.GET)
     public Stock getStock(@PathVariable String symbol) throws IOException {
-        return yahooAPIDao.findStock(symbol).getStock();
+        return yahooAPIDao.findStock(symbol.toUpperCase()).getStock();
     }
 
     //GET STOCK NAME BY SYMBOL
     @RequestMapping(path = "/stock/name/{symbol}", method = RequestMethod.GET)
     public String getStockName(@PathVariable String symbol) throws IOException {
-        return yahooAPIDao.findStock(symbol).getStock().getName();
+        return yahooAPIDao.findStock(symbol.toUpperCase()).getStock().getName();
     }
 
     //GET STOCK STATS BY SYMBOL
     @RequestMapping(path = "/stock/stats/{symbol}", method = RequestMethod.GET)
     public StockStats getStockStats(@PathVariable String symbol) throws IOException {
-        return yahooAPIDao.findStock(symbol).getStock().getStats();
+        return yahooAPIDao.findStock(symbol.toUpperCase()).getStock().getStats();
     }
 
     //GET TOP 20 TRENDING STOCK SYMBOLS

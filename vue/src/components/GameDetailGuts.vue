@@ -1,8 +1,8 @@
 <template>
-<div>
-    <th>Game Name: {{game.gameName}}</th>
-    <th>Starting Amount: {{game.startingAmount}}</th>
-    <th>End Date: {{game.endDate}}</th>
+<div class="comp-game-details">
+    <h3>Game Name: {{game.gameName}}</h3>
+    <h3>Starting Amount: ${{game.startingAmount}}</h3>
+    <h3>End Date: {{game.endDate}}</h3>
 </div>
 
 
@@ -39,5 +39,9 @@ export default {
 </script>
 
 <style>
-
+    div.comp-game-details {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
 </style>

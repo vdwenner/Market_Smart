@@ -67,30 +67,64 @@ export default {
         display: inline-block;
         width: 100vw;
         margin-top: 250px;
+        border-radius: 20px;
     }
 
     label {
       display: inline-block;
       padding: 12px 12px 12px 0;
+      color: #012B39;
     }
 
     input[type=text] {
+      font-family: 'Inter';
       width: 100%;
-      
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
     }
 
     select {
-      width: 150px;
+      margin: 8px 0;
+      width: 100%;
+      font-family: 'Inter';
     }
 
     input[type=number] {
+      font-family: 'Inter';
       width: 100%;
-      padding-left: 100px;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
     }
 
-    button {
+    input[type=date] {
+      font-family: 'Inter';
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button.btn {
       margin-top: 20px;
       font-family: 'Inter', sans-serif;
+      background: #012B39;
+      color:  #ccd9dd;
+    }
+
+    button.btn:hover {
+      color: #012B39;
+      background: #ccd9dd;
     }
 
 </style>

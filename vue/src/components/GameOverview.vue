@@ -12,12 +12,11 @@
             <td>
                 <button href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</button>
                  <form id="invite-form" v-on:submit.prevent v-show="showForm == true">
-                <label for="receiver-name">Enter Player's Username</label>
-                <input id="receiver-name" type="text" v-model="receiver.receiverName" />
-                 <input type="submit" value="Save" v-on:click="inviteToGame(userGame.id)">
-                 <input type="button" value="Cancel" v-on:click="resetForm">
-
-          </form>        
+                    <label id="player-info" for="receiver-name">Enter Player's Username</label>
+                    <input id="receiver-name" type="text" v-model="receiver.receiverName" />
+                    <input type="submit" value="Save" v-on:click="inviteToGame(userGame.id)">
+                    <input type="button" value="Cancel" v-on:click="resetForm">
+                </form>        
             </td>
            
           </tr>
@@ -85,11 +84,15 @@ export default {
 </script>
 
 <style>
-/* #invite-form{
+#invite-form{
     width: 100%;
 }
 
-.pendingInvites{
+#player-info {
+    color: white;
+}
+
+/* .pendingInvites{
     display: flex;
     justify-content: center;
 }

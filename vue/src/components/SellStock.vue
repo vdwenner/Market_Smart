@@ -1,6 +1,6 @@
 <template>
    <div class="sell-stock-container">
-        <button class="sell-btn" v-on:click="showSell = !showSell">Sell Stock</button>
+        <button class="sell-btn" v-on:click="showSell = !showSell" v-show="showSell == false">Sell Stock</button>
 
         <form v-show="showSell == true" v-on:submit.prevent>
             <label for="symbol">Stock Symbol: </label>
@@ -9,7 +9,8 @@
             <input type="number"
                 min="1" id="quantity" name="quantity" placeholder="Enter Quantity"
                 v-model="transaction.quantity">
-            <input type="submit" name="submit" v-on:click="sellStock">
+            <input type="submit" name="submit" id="submit-sell" v-on:click="sellStock">
+            <input type="button" value="Cancel" v-on:click="showSell = !showSell">
         </form>
     </div>
 </template>
@@ -49,7 +50,7 @@ export default {
                 this.transaction.transactionType = 2;
                 this.transaction.price = response.quote.price;
                 this.transaction.stockSymbol = response.symbol;
-                gameService.sellStock(this.transaction, this.$route.params.id, this.symbol).then( response => {
+                gameService.sellStock(this.transaction, this.$route.params.id, this.symbol.toUpperCase()).then( response => {
                     if(response.status == 200) {
                         this.resetForm();
                         this.errorMessage = '';
@@ -76,5 +77,16 @@ export default {
 </script>
 
 <style>
+    button.sell-btn {
+        max-height: 19px;
+    }
 
+    #symbol, #quantity {
+        width: 150px;
+        padding: 0px;
+    }
+
+    #submit-sell {
+        margin-bottom: 10px;
+    }
 </style>

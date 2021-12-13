@@ -1,6 +1,6 @@
 <template>
     <div class="buy-stock-container">
-        <button class="buy-btn" v-on:click="showBuy = !showBuy">Buy Stock</button>
+        <button class="buy-btn" v-on:click="showBuy = !showBuy" v-show="showBuy == false">Buy Stock</button>
 
         <form v-show="showBuy == true" v-on:submit.prevent>
             <label for="symbol">Stock Symbol: </label>
@@ -9,7 +9,8 @@
             <input type="number"
                 min="1" id="quantity" name="quantity" placeholder="Enter Quantity"
                 v-model="transaction.quantity">
-            <input type="submit" name="submit" v-on:click="buyStock"> 
+            <input type="submit" name="submit" id="submit-buy" v-on:click="buyStock">
+            <input type="button" value="Cancel" v-on:click="showBuy = !showBuy">
         </form>
     </div>
 </template>
@@ -42,13 +43,13 @@ export default {
     methods: {
         buyStock() {
             this.getPortfolio();
-            yahooAPIService.getStockBySymbol(this.symbol).then( response => {
+            yahooAPIService.getStockBySymbol(this.symbol.toUpperCase()).then( response => {
                 this.stock = response;
                 this.errorMessage = '';
                 this.transaction.transactionType = 1;
                 this.transaction.price = response.quote.price;
                 this.transaction.stockSymbol = response.symbol;
-                gameService.buyStock(this.transaction, this.$route.params.id, this.symbol).then( response => {
+                gameService.buyStock(this.transaction, this.$route.params.id, this.symbol.toUpperCase()).then( response => {
                     if(response.status == 200) {
                         this.resetForm();
                         this.errorMessage = '';
@@ -83,8 +84,16 @@ export default {
 </script>
 
 <style>
+    button.buy-btn {
+        max-height: 19px
+    }
+
     #symbol, #quantity {
         width: 150px;
         padding: 0px;
+    }
+
+    #submit-buy {
+        margin-bottom: 5px;
     }
 </style>

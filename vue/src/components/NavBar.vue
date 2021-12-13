@@ -49,7 +49,7 @@ export default {
 }
 
 .user {
-  color: #c99200;
+  color: #E2B842;
   font-size: 25px;
   text-align: center;
   margin-bottom: 50px;

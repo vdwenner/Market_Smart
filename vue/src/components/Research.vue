@@ -77,12 +77,12 @@ export default {
 
 .research-container{
     display: grid;
-    grid-template-columns:1fr 1fr 1fr;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 2fr 1fr;
     grid-template-areas: 
-    "stock stock stock"
-    "table table table"
-    ". . .";
+    ". stock stock stock ."
+    ". table table table ."
+    ". . . . .";
 }
 .stock{
   grid-area: stock;
@@ -90,7 +90,6 @@ export default {
 
 .stock-info-table {
   grid-area: table;
-  text-align: center;
   align-content: center;
   justify-items: center;
 }
