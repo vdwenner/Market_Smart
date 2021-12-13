@@ -19,6 +19,12 @@ export default {
     return axios.get(`/user/username/${id}`).then( response => {
       return response.data;
     })
+  },
+
+  getPortfolioByUserIdAndGameId(userId, gameId) {
+      return axios.get(`/user/games/${userId}/${gameId}/portfolio`).then(response => {
+        return response.data;
+      })
   }
 
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.techelevator.model.Gamer;
+import com.techelevator.model.Portfolio;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -97,6 +98,19 @@ public class JdbcUserDao implements UserDao {
         return userCreated;
     }
 
+    @Override
+    public Portfolio getPortfolioByUserIdAndGameId(Long userId, Long gameId) {
+        Portfolio portfolio = null;
+        String sql = "SELECT portfolio_id, user_id, game_id, cash_balance, portfolio_value " +
+                     "FROM portfolio WHERE user_id = ? AND game_id = ?;";
+
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId, gameId);
+        while(results.next()) {
+            portfolio = mapRowToPortfolio(results);
+        }
+        return portfolio;
+    }
+
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();
         user.setId(rs.getLong("user_id"));
@@ -112,5 +126,15 @@ public class JdbcUserDao implements UserDao {
         gamer.setUserId(rs.getLong("user_id"));
         gamer.setUsername(rs.getString("username"));
         return gamer;
+    }
+
+    private Portfolio mapRowToPortfolio(SqlRowSet rowSet) {
+        Portfolio portfolio = new Portfolio();
+        portfolio.setId(rowSet.getLong("portfolio_id"));
+        portfolio.setUserId(rowSet.getLong("user_id"));
+        portfolio.setGameId(rowSet.getLong("game_id"));
+        portfolio.setCashBalance(rowSet.getBigDecimal("cash_balance"));
+        portfolio.setPortfolioValue(rowSet.getBigDecimal("portfolio_value"));
+        return portfolio;
     }
 }
