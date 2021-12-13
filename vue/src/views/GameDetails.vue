@@ -65,29 +65,11 @@ data() {
         
     } 
 },
-methods: {
-    // mapUserToPortfolio() {
-    //     this.portfolios.forEach( (portfolio) => {
-    //         if(portfolio.userId == this.$store.state.user.userId) {
-    //             this.portfolioId = portfolio.id;
-    //         }
-    //     })
-    // },
-        
-
-        
-    },
+methods: {},
 
 created(){
         gameService.viewLeaderboard(this.$route.params.id).then( response => {
             this.portfolios = response;
-
-        //     response.forEach( portfolio => {
-        //     if(portfolio.userId == this.$store.state.user.userId) {
-        //         this.portfolioId = portfolio.id;
-            
-        //     }
-        // })
         })
 
         
@@ -120,7 +102,7 @@ created(){
     grid-area: leaderboard;
     }
 
-    th {
+    /* th {
     border-bottom: 1px solid #364043;
     color: #E2B842;
     font-size: 0.85em;
@@ -135,7 +117,7 @@ created(){
     font-weight: 400;
     padding: 0.65em 1em;
     width: 100px;
-    }
+    } */
 
     .disabled td {
     color: #4F5F64;

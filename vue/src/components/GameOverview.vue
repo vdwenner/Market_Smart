@@ -88,7 +88,7 @@ export default {
 </script>
 
 <style>
-#invite-form{
+/* #invite-form{
     width: 100%;
 }
 
@@ -117,8 +117,6 @@ export default {
 
 
 .game-data{
-    /* display: flex;
-    justify-content:flex-start; */
     border-bottom: 2px solid rgba(4, 42, 61) 0%;
 }
 .td-left{
@@ -139,5 +137,5 @@ tr.game-info:hover {
 
 #invite-form:hover {
     text-decoration: #c99200;
-}
+} */
 </style>

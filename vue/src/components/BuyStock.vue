@@ -73,10 +73,7 @@ export default {
         }
     },
     created() {
-        // authService.getPortfolioByUserIdAndGameId(this.$store.state.user.id, this.$route.params.id).then( response => {
-        //     this.transaction.userId = this.$store.state.user.id;
-        //     this.transaction.portfolioId = response.id;
-        // })
+        
     }
 
     

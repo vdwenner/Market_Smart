@@ -3,11 +3,11 @@
     <div id="pending-invites" >
 
         <tr class = "game-info" >
-            <td class="game-data td-left">{{pendingInvite.gameName}}</td>
-            <td class="game-data td-right">{{pendingInvite.startingAmount}}</td> 
-            <td class="game-data td-right">{{pendingInvite.endDate}}</td> 
-            <td><button v-on:click="acceptInvite(pendingInvite)">Accept</button></td>
-            <td><button v-on:click="rejectInvite(pendingInvite)">Decline</button></td>
+            <td class="game-data td-left">{{invite.gameName}}</td>
+            <td class="game-data td-right">{{invite.startingAmount}}</td> 
+            <td class="game-data td-right">{{invite.endDate}}</td> 
+            <td><button v-on:click="acceptInvite(invite)">Accept</button></td>
+            <td><button v-on:click="rejectInvite(invite)">Decline</button></td>
             
         </tr>
 
@@ -19,14 +19,19 @@
 <script>
 
 import gameService from "../services/GameService";
-// import authService from '../services/AuthService';
 
 export default {
     name: 'pending-invite',
     props: ['pendingInvite'],
+
+    created() {
+        this.invite = this.pendingInvite;
+    },
+    
     data() {
         return {
-          componentKey: 0
+          componentKey: 0,
+          invite: {}
         }
     },
     
@@ -47,23 +52,27 @@ export default {
     methods: {
         acceptInvite(invite){
             gameService.approvePendingInvite(invite).then( response =>{
-                invite.gameInviteTypeId = 1;
-                this.$emit('acceptInvite');
+                // invite.gameInviteTypeId = 1;
+                // this.$emit('acceptInvite');
+        
+                this.$store.commit("SET_USER_GAMES");
+                this.$store.commit("SET_PENDING_INVITES");
                 return response;
             }) 
         },
         
         rejectInvite(invite){
             gameService.rejectPendingInvite(invite).then( response =>{
-                if(response.status == 200){
-                    this.$router.push('/');
-                }
+                    this.$store.commit("SET_USER_GAMES");
+                    this.$store.commit("SET_PENDING_INVITES");
+                    return response;
+                
             })
         },
 
-        forceRerender() {
-            this.componentKey += 1;  
-        },
+        // forceRerender() {
+        //     this.componentKey += 1;  
+        // },
         
         resetForm() {
             this.game = {

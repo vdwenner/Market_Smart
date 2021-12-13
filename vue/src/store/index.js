@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import gameService from '../services/GameService'
 
 Vue.use(Vuex)
 
@@ -19,7 +20,11 @@ if(currentToken != null) {
 export default new Vuex.Store({
   state: {
     token: currentToken || '',
-    user: currentUser || {}
+    user: currentUser || {},
+
+    pendingInvites: [],
+    games: []
+
   },
   methods: {
     getToday() {
@@ -44,6 +49,23 @@ export default new Vuex.Store({
       state.token = '';
       state.user = {};
       axios.defaults.headers.common = {};
+      state.games = [];
+      state.pendingInvites = [];
+    },
+    SET_PENDING_INVITES(state) {
+      gameService.viewPendingGameInvites().then(response =>{
+        // this.pendingGameInvites = response;
+        state.pendingInvites = [];
+        response.forEach((game) =>{
+        gameService.getGameByGameId(game.gameId).then((response)=>{
+            state.pendingInvites.push(response);
+        })
+        })
+    })
+    },
+    SET_USER_GAMES(state) {
+      gameService.viewGames().then(response=>{
+        state.games=response;})
     }
   }
 })

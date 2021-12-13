@@ -10,7 +10,7 @@
     
   </div>
   <div class = "stock-info" v-if="symbol != ''">
-    <table>
+    <table class="table-config">
       <th>
         <td class="research-data">Company Name:     {{stock.name}}</td>
         <td class="research-data">Current Price:   ${{stock.quote.price}}</td>
@@ -19,12 +19,7 @@
         <td class="research-data">Percent Change:   {{stock.quote.changeInPercent}}%</td>
       </th>
     </table>
-    <!-- <h2>{{stock.name}}</h2>
-    <h3>{{stock.currency}}</h3>
-    <h3>{{stock.quote.price}}</h3>
-    <h3>{{stock.quote.open}}</h3>
-    <h3>{{stock.quote.previousClose}}</h3>
-    <h3>{{stock.quote.changeInPercent}}</h3> -->
+    
   </div>
   </div>
 </template>
@@ -67,7 +62,7 @@ export default {
   text-align: center;
 }
 
-table.researchData {
+/* table.researchData {
   background: #012B39;
   border-radius: 0.25em;
   border-collapse: collapse;
@@ -109,5 +104,5 @@ tbody.pending-invites-data tr {
 }
 tbody.pending-invites-data tr:hover {
   background: #014055;
-}
+} */
 </style>

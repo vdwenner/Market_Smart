@@ -68,7 +68,7 @@ export default {
     data() {
         
         return{
-            games: [],
+            // games: [],
             game: {
                 gameId: '',
                 gameName: '',
@@ -78,7 +78,7 @@ export default {
             receiver: {
                 receiverName: ''
             },
-            invites: [],            
+            // invites: [],            
             inviteType: {
                 senderId: '',
                 receiverId: '',
@@ -91,6 +91,16 @@ export default {
             rerender: true,
             pendingGameInvites: []
         }},
+
+
+        computed: {
+            invites() {
+                return this.$store.state.pendingInvites;
+            },
+            games() {
+                return this.$store.state.games;
+            }
+        },
         
         
          methods: {
@@ -134,26 +144,30 @@ export default {
         }
     },
     created() {
-        gameService.viewGames().then(response=>{
-            this.games=response;})
 
-        gameService.viewPendingGameInvites().then(response =>{
-            this.pendingGameInvites = response;
-            response.forEach((game) =>{
-            gameService.getGameByGameId(game.gameId).then((response)=>{
-                this.invites.push(response);
-            })
-            })
-        })
+        this.$store.commit("SET_USER_GAMES");
+        // gameService.viewGames().then(response=>{
+        //     this.games=response;})
+
+        // gameService.viewPendingGameInvites().then(response =>{
+        //     this.pendingGameInvites = response;
+        //     response.forEach((game) =>{
+        //     gameService.getGameByGameId(game.gameId).then((response)=>{
+        //         this.invites.push(response);
+        //     })
+        //     })
+        // })
        
-       
+       //CALL STORE HERE
+       this.$store.commit("SET_PENDING_INVITES");
+
     }
     
 }
 </script>
 
 <style>
-.view-game-container{
+/* .view-game-container{
     display: grid;
     grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: 
@@ -187,10 +201,7 @@ export default {
     justify-content: space-evenly;
 } 
 
-/* .game-info{
-    display:flex;
-    justify-content: space-around;
-} */
+
 .pending-invites-table >thead{
     background: rgba(4, 42, 61) 0%;
     color: #c99200;
@@ -202,9 +213,6 @@ tr.game-info:hover {
     background: rgba(4, 42, 61) 0%;
     color: #c99200;
 }
- /* .pending-invites-table {
-   box-shadow: 10px 10px 10px #999;
-}  */
 
 #invite-form:hover {
     text-decoration: #c99200;
@@ -230,9 +238,7 @@ thead {
     justify-content: space-between;
     width: 80%;
 }
-/* button{
-    width: 100%
-} */
+
 th {
   border-bottom: 1px solid #364043;
   color: #E2B842;
@@ -273,5 +279,5 @@ tbody.pending-invites-data tr:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
-}
+} */
 </style>
