@@ -290,6 +290,19 @@ public class JdbcGameDao implements GameDao{
         }
     }
 
+    @Override
+    public List<PortfolioStock> getPortfolioStocksByPortfolioId(Long portfolioId){
+        List<PortfolioStock> stocks = new ArrayList<>();
+        String sql = "Select portfolio_id, stock_symbol, quantity, average_price " +
+                "From portfolio_stock Where portfolio_id =?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, portfolioId);
+        while(results.next()) {
+            PortfolioStock ps = mapRowToPortfolioStock(results);
+            stocks.add(ps);
+        }
+        return stocks;
+    }
+
 
     private Transaction mapRowToTransaction(SqlRowSet rowSet){
         Transaction transaction = new Transaction();

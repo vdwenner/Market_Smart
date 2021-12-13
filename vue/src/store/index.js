@@ -66,6 +66,7 @@ export default new Vuex.Store({
     SET_USER_GAMES(state) {
       gameService.viewGames().then(response=>{
         state.games=response;})
-    }
+    },
+   
   }
 })

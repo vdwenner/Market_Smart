@@ -80,4 +80,9 @@ public class GameController {
         return gameDao.getPortfolioByPortfolioId(portfolioId);
     }
 
+    @RequestMapping(path="/portfoliostock/{portfolioId}", method= RequestMethod.GET)
+     public List<PortfolioStock> getPortfolioStocksByPortfolioId(@PathVariable Long portfolioId){
+        return gameDao.getPortfolioStocksByPortfolioId(portfolioId);
+    }
+
 }

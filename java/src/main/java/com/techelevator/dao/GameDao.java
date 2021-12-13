@@ -1,9 +1,6 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Game;
-import com.techelevator.model.InviteType;
-import com.techelevator.model.Portfolio;
-import com.techelevator.model.Transaction;
+import com.techelevator.model.*;
 
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -46,5 +43,7 @@ public interface GameDao {
     void addToPortfolioStock(Transaction transaction, Principal principal);
 
     void subtractFromPortfolioStock(Transaction transaction, Principal principal);
+
+    List<PortfolioStock> getPortfolioStocksByPortfolioId(Long portfolioId);
 
 }
