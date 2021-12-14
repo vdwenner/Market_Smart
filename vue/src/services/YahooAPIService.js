@@ -5,5 +5,7 @@ export default {
         return axios.get(`/stock/${symbol}`).then((response) => {
             return response.data;
         })
-    }
+    },
+
+    
 }

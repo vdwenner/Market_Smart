@@ -234,11 +234,11 @@ public class JdbcGameDao implements GameDao{
         }
 
         int currentQuantity = portfolioStock.getQuantity().intValue();
-        int currentPrice = portfolioStock.getAveragePrice().intValue();
+        double currentPrice = portfolioStock.getAveragePrice().doubleValue();
         int newQuantity =0;
-        int newPrice = 0;
+        double newPrice = 0;
         if(currentQuantity > 0){
-            int totalCost = (currentPrice * currentQuantity) + (transaction.getQuantity().intValue() * transaction.getPrice().intValue());
+            double totalCost = (currentPrice * currentQuantity) + (transaction.getQuantity().doubleValue() * transaction.getPrice().doubleValue());
             newQuantity = (currentQuantity + transaction.getQuantity().intValue());
             Long longQuantity =  Long.valueOf(newQuantity);
             newPrice = (totalCost / newQuantity);
@@ -304,7 +304,7 @@ public class JdbcGameDao implements GameDao{
     }
     @Override
     public void setPortfolioValue( Portfolio portfolio, Principal principal){
-        String sql = "Update portfolio set portfolio_value = ?   " +
+        String sql = "Update portfolio set portfolio_value = (? + cash_balance)   " +
                 "Where portfolio_id = ?";
         jdbcTemplate.update(sql, portfolio.getPortfolioValue(), portfolio.getId());
 
