@@ -46,4 +46,6 @@ public interface GameDao {
 
     List<PortfolioStock> getPortfolioStocksByPortfolioId(Long portfolioId);
 
+    void setPortfolioValue( BigDecimal portfolioValue,Long portfolioId,Principal principal);
+
 }

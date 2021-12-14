@@ -23,7 +23,8 @@ export default new Vuex.Store({
     user: currentUser || {},
 
     pendingInvites: [],
-    games: []
+    games: [],
+    gameId: '',
 
   },
   methods: {
@@ -67,6 +68,10 @@ export default new Vuex.Store({
       gameService.viewGames().then(response=>{
         state.games=response;})
     },
+
+    SET_GAME_ID(state, gameId){
+        state.gameId = gameId;
+    }
    
   }
 })

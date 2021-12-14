@@ -49,6 +49,12 @@ export default {
 
     sellStock(transaction, gameId, symbol) {
         return axios.post(`/user/games/${gameId}/${symbol}/sell`, transaction)
+    },
+
+    getPortfolioStocksByPortfolioId(portfolioId){
+        return axios.get(`/portfoliostock/${portfolioId}`).then((response)=>{
+            return response.data;
+        })
     }
 
 }

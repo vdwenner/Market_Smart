@@ -9,6 +9,22 @@
         <game-detail-guts/>
     </div>
     
+    <table class = "myStonks" >
+        <thead>
+            <h2>My Stocks</h2>
+            <tr>
+                <th>Stock Symbol</th>
+                <th>Quantity</th>
+                <th>Average Cost</th>
+                <th>Total Cost</th>
+            </tr>
+        </thead>
+    <tbody>
+        <portfolio v-for="stock in portfolioStocks" :key="stock.id"
+        v-bind:portfolioStocks="stock"/>
+    </tbody>
+    </table>
+
     <table class = "portfolioLeaderboard" >
         <thead>
             <h2>Leaderboard</h2>
@@ -37,9 +53,11 @@ import Leaderboard from '../components/Leaderboard';
 import gameService from '../services/GameService';
 import BuyStock from '../components/BuyStock.vue';
 import SellStock from '../components/SellStock.vue';
+import Portfolio from '../components/Portfolio.vue';
+import authService from '../services/AuthService';
 
 export default {
-components: { NavBar, GameDetailGuts, Leaderboard, BuyStock, SellStock },
+components: { NavBar, GameDetailGuts, Leaderboard, BuyStock, SellStock, Portfolio },
 data() {
     return {
         portfolios: [],
@@ -56,6 +74,7 @@ data() {
                 quantity: ''
             },
             errorMessage: '',
+            portfolioStocks: {}
             
       
        
@@ -69,6 +88,16 @@ created(){
             this.portfolios = response;
         })
 
+        this.$store.commit("SET_GAME_ID", this.$route.params.id);
+
+        authService.getPortfolioByUserIdAndGameId(this.$store.state.user.id, this.$store.state.gameId).then(response=>{
+            gameService.getPortfolioStocksByPortfolioId(response.id).then(response =>{
+                this.portfolioStocks = response;
+            })
+
+
+         })
+
         
 }
 
@@ -81,14 +110,18 @@ created(){
         display: grid;
         grid-template-areas:
         "nav . details details details details ."
-        "nav . leaderboard leaderboard leaderboard leaderboard ."
-        "nav . . . . . ."
-        "nav . . buy sell . .";
+        "nav . stocks stocks stocks stocks ."
+        "nav . . buy sell . ."
+        "nav . leaderboard leaderboard leaderboard leaderboard .";
+        
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     }
     .game-container {
         grid-area: details;
         margin-top: 50px;
+    }
+    .myStonks{
+        grid-area: stocks;
     }
 
     h2 {

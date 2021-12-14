@@ -2,8 +2,8 @@
 <div>
     <tr>
       <td>{{this.username.username}}</td>
-      <td>{{this.portfolio.cashBalance}}</td>
-      <td>{{this.portfolio.portfolioValue}}</td> 
+      <td >${{this.portfolio.cashBalance}}</td>
+      <td>${{this.portfolio.portfolioValue}}</td> 
     </tr>
 </div>
   
@@ -13,6 +13,7 @@
 import authService from '../services/AuthService'
 export default {
     props: ['portfolio'],
+    
     data() {
     return {
         portfolios: [],
@@ -29,13 +30,17 @@ export default {
                 startingAmount: '',
                 endDate: ''
         },
-        username: ''
+        username: '',
+      
+        
     }
   },
   created() {
     authService.getUsernameById(this.portfolio.userId).then( response => {
       this.username = response;
     })
+  
+
   }
 }
 </script>

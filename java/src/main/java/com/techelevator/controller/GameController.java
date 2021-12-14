@@ -5,6 +5,7 @@ import com.techelevator.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -83,6 +84,11 @@ public class GameController {
     @RequestMapping(path="/portfoliostock/{portfolioId}", method= RequestMethod.GET)
      public List<PortfolioStock> getPortfolioStocksByPortfolioId(@PathVariable Long portfolioId){
         return gameDao.getPortfolioStocksByPortfolioId(portfolioId);
+    }
+
+    @RequestMapping(path="/portfolio/{portfolioId}/update/portfolioValue", method = RequestMethod.PUT)
+    public void  setPortfolioValue( @PathVariable Long portfolioId , @RequestBody BigDecimal portfolioValue,  Principal principal ){
+         gameDao.setPortfolioValue(portfolioValue,  portfolioId,principal);
     }
 
 }
