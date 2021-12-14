@@ -11,6 +11,12 @@ export default {
         return axios.put(`/update/leaderboard/${gameId}`).then((response)=> {
             return response.data;
         })
+    },
+
+    listTrendingStocks(){
+        return axios.get("/trending").then((response) => {
+            return response.data;
+        })
     }
 
     

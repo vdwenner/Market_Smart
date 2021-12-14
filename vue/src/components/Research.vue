@@ -44,7 +44,8 @@ export default {
     return{
       errorMessage: '',
       symbol: '',
-      stock : {}
+      stock : {},
+      trendingResponse: {}
     }
   },
   methods: {
@@ -62,6 +63,15 @@ export default {
       
       }
   },
+
+  created() {
+      yahooAPIService.listTrendingStocks().then(response => {
+      this.trendingResponse = response;
+    })
+  
+  },
+
+  
   resetSymbol() {
     this.symbol = '';
   }

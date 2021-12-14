@@ -30,11 +30,11 @@ public class YahooAPIController {
     }
 
     //GET ALL STOCK INFO BY NAME
-    @RequestMapping(path = "/stock/stockName/{name}", method = RequestMethod.GET)
-    public Stock getStockByName(@PathVariable String name) throws IOException {
-        return yahooAPIDao.findStockByName(name).getStock();
-
-    }
+//    @RequestMapping(path = "/stock/stockName/{name}", method = RequestMethod.GET)
+//    public Stock getStockByName(@PathVariable String name) throws IOException {
+//        return yahooAPIDao.findStockByName(name).getStock();
+//
+//    }
 
     //GET ALL STOCK INFORMATION BY SYMBOL
     @RequestMapping(path = "/stock/{symbol}", method = RequestMethod.GET)

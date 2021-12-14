@@ -307,8 +307,6 @@ public class JdbcGameDao implements GameDao{
         String sql = "Update portfolio set portfolio_value = (? + cash_balance)   " +
                 "Where portfolio_id = ?";
         jdbcTemplate.update(sql, portfolio.getPortfolioValue(), portfolio.getId());
-
-
     }
 
 
