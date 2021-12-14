@@ -86,9 +86,9 @@ public class GameController {
         return gameDao.getPortfolioStocksByPortfolioId(portfolioId);
     }
 
-    @RequestMapping(path="/portfolio/{portfolioId}/update/portfolioValue", method = RequestMethod.PUT)
-    public void  setPortfolioValue( @PathVariable Long portfolioId , @RequestBody BigDecimal portfolioValue,  Principal principal ){
-         gameDao.setPortfolioValue(portfolioValue,  portfolioId,principal);
+    @RequestMapping(path="/portfolio/update/portfolioValue", method = RequestMethod.PUT)
+    public void  setPortfolioValue(  @RequestBody Portfolio portfolio , Principal principal ){
+         gameDao.setPortfolioValue(portfolio,principal);
     }
 
 }

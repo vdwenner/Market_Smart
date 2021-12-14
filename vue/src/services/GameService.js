@@ -55,6 +55,12 @@ export default {
         return axios.get(`/portfoliostock/${portfolioId}`).then((response)=>{
             return response.data;
         })
+    },
+
+    setPortfolioValue(portfolio){
+        return axios.put('/portfolio/update/portfolioValue', portfolio).then((response) =>{
+            return response.data;
+        })
     }
 
 }

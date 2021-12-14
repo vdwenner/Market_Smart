@@ -55,6 +55,7 @@ import BuyStock from '../components/BuyStock.vue';
 import SellStock from '../components/SellStock.vue';
 import Portfolio from '../components/Portfolio.vue';
 import authService from '../services/AuthService';
+import YahooAPIService from '../services/YahooAPIService';
 
 export default {
 components: { NavBar, GameDetailGuts, Leaderboard, BuyStock, SellStock, Portfolio },
@@ -74,18 +75,62 @@ data() {
                 quantity: ''
             },
             errorMessage: '',
-            portfolioStocks: {}
-            
+            portfolioStocks: {},
+            portfolioValue: 0,
+            psQuantity: '',
+            psPrice: '',
+            portfolio:  {
+                        id: '',
+                        userId: '',
+                        gameId: '',
+                        cashBalance: '',
+                        portfolioValue: ''
+                        }
+                                    
       
        
         
     } 
 },
-methods: {},
+methods: {
+            updatePortfolioValue(portfolio){
+                gameService.setPortfolioValue(portfolio).then(response=>{
+                this.portfolioValue =0;
+                return response;
+                })
+                
+            }
+
+
+},
 
 created(){
         gameService.viewLeaderboard(this.$route.params.id).then( response => {
             this.portfolios = response;
+            this.portfolios.forEach(portfolio =>{
+                this.portfolio.id = portfolio.id;
+                this.portfolio.userId = portfolio.userId;
+                this.portfolio.gameId = portfolio.gameId;
+                this.portfolio.cashBalance = portfolio.cashBalance;
+                gameService.getPortfolioStocksByPortfolioId(portfolio.id).then( ps =>{
+                    ps.forEach(stock =>{
+                        YahooAPIService.getStockBySymbol(stock.stockSymbol).then(response =>{
+                             this.psQuantity = stock.quantity;
+                             this.psPrice = response.quote.price;
+                            
+                        })
+                    this.portfolioValue += (this.psPrice *this.psQuantity)
+                    })
+                    this.portfolio.portfolioValue = this.portfolioValue;
+                    this.updatePortfolioValue(this.portfolio);
+                })
+               
+            })
+             
+
+
+
+
         })
 
         this.$store.commit("SET_GAME_ID", this.$route.params.id);
@@ -97,6 +142,8 @@ created(){
 
 
          })
+
+         
 
         
 }

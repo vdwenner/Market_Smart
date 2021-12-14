@@ -303,10 +303,10 @@ public class JdbcGameDao implements GameDao{
         return stocks;
     }
     @Override
-    public void setPortfolioValue( BigDecimal portfolioValue, Long portfolioId, Principal principal){
-        String sql = "Update portfolio set portfolio_value =  (? + cash_balance)  " +
+    public void setPortfolioValue( Portfolio portfolio, Principal principal){
+        String sql = "Update portfolio set portfolio_value = ?   " +
                 "Where portfolio_id = ?";
-        jdbcTemplate.update(sql, portfolioValue, portfolioId);
+        jdbcTemplate.update(sql, portfolio.getPortfolioValue(), portfolio.getId());
 
 
     }
