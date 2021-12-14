@@ -24,10 +24,10 @@
         <tbody>
           <tr>
             <td>{{stock.name}}</td>
-            <td>${{stock.quote.price}}</td>
-            <td>${{stock.quote.open}}</td>
-            <td>${{stock.quote.previousClose}}</td>
-            <td>{{stock.quote.changeInPercent}}%</td>
+            <td>${{stock.quote.price.toFixed(2)}}</td>
+            <td>${{stock.quote.open.toFixed(2)}}</td>
+            <td>${{stock.quote.previousClose.toFixed(2)}}</td>
+            <td>{{stock.quote.changeInPercent.toFixed(2)}}%</td>
           </tr>
       </tbody>
     </table>

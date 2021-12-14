@@ -2,8 +2,8 @@
 <div>
     <tr>
       <td>{{this.username.username}}</td>
-      <td >${{this.portfolio.cashBalance}}</td>
-      <td>${{this.portfolio.portfolioValue}}</td> 
+      <td >${{this.portfolio.cashBalance.toFixed(2)}}</td>
+      <td>${{this.portfolio.portfolioValue.toFixed(2)}}</td> 
     </tr>
 </div>
   

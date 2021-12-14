@@ -10,4 +10,6 @@ public interface YahooAPIDao {
 
     StockWrapper findStock(String ticker);
 
+    StockWrapper findStockByName(String name);
+
 }

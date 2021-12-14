@@ -7,5 +7,11 @@ export default {
         })
     },
 
+    updateLeaderboard(gameId) {
+        return axios.put(`/update/leaderboard/${gameId}`).then((response)=> {
+            return response.data;
+        })
+    }
+
     
 }

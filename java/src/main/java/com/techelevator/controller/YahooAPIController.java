@@ -29,10 +29,18 @@ public class YahooAPIController {
         this.gameDao = gameDao;
     }
 
+    //GET ALL STOCK INFO BY NAME
+    @RequestMapping(path = "/stock/stockName/{name}", method = RequestMethod.GET)
+    public Stock getStockByName(@PathVariable String name) throws IOException {
+        return yahooAPIDao.findStockByName(name).getStock();
+
+    }
+
     //GET ALL STOCK INFORMATION BY SYMBOL
     @RequestMapping(path = "/stock/{symbol}", method = RequestMethod.GET)
     public Stock getStock(@PathVariable String symbol) throws IOException {
         return yahooAPIDao.findStock(symbol.toUpperCase()).getStock();
+
     }
 
     //GET STOCK NAME BY SYMBOL

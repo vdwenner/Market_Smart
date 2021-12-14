@@ -112,19 +112,19 @@ created(){
                 this.portfolio.userId = portfolio.userId;
                 this.portfolio.gameId = portfolio.gameId;
                 this.portfolio.cashBalance = portfolio.cashBalance;
-                gameService.getPortfolioStocksByPortfolioId(portfolio.id).then( ps =>{
-                    ps.forEach(stock =>{
-                        YahooAPIService.getStockBySymbol(stock.stockSymbol).then(response =>{
-                             this.psQuantity = stock.quantity;
-                             this.psPrice = response.quote.price;
+                // gameService.getPortfolioStocksByPortfolioId(portfolio.id).then( ps =>{
+                //     ps.forEach(stock =>{
+                //         YahooAPIService.getStockBySymbol(stock.stockSymbol).then(response =>{
+                //              this.psQuantity = stock.quantity;
+                //              this.psPrice = response.quote.price;
                             
-                        })
-                    this.portfolioValue += (this.psPrice * this.psQuantity)
-                    })
-                    this.portfolio.portfolioValue = this.portfolioValue;
-                    this.updatePortfolioValue(this.portfolio);
-                })
-                this.portfolioValue = 0;
+                //         })
+                //     this.portfolioValue += (this.psPrice * this.psQuantity)
+                //     })
+                //     this.portfolio.portfolioValue = this.portfolioValue;
+                //     this.updatePortfolioValue(this.portfolio);
+                // })
+                // this.portfolioValue = 0;
                
             })
              
@@ -142,6 +142,11 @@ created(){
             })
 
 
+         })
+
+
+         YahooAPIService.updateLeaderboard(this.$route.params.id).then(response => {
+             return response;
          })
 
          
