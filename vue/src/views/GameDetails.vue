@@ -119,11 +119,12 @@ created(){
                              this.psPrice = response.quote.price;
                             
                         })
-                    this.portfolioValue += (this.psPrice *this.psQuantity)
+                    this.portfolioValue += (this.psPrice * this.psQuantity)
                     })
                     this.portfolio.portfolioValue = this.portfolioValue;
                     this.updatePortfolioValue(this.portfolio);
                 })
+                this.portfolioValue = 0;
                
             })
              

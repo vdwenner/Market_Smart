@@ -32,7 +32,7 @@
         required
       />
       
-      <button type="submit">Sign in</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       <router-link :to="{ name: 'register' }" class="create-account" >Need an account?</router-link>
     </form>
   </div>
@@ -84,5 +84,16 @@ export default {
   }
   .create-account {
     margin-top: 20px;
+  }
+
+  input[type=password] {
+    font-family: 'Inter';
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
   }
 </style>
