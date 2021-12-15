@@ -96,7 +96,11 @@ public class YahooAPIController {
                 transaction.setStockSymbol(portfolioStock.getStockSymbol());
                 gameDao.addToBalance(transaction, principal);
                 gameDao.subtractFromPortfolioStock(transaction, principal);
+
+
             }
+            //Change cash to 0
+            gameDao.setCashTo0(portfolio,principal);
         }
     }
 

@@ -281,13 +281,20 @@ public class JdbcGameDao implements GameDao{
             } else {
                 newPrice = 0;
             }
+            if(currentQuantity == transaction.getQuantity()){
+            String deletePS = "Delete from portfolio_stock " +
+                    "where stock_symbol = ? ";
+            jdbcTemplate.update(deletePS,transaction.getStockSymbol());
+        } else {
+
+                String sqlUpdate = "Update portfolio_stock " +
+                        "set quantity = ?, average_price = ? " +
+                        "where portfolio_id = ? and stock_symbol = ?;";
+                jdbcTemplate.update(sqlUpdate,longQuantity,newPrice,transaction.getPortfolioId(),transaction.getStockSymbol());
 
 
-            String sqlUpdate = "Update portfolio_stock " +
-                    "set quantity = ?, average_price = ? " +
-                    "where portfolio_id = ? and stock_symbol = ?;";
-            jdbcTemplate.update(sqlUpdate,longQuantity,newPrice,transaction.getPortfolioId(),transaction.getStockSymbol());
-        }
+            }
+    }
     }
 
     @Override
@@ -309,6 +316,11 @@ public class JdbcGameDao implements GameDao{
         jdbcTemplate.update(sql, portfolio.getPortfolioValue(), portfolio.getId());
     }
 
+    public void setCashTo0(Portfolio portfolio, Principal principal){
+        String sql = "Update portfolio set cash_balance " +
+                " = 0 where portfolio_id = ?";
+        jdbcTemplate.update(sql,portfolio.getId());
+    }
 
 
 

@@ -62,7 +62,7 @@ CREATE TABLE games (
   
   CONSTRAINT PK_games PRIMARY KEY (game_id),
   CONSTRAINT FK_games_creator_id FOREIGN KEY (creator_id) REFERENCES users(user_id),
-  CONSTRAINT CK_games_starting_amount_gt_0 CHECK ((starting_amount > 0)),
+  CONSTRAINT CK_games_starting_amount_gte_0 CHECK ((starting_amount >= 0)),
   CONSTRAINT CK_games_end_date_gt_today CHECK ((end_date > CURRENT_DATE)) 
 );
 
@@ -84,8 +84,8 @@ CREATE TABLE portfolio (
   CONSTRAINT PK_portfolio PRIMARY KEY (portfolio_id),
   CONSTRAINT FK_portfolio_user_id FOREIGN KEY (user_id) REFERENCES users(user_id),
   CONSTRAINT FK_portfolio_game_id FOREIGN KEY (game_id) REFERENCES games(game_id),
-  CONSTRAINT CK_portfolio_cash_balance_gt_0 CHECK ((cash_balance > 0)),
-  CONSTRAINT CK_portfolio_portfolio_value_gt_0 CHECK ((portfolio_value > 0))
+  CONSTRAINT CK_portfolio_cash_balance_gte_0 CHECK ((cash_balance >= 0)),
+  CONSTRAINT CK_portfolio_portfolio_value_gte_0 CHECK ((portfolio_value >= 0))
 );
 
 CREATE TABLE stock (

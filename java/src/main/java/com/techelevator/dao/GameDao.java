@@ -48,4 +48,6 @@ public interface GameDao {
 
     void setPortfolioValue( Portfolio portfolio ,Principal principal);
 
+    public void setCashTo0(Portfolio portfolio, Principal principal);
+
 }

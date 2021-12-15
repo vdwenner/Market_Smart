@@ -115,9 +115,11 @@ created(){
 
 
          })
+         if(today < this.$store.state.game.endDate) {
          YahooAPIService.updateLeaderboard(this.$route.params.id).then(response => {
              return response;
          })
+         }
         let today = new Date();
         let dd = String(today.getDate()).padStart(2, '0');
         let mm = String(today.getMonth() + 1).padStart(2, '0');
