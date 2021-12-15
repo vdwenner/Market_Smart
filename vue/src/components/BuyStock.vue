@@ -54,8 +54,6 @@ export default {
                         
                          authService.getPortfolioByUserIdAndGameId(this.$store.state.user.id, this.$store.state.gameId).then(response=>{
                             gameService.getPortfolioStocksByPortfolioId(response.id).then(response =>{
-                                //Moved to $store Mutation
-                                //this.portfolioStocks = response;
                                 this.$store.commit("SET_PORTFOLIO_STOCKS", response);
 
                                 gameService.viewLeaderboard(this.$store.state.gameId).then( response => {

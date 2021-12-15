@@ -44,7 +44,6 @@
 
     <buy-stock class="buy-stock-container"/>
     <sell-stock class="sell-stock-container"/>
-        <span> {{this.$store.state.portfolios}}</span>
     </div>
 </template>
 

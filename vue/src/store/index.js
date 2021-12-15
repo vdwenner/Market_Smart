@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import gameService from '../services/GameService'
+import yahooAPIService from '../services/YahooAPIService';
 
 Vue.use(Vuex)
 
@@ -28,7 +29,8 @@ export default new Vuex.Store({
     game: {},
     hideButtons: false,
     portfolios: [],
-    portfolioStocks: []
+    portfolioStocks: [],
+    currentPrice: '',
 
   },
   methods: {
@@ -39,6 +41,11 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    SET_CURRENT_PRICE(state,symbol){
+      yahooAPIService.getStockBySymbol(symbol).then(response => {
+        state.currentPrice = response.quote.price;
+      })
+    },
     SET_PORTFOLIO_STOCKS(state, pfs){
       state.portfolioStocks = pfs;
     },

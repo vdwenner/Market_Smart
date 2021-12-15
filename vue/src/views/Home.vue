@@ -3,6 +3,7 @@
     <nav-bar/>
     <h1>Welcome to the Dashboard</h1>
     <h4>This is just the start! Investing Awaits!</h4>
+    <img src="../../public/stocks.jpg" alt="">
   </div>
 </template>
 
