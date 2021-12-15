@@ -3,10 +3,10 @@
         <h1>Welcome to Market Smart!</h1>
         <img src="../../public/stocks.jpg" alt="stonks">
         <div class="register-container">
-            <router-link :to="{name: 'register'}" tag="button" class="register">Register</router-link>
+            <router-link :to="{name: 'register'}" tag="button" class="btn btn-lg btn-primary btn-block">Register</router-link>
         </div>
         <div class="login-container">
-            <router-link :to="{name: 'login'}" tag="button" class="login">Login</router-link>
+            <router-link :to="{name: 'login'}" tag="button" class="btn btn-lg btn-primary btn-block">Login</router-link>
         </div>
         <div class="description-container">
             <p class="description">Welcome to Market Smart, a virtual stock market experience from the developers that brought you TEnmo! Create a new game with customizable starting cash amounts,
@@ -68,7 +68,7 @@ export default {
         padding-left: 20px;
     }
 
-    .register {
+    .btn {
         background: rgba(4, 42, 61) 0%;
         color: #eeaf03;
         align-content: center;
@@ -78,7 +78,7 @@ export default {
         cursor: pointer;
     }
 
-    .login {
+    .btn {
         background: rgba(4, 42, 61) 0%;
         color:  #eeaf03;
         border-radius: 25px;

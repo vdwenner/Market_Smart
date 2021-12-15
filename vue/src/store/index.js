@@ -25,6 +25,8 @@ export default new Vuex.Store({
     pendingInvites: [],
     games: [],
     gameId: '',
+    game: {},
+    hideButtons: false
 
   },
   methods: {
@@ -70,7 +72,16 @@ export default new Vuex.Store({
     },
 
     SET_GAME_ID(state, gameId){
-        state.gameId = gameId;
+      state.gameId = gameId;
+    },
+
+    SET_GAME_END_DATE(state, gameId) {
+        gameService.getGameByGameId(gameId).then(response=>{
+           state.game = response;
+        })
+    },
+    SET_HIDE_BUTTON(state, boolean) {
+      state.hideButtons = boolean;
     }
    
   }

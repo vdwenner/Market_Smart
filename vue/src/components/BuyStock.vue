@@ -1,6 +1,6 @@
 <template>
     <div class="buy-stock-container">
-        <button class="buy-btn" v-on:click="showBuy = !showBuy" v-show="showBuy == false">Buy Stock</button>
+        <button class="btn btn-lg btn-primary btn-block" v-on:click="showBuy = !showBuy" v-show="showBuy == false" v-if="this.$store.state.hideButtons == false">Buy Stock</button>
 
         <form v-show="showBuy == true" v-on:submit.prevent>
             <label for="symbol">Stock Symbol: </label>
@@ -9,8 +9,8 @@
             <input type="number"
                 min="1" id="quantity" name="quantity" placeholder="Enter Quantity"
                 v-model="transaction.quantity">
-            <input type="submit" name="submit" id="submit-buy" v-on:click="buyStock">
-            <input type="button" value="Cancel" v-on:click="showBuy = !showBuy">
+            <button class="btn btn-lg btn-primary btn-block" v-on:click="buyStock">Buy Stock</button>
+            <button class="btn btn-lg btn-primary btn-block" v-on:click="showBuy = !showBuy">Cancel</button>
         </form>
     </div>
 </template>

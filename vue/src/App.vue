@@ -19,6 +19,17 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
+.btn {
+        background: rgba(4, 42, 61) 0%;
+        color: #eeaf03;
+        align-content: center;
+        text-align: center;
+        border-radius: 25px;
+        width: 100px;
+        height: 40px;
+        cursor: pointer;
+    }
+
 table{
   background: #012B39;
   border-radius: 0.25em;

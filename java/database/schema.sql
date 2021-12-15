@@ -104,7 +104,7 @@ CREATE TABLE portfolio_stock (
   
   CONSTRAINT FK_portfolio_stock_portfolio_id FOREIGN KEY (portfolio_id) REFERENCES portfolio (portfolio_id),
   CONSTRAINT FK_portfolio_stock_stock_symbol FOREIGN KEY (stock_symbol) REFERENCES stock (stock_symbol),
-  CONSTRAINT CK_portfolio_stock_quantity_gt_0 CHECK ((quantity > 0))
+  CONSTRAINT CK_portfolio_stock_quantity_gte_0 CHECK ((quantity >= 0))
   
 );
 
@@ -148,7 +148,7 @@ CREATE TABLE transactions (
   CONSTRAINT FK_transactions_transaction_type FOREIGN KEY (transaction_type) REFERENCES transaction_types (transaction_type_id),
   CONSTRAINT FK_transactions_portfolio_id FOREIGN KEY (portfolio_id) REFERENCES portfolio (portfolio_id),
   CONSTRAINT FK_transactions_stock_symbol FOREIGN KEY (stock_symbol) REFERENCES stock (stock_symbol),
-  CONSTRAINT CK_transaction_quantity_gt_0 CHECK ((quantity > 0))
+  CONSTRAINT CK_transaction_quantity_gte_0 CHECK ((quantity >= 0))
 );
 
 

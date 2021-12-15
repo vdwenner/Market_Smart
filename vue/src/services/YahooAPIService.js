@@ -17,6 +17,12 @@ export default {
         return axios.get("/trending").then((response) => {
             return response.data;
         })
+    },
+
+    endGame(gameId) {
+        return axios.put(`/${gameId}/endgame`).then((response) => {
+            return response.data;
+        })
     }
 
     

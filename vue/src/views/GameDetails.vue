@@ -15,6 +15,7 @@
             <tr>
                 <th>Stock Symbol</th>
                 <th>Quantity</th>
+                <th>Current Price</th>
                 <th>Average Cost</th>
                 <th>Total Cost</th>
             </tr>
@@ -65,31 +66,27 @@ data() {
         gameId: '',
         portfolioId:'',
         stock: {},
-            symbol: '',
-            transaction: {
-                transactionId: '',
-                transactionType: '',
-                price: '',
-                portfolioId: '',
-                stockSymbol: '',
-                quantity: ''
-            },
-            errorMessage: '',
-            portfolioStocks: {},
-            portfolioValue: 0,
-            psQuantity: '',
-            psPrice: '',
-            portfolio:  {
-                        id: '',
-                        userId: '',
-                        gameId: '',
-                        cashBalance: '',
-                        portfolioValue: ''
-                        }
-                                    
-      
-       
-        
+        symbol: '',
+        transaction: {
+            transactionId: '',
+            transactionType: '',
+            price: '',
+            portfolioId: '',
+            stockSymbol: '',
+            quantity: ''
+        },
+        errorMessage: '',
+        portfolioStocks: {},
+        portfolioValue: 0,
+        psQuantity: '',
+        psPrice: '',
+        portfolio:  {
+            id: '',
+            userId: '',
+            gameId: '',
+            cashBalance: '',
+            portfolioValue: ''
+        },
     } 
 },
 methods: {
@@ -107,31 +104,6 @@ methods: {
 created(){
         gameService.viewLeaderboard(this.$route.params.id).then( response => {
             this.portfolios = response;
-            this.portfolios.forEach(portfolio =>{
-                this.portfolio.id = portfolio.id;
-                this.portfolio.userId = portfolio.userId;
-                this.portfolio.gameId = portfolio.gameId;
-                this.portfolio.cashBalance = portfolio.cashBalance;
-                // gameService.getPortfolioStocksByPortfolioId(portfolio.id).then( ps =>{
-                //     ps.forEach(stock =>{
-                //         YahooAPIService.getStockBySymbol(stock.stockSymbol).then(response =>{
-                //              this.psQuantity = stock.quantity;
-                //              this.psPrice = response.quote.price;
-                            
-                //         })
-                //     this.portfolioValue += (this.psPrice * this.psQuantity)
-                //     })
-                //     this.portfolio.portfolioValue = this.portfolioValue;
-                //     this.updatePortfolioValue(this.portfolio);
-                // })
-                // this.portfolioValue = 0;
-               
-            })
-             
-
-
-
-
         })
 
         this.$store.commit("SET_GAME_ID", this.$route.params.id);
@@ -143,19 +115,31 @@ created(){
 
 
          })
-
-
          YahooAPIService.updateLeaderboard(this.$route.params.id).then(response => {
              return response;
          })
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let yyyy = today.getFullYear();
+
+        today = `${yyyy}-${mm}-${dd}`
+        this.$store.commit("SET_HIDE_BUTTON", false);
+        this.$store.commit("SET_GAME_END_DATE", this.$route.params.id)
+        if(today >= this.$store.state.game.endDate) {
+            YahooAPIService.endGame(this.$route.params.id).then(response => {
+                return response;
+         }) 
+            this.$store.commit('SET_HIDE_BUTTON', true);
+        }
+         
 
          
 
         
+    }
 }
 
-
-}
 </script>
 
 <style>
@@ -175,6 +159,7 @@ created(){
     }
     .myStonks{
         grid-area: stocks;
+        margin-bottom: 20px;
     }
 
     h2 {
@@ -188,6 +173,7 @@ created(){
     border-radius: 0.25em;
     border-collapse: collapse;
     margin: 1em;
+    margin-top: 100px;
     grid-area: leaderboard;
     }
 

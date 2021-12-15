@@ -17,5 +17,4 @@ public class Transaction {
     private Long portfolioId;
     private String stockSymbol;
     private Long quantity;
-
 }

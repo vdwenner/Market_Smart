@@ -5,12 +5,14 @@ import com.techelevator.dao.YahooAPIDao;
 import com.techelevator.model.Portfolio;
 import com.techelevator.model.PortfolioStock;
 import com.techelevator.model.StockWrapper;
+import com.techelevator.model.Transaction;
 import com.techelevator.services.YahooService;
 import org.springframework.web.bind.annotation.*;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import yahoofinance.quotes.stock.StockStats;
 
+import javax.sound.sampled.Port;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
@@ -76,9 +78,26 @@ public class YahooAPIController {
             portfolio.setPortfolioValue(BigDecimal.valueOf(portfolioValue));
             gameDao.setPortfolioValue(portfolio,principal);
         }
-
-
     }
 
+    @RequestMapping(path = "/{gameId}/endgame", method = RequestMethod.PUT)
+    public void endGame(@PathVariable Long gameId, Principal principal) {
+        List<Portfolio> portfolios = gameDao.viewLeaderboard(gameId, principal);
+        for(Portfolio portfolio: portfolios) {
+            List<PortfolioStock> ps = gameDao.getPortfolioStocksByPortfolioId(portfolio.getId());
+            for(PortfolioStock portfolioStock: ps) {
+                BigDecimal currentPrice = yahooAPIDao.findStock(portfolioStock.getStockSymbol()).getStock().getQuote().getPrice();
+                gameDao.sellStock(portfolioStock.getStockSymbol(), currentPrice, portfolioStock.getQuantity(), portfolioStock.getPortfolioId(), principal);
+                Transaction transaction = new Transaction();
+                transaction.setPortfolioId(portfolioStock.getPortfolioId());
+                transaction.setPrice(currentPrice);
+                transaction.setQuantity(portfolioStock.getQuantity());
+                transaction.setTransactionType(2L);
+                transaction.setStockSymbol(portfolioStock.getStockSymbol());
+                gameDao.addToBalance(transaction, principal);
+                gameDao.subtractFromPortfolioStock(transaction, principal);
+            }
+        }
+    }
 
 }

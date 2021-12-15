@@ -20,15 +20,5 @@ public class JdbcYahooAPIDao implements YahooAPIDao{
         return null;
     }
 
-//    @Override
-//    public StockWrapper findStockByName(String name) {
-//        try {
-//            return new StockWrapper(YahooFinance.get(name));
-//        } catch (IOException e) {
-//            System.out.println("Error");
-//        }
-//        return null;
-//    }
-
 
 }

@@ -310,6 +310,8 @@ public class JdbcGameDao implements GameDao{
     }
 
 
+
+
     private Transaction mapRowToTransaction(SqlRowSet rowSet){
         Transaction transaction = new Transaction();
         transaction.setId((rowSet.getLong("transaction_id")));
