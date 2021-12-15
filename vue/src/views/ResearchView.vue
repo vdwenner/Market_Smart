@@ -22,7 +22,7 @@ export default {
 .research-view-container{
     display: grid;
     grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 2fr 1fr;
+    /* grid-template-rows: 1fr 2fr 1fr; */
     grid-template-areas: 
     "nav . title title title ."
     "nav . research research research ."
@@ -31,6 +31,7 @@ export default {
 .research {
   grid-area: research;
   justify-content: center;
+  
 }
 .nav {
   grid-area: nav;
