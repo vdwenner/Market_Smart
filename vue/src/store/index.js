@@ -26,7 +26,9 @@ export default new Vuex.Store({
     games: [],
     gameId: '',
     game: {},
-    hideButtons: false
+    hideButtons: false,
+    portfolios: [],
+    portfolioStocks: []
 
   },
   methods: {
@@ -37,6 +39,12 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    SET_PORTFOLIO_STOCKS(state, pfs){
+      state.portfolioStocks = pfs;
+    },
+    SET_PORTFOLIOS(state, folios){
+      state.portfolios = folios;
+    },
     SET_AUTH_TOKEN(state, token) {
       state.token = token;
       localStorage.setItem('token', token);

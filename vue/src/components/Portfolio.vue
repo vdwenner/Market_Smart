@@ -4,7 +4,7 @@
       <td>{{this.portfolioStocks.stockSymbol}}</td>
       <td>{{this.portfolioStocks.quantity}}</td>
       <td>${{this.currentPrice.toFixed(2)}}</td>
-      <td >${{this.portfolioStocks.averagePrice.toFixed(2)}}</td>
+      <td>${{this.portfolioStocks.averagePrice.toFixed(2)}}</td>
       <td>${{(this.portfolioStocks.averagePrice * this.portfolioStocks.quantity).toFixed(2)}}</td>
     </tr>
 </div>

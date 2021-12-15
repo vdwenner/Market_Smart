@@ -51,12 +51,33 @@ export default {
                 this.transaction.stockSymbol = response.symbol;
                 gameService.buyStock(this.transaction, this.$route.params.id, this.symbol.toUpperCase()).then( response => {
                     if(response.status == 200) {
+                        
+                         authService.getPortfolioByUserIdAndGameId(this.$store.state.user.id, this.$store.state.gameId).then(response=>{
+                            gameService.getPortfolioStocksByPortfolioId(response.id).then(response =>{
+                                //Moved to $store Mutation
+                                //this.portfolioStocks = response;
+                                this.$store.commit("SET_PORTFOLIO_STOCKS", response);
+
+                                gameService.viewLeaderboard(this.$store.state.gameId).then( response => {
+                                    this.$store.commit("SET_PORTFOLIOS", response);
+                                })
+                            })
+                        })
+
                         this.resetForm();
                         this.errorMessage = '';
                     }
                 })
             })
             
+            
+                 yahooAPIService.updateLeaderboard(this.$store.state.gameId).then(response => {
+                 return response;
+            })
+
+
+           
+
         },
 
         getPortfolio() {

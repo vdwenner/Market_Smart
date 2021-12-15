@@ -44,6 +44,7 @@
 
     <buy-stock class="buy-stock-container"/>
     <sell-stock class="sell-stock-container"/>
+        <span> {{this.$store.state.portfolios}}</span>
     </div>
 </template>
 
@@ -62,7 +63,7 @@ export default {
 components: { NavBar, GameDetailGuts, Leaderboard, BuyStock, SellStock, Portfolio },
 data() {
     return {
-        portfolios: [],
+        //portfolios: [],
         gameId: '',
         portfolioId:'',
         stock: {},
@@ -76,7 +77,8 @@ data() {
             quantity: ''
         },
         errorMessage: '',
-        portfolioStocks: {},
+        //Moved to $store
+       // portfolioStocks: {},
         portfolioValue: 0,
         psQuantity: '',
         psPrice: '',
@@ -89,6 +91,17 @@ data() {
         },
     } 
 },
+computed: {
+
+    portfolioStocks(){
+        return this.$store.state.portfolioStocks;
+    },
+
+    portfolios(){
+        return this.$store.state.portfolios;
+    }
+
+},
 methods: {
             updatePortfolioValue(portfolio){
                 gameService.setPortfolioValue(portfolio).then(response=>{
@@ -96,6 +109,12 @@ methods: {
                 return response;
                 })
                 
+            },
+
+            updateLeaderboard() {
+                 YahooAPIService.updateLeaderboard(this.$route.params.id).then(response => {
+                 return response;
+            })
             }
 
 
@@ -110,19 +129,25 @@ created(){
         today = `${yyyy}-${mm}-${dd}`
 
         if(this.$store.state.game.endDate > today) {
-            YahooAPIService.updateLeaderboard(this.$route.params.id).then(response => {
-                return response;
-            })
+            this.updateLeaderboard();
         }
+        
+
+        
         gameService.viewLeaderboard(this.$route.params.id).then( response => {
-            this.portfolios = response;
+            //MOVE TO STORE
+            //this.portfolios = response;
+            
+            this.$store.commit("SET_PORTFOLIOS", response);
         })
 
         this.$store.commit("SET_GAME_ID", this.$route.params.id);
 
         authService.getPortfolioByUserIdAndGameId(this.$store.state.user.id, this.$store.state.gameId).then(response=>{
             gameService.getPortfolioStocksByPortfolioId(response.id).then(response =>{
-                this.portfolioStocks = response;
+                //Moved to $store Mutation
+                //this.portfolioStocks = response;
+                this.$store.commit("SET_PORTFOLIO_STOCKS", response);
             })
         })
         
