@@ -2,7 +2,7 @@
   <div class="nav-bar">
   <!-- This section gets pushed to the top-->
   <div class="section">
-    <router-link v-bind:to="{ name: 'home' }" class="home"><img src="../../public/stocks.jpg" alt="Stock Market" class="image"></router-link>
+    <router-link v-bind:to="{ name: 'home' }" class="home"><img src="../../public/LogoMakr.png" alt="Stock Market" class="image"></router-link>
     <div class="user">{{this.$store.state.user.username}}</div>
     <router-link :to="{ name: 'create-game' }" class="item" tag="div">Create Game</router-link>
     <router-link :to="{ name: 'view-games' }" class="item" tag="div">My Games</router-link>

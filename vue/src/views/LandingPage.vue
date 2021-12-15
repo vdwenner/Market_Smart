@@ -1,7 +1,7 @@
 <template>
     <div class="lp-container">
         <h1>Welcome to Market Smart!</h1>
-        <img src="../../public/stocks.jpg" alt="stonks">
+        <img src="../../public/LogoMakr.png" alt="stonks">
         <div class="register-container">
             <router-link :to="{name: 'register'}" tag="button" class="btn btn-lg btn-primary btn-block">Register</router-link>
         </div>
@@ -9,10 +9,9 @@
             <router-link :to="{name: 'login'}" tag="button" class="btn btn-lg btn-primary btn-block">Login</router-link>
         </div>
         <div class="description-container">
-            <p class="description">Welcome to Market Smart, a virtual stock market experience from the developers that brought you TEnmo! Create a new game with customizable starting cash amounts,
-                research companies to see what the best investments are, and challenge your friends to see who the best investor is! All in a fun, risk-free environment that's perfect
-                for new investors with no experience, or for the savvy investor who wants to prove it! Get started by registering your account today! Happy trading!
-            </p>
+            <h2 class="description">Welcome to Market Smart, a virtual stock market experience from the developers that brought you TEnmo!</h2>
+            <h2 class="description">Challenge your friends to see who the best investor is!</h2>
+            
         </div>    
     </div>
 </template>
@@ -95,10 +94,17 @@ export default {
     .description-container {
         color: rgba(4, 42, 61) 0%;
         grid-area: description;
-        margin-top: 20px;
+        margin-top: 50px;
         text-align: center;
-        background-image: linear-gradient(180deg, white, #eeaf03);
-        width: 95vw;
+        background: #efefef;
+        width: 75vw;
         padding: 20px;
+        border-radius: 30px;
+        box-shadow: 10px 5px 20px  grey;
+    }
+
+    h2.description {
+        margin: 20px;
+        color: black;
     }
 </style>

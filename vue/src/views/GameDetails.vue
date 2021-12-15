@@ -102,6 +102,18 @@ methods: {
 },
 
 created(){
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0');
+        let yyyy = today.getFullYear();
+
+        today = `${yyyy}-${mm}-${dd}`
+
+        if(this.$store.state.game.endDate > today) {
+            YahooAPIService.updateLeaderboard(this.$route.params.id).then(response => {
+                return response;
+            })
+        }
         gameService.viewLeaderboard(this.$route.params.id).then( response => {
             this.portfolios = response;
         })
@@ -112,35 +124,17 @@ created(){
             gameService.getPortfolioStocksByPortfolioId(response.id).then(response =>{
                 this.portfolioStocks = response;
             })
-
-
-         })
-      
-        let today = new Date();
-        let dd = String(today.getDate()).padStart(2, '0');
-        let mm = String(today.getMonth() + 1).padStart(2, '0');
-        let yyyy = today.getFullYear();
-
-        today = `${yyyy}-${mm}-${dd}`
-
-        if(today < this.$store.state.game.endDate) {
-         YahooAPIService.updateLeaderboard(this.$route.params.id).then(response => {
-             return response;
-         })
-         }
+        })
+        
+            
         this.$store.commit("SET_HIDE_BUTTON", false);
         this.$store.commit("SET_GAME_END_DATE", this.$route.params.id)
         if(today >= this.$store.state.game.endDate) {
             YahooAPIService.endGame(this.$route.params.id).then(response => {
                 return response;
-         }) 
+            }) 
             this.$store.commit('SET_HIDE_BUTTON', true);
         }
-         
-
-         
-
-        
     }
 }
 

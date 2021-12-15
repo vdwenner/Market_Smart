@@ -20,7 +20,7 @@ export default {
     grid-template-areas: 
       "nav . title ."
       "nav . description ."
-      "nav . content .";
+      "nav . content img";
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
@@ -32,5 +32,11 @@ export default {
   h4 {
     text-align: center;
     grid-area: description;
+  }
+
+  img {
+    grid-area: img;
+    width: 200px;
+    height: 200px;
   }
 </style>
