@@ -2,10 +2,10 @@
 <div class="research-container">
 
   <div class="stock">
-    <h1>Search For Stocks</h1>
-      <form v-on:submit.prevent>
+    
+      <form class="search-form" v-on:submit.prevent>
       <input type="text" name="Stock" id="stock" v-model="symbol">
-      <input type="submit" value="Search" v-on:click="showStockInfo(symbol)">
+      <button class="btn" v-on:click="showStockInfo(symbol)">Search</button>
       <div class="errorMessage" v-if="errorMessage!=''">{{errorMessage}}</div>
     </form>
   </div>
@@ -80,6 +80,18 @@ export default {
 </script>
 
 <style>
+
+/* input[type=text] {
+      font-family: 'Inter';
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    } */
+
 .errorMessage{
   color: red;
   text-align: center;
@@ -87,20 +99,35 @@ export default {
 
 .research-container{
     display: grid;
-    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 2fr 1fr;
+    grid-template-columns:1fr;
+    /* grid-template-rows: 1fr 2fr 1fr; */
     grid-template-areas: 
-    ". stock stock stock ."
-    ". table table table ."
-    ". . . . .";
+    "stock"
+    "table";
+}
+
+.search-form{
+  display: inline-block;
+  text-align: center;
+}
+
+
+input#stock{
+  /* width: 100%; */
+  display: inline-block;
+  /* justify-content: flex-start; */
 }
 .stock{
   grid-area: stock;
+  display: flex;
+  justify-content: center;
+  
 }
 
 .stock-info-table {
   grid-area: table;
-  align-content: center;
-  justify-items: center;
+  display: flex;
+  justify-content: center;
+  
 }
 </style>

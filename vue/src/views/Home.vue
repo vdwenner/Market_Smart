@@ -3,7 +3,7 @@
     <nav-bar/>
     <h1>Welcome to the Dashboard</h1>
     <h4>This is just the start! Investing Awaits!</h4>
-    <img src="../../public/stocks.jpg" alt="">
+    <img class="hero" src="../../public/stocks.jpg" alt="">
   </div>
 </template>
 
@@ -19,11 +19,12 @@ export default {
   div.home {
     display: grid;
     grid-template-areas: 
-      "nav . title ."
-      "nav . description ."
-      "nav . content img";
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+      "nav . title . ."
+      "nav . description . ."
+      "nav . img . .";
+    grid-template-columns: 1fr 1fr 2fr 1fr 1fr;
   }
+  
 
   h1 {
     text-align: center;
@@ -35,9 +36,9 @@ export default {
     grid-area: description;
   }
 
-  img {
+  img.hero {
     grid-area: img;
-    width: 200px;
-    height: 200px;
+    width: 350px;
+    height: 350px;
   }
 </style>

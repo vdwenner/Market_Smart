@@ -3,6 +3,7 @@
     <div class="nav">
         <nav-bar/>
     </div>
+    <h1 class="search-title">Search For Stocks</h1>
     <div class="research">
       <research />
     </div>
@@ -23,7 +24,7 @@ export default {
     grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 2fr 1fr;
     grid-template-areas: 
-    "nav . research research research ."
+    "nav . title title title ."
     "nav . research research research ."
     "nav . . . . .";
 }
@@ -33,6 +34,10 @@ export default {
 }
 .nav {
   grid-area: nav;
+}
+
+.search-title{
+  grid-area: title;
 }
 
 

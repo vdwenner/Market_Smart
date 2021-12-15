@@ -2,7 +2,13 @@
   <div class="new-game-container">
       <div class="nav">
           <nav-bar/>
+        
       </div>
+
+      
+        <h1 class="create-title">Create a New Game</h1>
+      
+
       <div class="create-game-container">
           <form @submit.prevent="createGame">
               <label for="game-name">Name: </label>
@@ -60,6 +66,13 @@ export default {
   .new-game-container {
         display: flex;
         font-family: 'Inter', sans-serif;
+    }
+
+    .create-title{
+      display: inline-block;
+      text-align: center;
+      width: 100%;
+      margin-top: 100px;
     }
     
     .create-game-container {
