@@ -63,6 +63,12 @@ public class YahooAPIController {
         return yahooService.listTrendingStocks();
     }
 
+    //GET STOCK SUMMARY
+    @RequestMapping(path = "/{symbol}/summary", method = RequestMethod.GET)
+    public String getStockSummary(@PathVariable String symbol) throws IOException, InterruptedException {
+        return yahooService.getStockSummary(symbol);
+    }
+
     @RequestMapping(path ="/update/leaderboard/{gameId}", method = RequestMethod.PUT)
     public void updateLeaderboard(@PathVariable Long gameId, Principal principal){
         List<Portfolio> portfolios = gameDao.viewLeaderboard(gameId,principal);

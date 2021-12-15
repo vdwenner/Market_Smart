@@ -3,6 +3,8 @@ package com.techelevator.services;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import yahoofinance.quotes.stock.StockStats;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -32,6 +34,17 @@ public class YahooService {
                 .send(request, HttpResponse.BodyHandlers.ofString());
         return response.body();
 
+    }
+
+    public String getStockSummary(String symbol) throws IOException, InterruptedException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://yfapi.net/v11/finance/quoteSummary/" + symbol))
+                .header("x-api-key", "XBVQM29pipd4zorvSlvi3uFEeCyeJae9AeXfktM7")
+                .method("GET", HttpRequest.BodyPublishers.noBody())
+                .build();
+        HttpResponse<String> response = HttpClient.newHttpClient()
+                .send(request, HttpResponse.BodyHandlers.ofString());
+        return response.body();
     }
 
     //****************REFERENCE*****************************
