@@ -37,8 +37,9 @@ public class YahooService {
     }
 
     public String getStockSummary(String symbol) throws IOException, InterruptedException {
+        String uri = "https://yfapi.net/v11/finance/quoteSummary/" + symbol + "?lang=en&region=US&modules=defaultKeyStatistics%2CassetProfile";
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://yfapi.net/v11/finance/quoteSummary/" + symbol))
+                .uri(URI.create((uri)))
                 .header("x-api-key", "XBVQM29pipd4zorvSlvi3uFEeCyeJae9AeXfktM7")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
