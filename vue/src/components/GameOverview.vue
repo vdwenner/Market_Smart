@@ -10,7 +10,7 @@
             <td>{{userGame.endDate}}</td>
            
             <td>
-                <button href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</button>
+                <button class="invite-btn" href="#invite-form" v-on:click.prevent="showForm = !showForm" v-show="showForm==false">Invite Player</button>
                  <form id="invite-form" v-on:submit.prevent v-show="showForm == true">
                     <label id="player-info" for="receiver-name">Enter Player's Username</label>
                     <input id="receiver-name" type="text" v-model="receiver.receiverName" />
@@ -86,10 +86,14 @@ export default {
 <style>
 #invite-form{
     width: 100%;
+    text-align: center;
 }
 
 #player-info {
     color: white;
+}
+.invite-btn{
+    width: 118px;
 }
 
 /* .pendingInvites{

@@ -88,5 +88,10 @@ tr{
   background: #555; 
 }
 
+h1 {
+  font-size: 50px;
+  margin-bottom: 25px;
+}
+
 
 </style>

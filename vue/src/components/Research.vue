@@ -38,36 +38,36 @@
     <table>
       <tbody>
         <tr>
-          <td class="research-td"><span class="research-span">Day Low</span><span class="research-span">${{stock.quote.dayLow.toFixed(2)}}</span></td>
-          <td class="research-td"><span class="research-span">Day High</span><span class="research-span">${{stock.quote.dayHigh.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Day Low</span><span class="research-span">${{stock.quote.dayLow.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Day High</span><span class="research-span">${{stock.quote.dayHigh.toFixed(2)}}</span></td>
         </tr>
         <tr>
-          <td class="research-td"><span class="research-span">Year Low</span><span class="research-span">${{stock.quote.yearLow.toFixed(2)}}</span></td>
-          <td class="research-td"><span class="research-span">Year High</span><span class="research-span">${{stock.quote.yearHigh.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Year Low</span><span class="research-span">${{stock.quote.yearLow.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Year High</span><span class="research-span">${{stock.quote.yearHigh.toFixed(2)}}</span></td>
         </tr>
         <tr>
-         <td class="research-td"><span class="research-span">Volume</span><span class="research-span">{{stock.quote.volume.toFixed(2)}}</span></td>
-          <td class="research-td"><span class="research-span">Average Volume</span><span class="research-span">{{stock.quote.avgVolume.toFixed(2)}}</span></td>
+         <td class="research-td"><span class="research-span-h">Volume</span><span class="research-span">{{stock.quote.volume}}</span></td>
+          <td class="research-td"><span class="research-span-h">Average Volume</span><span class="research-span">{{stock.quote.avgVolume}}</span></td>
         </tr>
         <tr>
-          <td class="research-td"><span class="research-span">Change From Year High in Percent</span><span class="research-span">{{stock.quote.changeFromYearLowInPercent.toFixed(2)}}%</span></td>
-          <td class="research-td"><span class="research-span">Change From Year Low in Percent</span><span class="research-span">{{stock.quote.changeFromYearHighInPercent.toFixed(2)}}%</span></td>
+          <td class="research-td"><span class="research-span-h">Change From Year High in Percent</span><span class="research-span">{{stock.quote.changeFromYearLowInPercent.toFixed(2)}}%</span></td>
+          <td class="research-td"><span class="research-span-h">Change From Year Low in Percent</span><span class="research-span">{{stock.quote.changeFromYearHighInPercent.toFixed(2)}}%</span></td>
         </tr>
         <tr>
-          <td class="research-td"><span class="research-span">Change From Average 200</span><span class="research-span">{{stock.quote.changeFromAvg200.toFixed(2)}}</span></td>
-          <td class="research-td"><span class="research-span">Change From Average 200 in Percent</span><span class="research-span">{{stock.quote.changeFromAvg200InPercent.toFixed(2)}}%</span></td>
+          <td class="research-td"><span class="research-span-h">Change From Average 200</span><span class="research-span">${{stock.quote.changeFromAvg200.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Change From Average 200 in Percent</span><span class="research-span">{{stock.quote.changeFromAvg200InPercent.toFixed(2)}}%</span></td>
         </tr>
         <tr>
-          <td class="research-td"><span class="research-span">Change From Average 50</span><span class="research-span">{{stock.quote.changeFromAvg50.toFixed(2)}}</span></td>
-          <td class="research-td"><span class="research-span">Change Form Average 50 in Percent</span><span class="research-span">{{stock.quote.changeFromAvg50InPercent.toFixed(2)}}%</span></td>
+          <td class="research-td"><span class="research-span-h">Change From Average 50</span><span class="research-span">${{stock.quote.changeFromAvg50.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Change Form Average 50 in Percent</span><span class="research-span">{{stock.quote.changeFromAvg50InPercent.toFixed(2)}}%</span></td>
         </tr>
         <tr>
-          <td class="research-td"><span class="research-span">Market Cap</span><span class="research-span">{{stock.stats.marketCap.toFixed(2)}}</span></td>
-          <td class="research-td"><span class="research-span">Shares Outstanding</span><span class="research-span">{{stock.stats.sharesOutstanding.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Market Cap</span><span class="research-span">${{stock.stats.marketCap.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Shares Outstanding</span><span class="research-span">{{stock.stats.sharesOutstanding}}</span></td>
         </tr>
         <tr>
-          <td class="research-td"><span class="research-span">Price Book</span><span class="research-span">${{stock.stats.priceBook.toFixed(2)}}</span></td>
-          <td class="research-td"><span class="research-span">Book Values Per Share</span><span class="research-span">${{stock.stats.bookValuePerShare.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Price Book</span><span class="research-span">${{stock.stats.priceBook.toFixed(2)}}</span></td>
+          <td class="research-td"><span class="research-span-h">Book Values Per Share</span><span class="research-span">${{stock.stats.bookValuePerShare.toFixed(2)}}</span></td>
         </tr>
       </tbody>
     </table>
@@ -128,7 +128,7 @@ export default {
 
   width: 100%;
 
-  text-align: left;
+  text-align: center;
   color: #fff;
   font-weight: 400;
   padding: 0.65em 1em;
@@ -149,6 +149,14 @@ export default {
 .research-span{
   width: 175px;
   margin-right: 20px;
+}
+
+.research-span-h{
+  width: 175px;
+  margin-right: 20px;
+  color: #E2B842;
+  font-weight: bold;
+
 }
 
 

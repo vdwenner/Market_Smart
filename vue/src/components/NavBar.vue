@@ -10,7 +10,7 @@
   </div>
   <!-- This section gets pushed to the bottom-->
   <div class="section">
-    <div class="item">About</div>
+     <router-link :to="{ name: 'about' }" class="item" tag="div">About</router-link>
     <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''" tag="div" class="item">Logout</router-link>
   </div>
 </div>

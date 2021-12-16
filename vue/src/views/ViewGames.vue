@@ -29,12 +29,14 @@
         
         
         <!-- <div class="pending-invites" > -->
-            
-        <button class="pending-invite-btn" href="#pending-invites" v-on:click="showPending = !showPending"
+            <div class="the-button"> 
+        <button class="btn pend-btn" href="#pending-invites" v-on:click="showPending = !showPending"
             v-show="showPending==false">Show Pending Invites</button>  
-        <input class="pending-invite-btn" type="button" value="Hide" 
-        v-on:click="resetPendingForm" v-show="showPending == true">
+        
 
+        <button class="btn pend-btn"
+        v-on:click="resetPendingForm" v-show="showPending == true">Hide</button>
+        </div>
             <table class="pending-invites-table">
                  
                 <thead>
@@ -186,10 +188,14 @@ export default {
     "nav . pending pending pending .";
     
 }
+.pend-btn{
+    width: 150px;
+}
 
  .pending-invites-table{
     /* display: flex; */
     grid-area: pending;
+    margin-top: 50px;
 } 
 .nav{
     grid-area: nav;
@@ -197,14 +203,15 @@ export default {
 .title {
     grid-area: title;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     height: 100px;
 }
 table.game-table{
     grid-area: table;
 }
-.pending-invite-btn{
+.the-button{
     grid-area: button;
+    text-align: center;
 }
 
 ::-webkit-scrollbar {

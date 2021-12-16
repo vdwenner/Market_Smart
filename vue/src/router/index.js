@@ -12,6 +12,7 @@ import GameDetails from '../views/GameDetails'
 import Research from '../views/ResearchView'
 import BuyStock from '../components/BuyStock'
 import SellStock from '../components/SellStock'
+import About from '../views/About'
 
 Vue.use(Router)
 
@@ -116,6 +117,14 @@ const router = new Router({
         meta: {
           requiresAuth: true
         }
+      },
+      {
+      path:'/about',
+      name: 'about',
+      component: About,
+      meta: {
+        requiresAuth: true
+      }
       }
   ]
 })
