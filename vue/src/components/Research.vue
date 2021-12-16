@@ -4,7 +4,7 @@
   <div class="stock">
     
       <form class="search-form" v-on:submit.prevent>
-      <input type="text" name="Stock" id="stock" v-model="symbol">
+      <input type="text" name="Stock" id="stock" placeholder="Ticker" v-model="symbol">
       <button class="btn" v-on:click="showStockInfo(symbol)">Search</button>
       <div class="errorMessage" v-if="errorMessage!=''">{{errorMessage}}</div>
     </form>

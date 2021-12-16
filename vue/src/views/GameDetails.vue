@@ -35,7 +35,7 @@
                 <th>Portfolio Value</th>
             </tr>
         </thead>
-        <tbody class="leaderboard-details">
+        <tbody id="leaderboard-det" class="leaderboard-details">
             <leaderboard v-for="portfolio in portfolios" :key="portfolio.id" 
                 v-bind:portfolio="portfolio"/>
         </tbody>
@@ -114,7 +114,14 @@ methods: {
                  YahooAPIService.updateLeaderboard(this.$route.params.id).then(response => {
                  return response;
             })
+            },
+
+            highlightWinner() {
+                let winner = document.getElementById('#leaderboard-det').firstElementChild;
+                winner.classList.add('winner');
             }
+
+            
 
 
 },
@@ -125,7 +132,7 @@ created(){
         let mm = String(today.getMonth() + 1).padStart(2, '0');
         let yyyy = today.getFullYear();
 
-        today = `${yyyy}-${mm}-${dd}`
+        today = `${yyyy+1}-${mm}-${dd}`
 
         if(this.$store.state.game.endDate > today) {
             this.updateLeaderboard();
@@ -155,9 +162,10 @@ created(){
         this.$store.commit("SET_GAME_END_DATE", this.$route.params.id)
         if(today >= this.$store.state.game.endDate) {
             YahooAPIService.endGame(this.$route.params.id).then(response => {
+                this.highlightWinner();
                 return response;
-            }) 
-            this.$store.commit('SET_HIDE_BUTTON', true);
+            })
+            // this.$store.commit('SET_HIDE_BUTTON', true);
         }
     }
 }
@@ -188,6 +196,11 @@ created(){
         color: #E2B842;
         font-weight: 700;
         text-align: center;
+    }
+
+    .winner {
+        background:  #E2B842;
+        color: #014055;
     }
 
     .portfolioLeaderboard {

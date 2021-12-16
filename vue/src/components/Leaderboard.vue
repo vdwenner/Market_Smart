@@ -5,6 +5,7 @@
       <td >${{this.portfolio.cashBalance.toFixed(2)}}</td>
       <td>${{this.portfolio.portfolioValue.toFixed(2)}}</td> 
     </tr>
+
 </div>
   
 </template>
@@ -39,12 +40,10 @@ export default {
     authService.getUsernameById(this.portfolio.userId).then( response => {
       this.username = response;
     })
-  
-
   }
 }
 </script>
 
 <style>
-
+  
 </style>
