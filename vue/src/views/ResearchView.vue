@@ -5,7 +5,7 @@
     </div>
     <div class="search-title">
     <h1>Search For Stocks</h1>
-    <h3>Enter Ticker Below</h3>
+    <h3>Enter Stock Symbol Below</h3>
     </div>
     <div class="research">
       <research />
