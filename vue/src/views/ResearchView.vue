@@ -3,7 +3,10 @@
     <div class="nav">
         <nav-bar/>
     </div>
-    <h1 class="search-title">Search For Stocks</h1>
+    <div class="search-title">
+    <h1>Search For Stocks</h1>
+    <h3>Enter Ticker Below</h3>
+    </div>
     <div class="research">
       <research />
     </div>
@@ -39,6 +42,7 @@ export default {
 
 .search-title{
   grid-area: title;
+  margin-bottom: 30px;
 }
 
 

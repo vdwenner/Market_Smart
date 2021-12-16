@@ -50,7 +50,7 @@ export default {
       gameService.createGame(this.game).then((response) => {
         if(response.status == 200) {
           this.$router.push({
-            path: '/',
+            path: '/user/games',
           })
         }
       }).catch()

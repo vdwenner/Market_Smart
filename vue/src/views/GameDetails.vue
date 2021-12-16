@@ -35,7 +35,7 @@
                 <th>Portfolio Value</th>
             </tr>
         </thead>
-        <tbody id="leaderboard-det" class="leaderboard-details">
+        <tbody id="win" class="leaderboard-details">
             <leaderboard v-for="portfolio in portfolios" :key="portfolio.id" 
                 v-bind:portfolio="portfolio"/>
         </tbody>
@@ -62,7 +62,7 @@ export default {
 components: { NavBar, GameDetailGuts, Leaderboard, BuyStock, SellStock, Portfolio },
 data() {
     return {
-        //portfolios: [],
+        highlight: false,
         gameId: '',
         portfolioId:'',
         stock: {},
@@ -117,8 +117,8 @@ methods: {
             },
 
             highlightWinner() {
-                let winner = document.getElementById('#leaderboard-det').firstElementChild;
-                winner.classList.add('winner');
+                let winnerRow = document.getElementById('win').firstElementChild;
+                winnerRow.classList.add('winner');
             }
 
             
@@ -158,6 +158,7 @@ created(){
         })
         
             
+            
         this.$store.commit("SET_HIDE_BUTTON", false);
         this.$store.commit("SET_GAME_END_DATE", this.$route.params.id)
         if(today >= this.$store.state.game.endDate) {
@@ -166,6 +167,7 @@ created(){
                 return response;
             })
             // this.$store.commit('SET_HIDE_BUTTON', true);
+            this.highlightWinner();
         }
     }
 }
@@ -173,6 +175,12 @@ created(){
 </script>
 
 <style>
+
+    .winner{
+        background-color: #E2B842;
+        color:  #012B39;
+    }
+
     .game-details-container {
         display: grid;
         grid-template-areas:
@@ -196,11 +204,6 @@ created(){
         color: #E2B842;
         font-weight: 700;
         text-align: center;
-    }
-
-    .winner {
-        background:  #E2B842;
-        color: #014055;
     }
 
     .portfolioLeaderboard {
@@ -228,23 +231,6 @@ created(){
     .navbar{
         grid-area: nav;
     }
-
-    /* th {
-    border-bottom: 1px solid #364043;
-    color: #E2B842;
-    font-size: 0.85em;
-    font-weight: 600;
-    padding: 0.5em 1em;
-    text-align: center;
-    width: 100px;
-    }
-
-    td {
-    color: #fff;
-    font-weight: 400;
-    padding: 0.65em 1em;
-    width: 100px;
-    } */
 
     .disabled td {
     color: #4F5F64;
