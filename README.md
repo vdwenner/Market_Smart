@@ -1,5 +1,8 @@
 # Final Capstone
 
-This directory contains all of the starter projects for the final capstone. The Vue starter project works with both the Java and .NET backend projects with a single configuration update that you can read about in the README.
+This is our Market Smart virtual stock market application! Built to the specifications of the project ReadMe and our project owner, we carefully crafted a simplistic
+stock market simulator which allows users to create and compete in games which test their investing skills over a set period of time. We have incorporated a research tab, dynamic updating of stock prices and the ability to join and compete in as many games as the user desires!
 
-Each project contains instructions that provides information about the starting code and explains how to get started with the final capstone project.
+This project incorporates Java, Spring, and PostgreSQL for the backend, while utilizing Javascript, CSS, HTML and Vue.js for the frontend.
+
+Future plans for this application incluide: Adding a dynamic chart which would allow the user to research a stock more precisely, adding a chat functionality between users, and incorporating text alerts for leaderboard changes.
